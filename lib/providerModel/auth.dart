@@ -59,7 +59,7 @@ class Auth with ChangeNotifier {
     GetStorage storage = GetStorage();
     try {
       Dio.Response response = await dio().get(
-        'Auth/login_facebook?token=${token}',
+        'Auth/login_facebook?token=$token',
       );
       print(response.data);
       print(response.data['data']['api_token']);

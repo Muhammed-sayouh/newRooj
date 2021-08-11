@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
 class Indecator extends StatelessWidget {

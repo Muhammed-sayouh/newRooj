@@ -11,6 +11,7 @@ import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart';
 import 'package:rooj/providerModel/walletProvider.dart';
+import 'package:rooj/screens/servicesMoreDetails/addetionalPersonModel.dart';
 import 'package:rooj/style/colors.dart';
 
 List<SingleChildWidget> providers = [
@@ -47,5 +48,8 @@ List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => SalonServicesProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => AdditionalPersonProvider(),
   ),
 ];

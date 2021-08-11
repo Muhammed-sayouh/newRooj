@@ -115,6 +115,7 @@ class Salon {
   int? categoryId;
   int? clientId;
   List<String>? days;
+  // ignore: unnecessary_question_mark
   dynamic? averageReview;
 
   factory Salon.fromJson(Map<String, dynamic> json) => Salon(

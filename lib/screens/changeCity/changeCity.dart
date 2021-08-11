@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:rooj/customeWidget/appBar1.dart';
 import 'package:rooj/customeWidget/commenStackPage.dart';
 import 'package:rooj/customeWidget/smallButton.dart';
-import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';

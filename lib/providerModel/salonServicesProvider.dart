@@ -90,7 +90,7 @@ class Datum {
         details: json["details"],
         percentage: json["percentage"] == null ? null : json["percentage"],
         priceInOffer:
-            json["price_in_offer"] == null ? 0 : json["price_in_offer"],
+            json["price_in_offer"] == null ? 00 : json["price_in_offer"],
         offerStartDate: json["offer_start_date"] == null
             ? null
             : DateTime.parse(json["offer_start_date"]),
