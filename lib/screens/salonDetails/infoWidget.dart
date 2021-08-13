@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
+import 'package:get/get.dart';
 
 class InfoWidget extends StatelessWidget {
   final String name;
@@ -21,20 +22,49 @@ class InfoWidget extends StatelessWidget {
       required this.to})
       : super(key: key);
 
+  String getMyTime(String time) {
+    if (int.parse(time.substring(0, 2)) > 12) {
+      return '${int.parse(time.substring(0, 2)) - 12}${time.substring(2, 5)} ${'pm'.tr}';
+    } else {
+      return "${time.substring(0, 5)} ${'am'.tr}";
+    }
+  }
+
+  bool openOrColsed() {
+    if (DateTime.now().hour < int.parse(from.substring(0, 2)) &&
+        DateTime.now().hour > int.parse(to.substring(0, 2))) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: height(context) * 0.25),
       child: Align(
-        alignment: Alignment.centerRight,
+        alignment: Get.locale!.languageCode == 'ar'
+            ? Alignment.centerRight
+            : Alignment.centerLeft,
         child: Container(
           width: width(context) * 0.8,
           height: height(context) * 0.18,
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(30),
-              bottomLeft: Radius.circular(30),
+              topLeft: Get.locale!.languageCode == 'ar'
+                  ? Radius.circular(30)
+                  : Radius.zero,
+              bottomLeft: Get.locale!.languageCode == 'ar'
+                  ? Radius.circular(30)
+                  : Radius.zero,
+              topRight: Get.locale!.languageCode == 'ar'
+                  ? Radius.zero
+                  : Radius.circular(30),
+              bottomRight: Get.locale!.languageCode == 'ar'
+                  ? Radius.zero
+                  : Radius.circular(30),
             ),
           ),
           child: Row(
@@ -100,7 +130,7 @@ class InfoWidget extends StatelessWidget {
                               size: 20,
                             ),
                             Text(
-                              '  $views مشاهدات',
+                              '  $views ${"views".tr}',
                               style: TextStyle(
                                 color: Colors.black,
                                 fontSize: 13,
@@ -132,7 +162,7 @@ class InfoWidget extends StatelessWidget {
                           width: 3,
                         ),
                         Text(
-                          '${to.substring(0, 5)} ص   ${from.substring(0, 5)} م',
+                          '${getMyTime(from)}    ${getMyTime(to)}',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 13,
@@ -161,14 +191,14 @@ class InfoWidget extends StatelessWidget {
                             height: 11,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: Colors.red,
+                              color: openOrColsed() ? Colors.green : Colors.red,
                             ),
                           ),
                           SizedBox(
                             width: 3,
                           ),
                           Text(
-                            'مغلق',
+                            openOrColsed() ? 'open'.tr : "Closed".tr,
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 13,
@@ -177,7 +207,7 @@ class InfoWidget extends StatelessWidget {
                         ],
                       ),
                       Text(
-                        'مشاهدة التفاصيل',
+                        "Show details".tr,
                         style: TextStyle(
                             color: AppColors.mainColor,
                             fontSize: 13,

@@ -45,23 +45,25 @@ class SalonServiceModel {
 }
 
 class Datum {
-  Datum({
-    this.id,
-    this.createdAt,
-    this.updatedAt,
-    this.name,
-    this.duration,
-    this.price,
-    this.place,
-    this.details,
-    this.percentage,
-    this.priceInOffer,
-    this.offerStartDate,
-    this.offerEndDate,
-    this.salonId,
-    this.subcategoryId,
-    this.isOffer,
-  });
+  Datum(
+      {this.id,
+      this.createdAt,
+      this.updatedAt,
+      this.name,
+      this.duration,
+      this.price,
+      this.place,
+      this.details,
+      this.percentage,
+      this.priceInOffer,
+      this.offerStartDate,
+      this.offerEndDate,
+      this.salonId,
+      this.subcategoryId,
+      this.isOffer,
+      required this.addetionalPresons,
+      required this.totalPriceOfWorkers,
+      required this.selected});
 
   int? id;
   DateTime? createdAt;
@@ -78,6 +80,9 @@ class Datum {
   int? salonId;
   int? subcategoryId;
   bool? isOffer;
+  int addetionalPresons;
+  int totalPriceOfWorkers;
+  bool selected;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -100,6 +105,9 @@ class Datum {
         salonId: json["salon_id"],
         subcategoryId: json["subcategory_id"],
         isOffer: json["is_offer"],
+        addetionalPresons: 0,
+        totalPriceOfWorkers: 0,
+        selected: false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -126,7 +134,28 @@ class Datum {
 }
 
 class SalonServicesProvider with ChangeNotifier {
-  Future<List<Datum>> fetchSalonServicesProvider({
+  List<Datum> myList = [];
+  List<Datum> newList = [];
+
+  void addToList(int id) {
+    newList.add(myList.firstWhere((element) => element.id == id));
+  }
+
+  void removeFromList(int id) {
+    newList.remove(myList.firstWhere((element) => element.id == id));
+  }
+
+  double getTotal() {
+    double sum = 0;
+
+    for (var i = 0; i < newList.length; i++) {
+      sum += newList[i].price!.toInt();
+    }
+    notifyListeners();
+    return sum;
+  }
+
+  Future<void> fetchSalonServicesProvider({
     required int salonId,
     required String place,
     required String subcategory,
@@ -148,10 +177,9 @@ class SalonServicesProvider with ChangeNotifier {
         ),
       );
 
-      return salonServiceModelFromJson(response.toString()).data;
+      myList = salonServiceModelFromJson(response.toString()).data;
     } catch (err) {
       print(err.toString());
-      return [];
     }
   }
 }

@@ -195,6 +195,22 @@ Map<String, String> getArabicLanguage() {
     "The nearest": '  الاقرب ',
     "Change Password": "تغير كلمة المرور؟",
     "edaitProfile": "تعديل حسابي",
-    "doneEdait": "تم تعديل بياناتك بنجاح"
+    "doneEdait": "تم تعديل بياناتك بنجاح",
+    "views": "مشاهدات",
+    "Closed": "مغلق",
+    "Show details": "مشاهدة التفاصيل",
+    'am': "ص",
+    "pm": "م",
+    "in salon": "في الصالون",
+    "in home": "في المنزل",
+    "Rial": "ريال",
+    "services": "خدمه",
+    "more": "المزيد",
+    "book now": "احجز الان",
+    'Staff (Optional)': 'العاملين ( اختيارى )',
+    'without preference': "بدون تفضيل",
+    "apply": "تطبيق",
+    "other choices": "اختيارات اخري",
+    "open": "مفتوح",
   };
 }

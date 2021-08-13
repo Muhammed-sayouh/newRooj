@@ -195,6 +195,22 @@ Map<String, String> getEnglishLanguage() {
     "The nearest": '  The nearest  ',
     "Change Password": "change Password?",
     "edaitProfile": "Edit Profile",
-    "doneEdait": "Your data has been modified successfully"
+    "doneEdait": "Your data has been modified successfully",
+    "views": "views",
+    "Closed": "Closed",
+    "Show details": "Show details",
+    'am': "am",
+    "pm": "pm",
+    "in salon": "In salon",
+    "in home": "In home",
+    "Rial": "Rial",
+    "services": "services",
+    "more": "more",
+    "book now": "Book now",
+    'Staff (Optional)': 'Staff (Optional)',
+    'without preference': 'without preference',
+    "apply": "apply",
+    "other choices": "other choices",
+    "open": "open",
   };
 }

@@ -315,9 +315,10 @@ class _SalonCategoriesScreenState extends State<SalonCategoriesScreen> {
                       ),
                       child: CardWidget(
                         name: salonDetailsItems[index].name,
-                        image: salonDetailsItems[index].images.isEmpty
+                        image: salonDetailsItems[index].images!.isEmpty ||
+                                salonDetailsItems[index].images == null
                             ? ''
-                            : salonDetailsItems[index].images.first.imagePath,
+                            : salonDetailsItems[index].images!.first.imagePath,
                         rate: salonDetailsItems[index].averageReview,
                         adress: salonDetailsItems[index].address,
                       ),

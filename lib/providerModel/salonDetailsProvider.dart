@@ -57,7 +57,7 @@ class Datum {
   int cityId;
   String place;
   String averageReview;
-  List<Image> images;
+  List<Image>? images;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
@@ -66,7 +66,9 @@ class Datum {
         cityId: json["city_id"],
         place: json["place"],
         averageReview: json["average_review"] ?? '0.0',
-        images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+        images: json["images"] == null
+            ? []
+            : List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -76,7 +78,7 @@ class Datum {
         "city_id": cityId,
         "place": place,
         "average_review": averageReview,
-        "images": List<dynamic>.from(images.map((x) => x.toJson())),
+        "images": List<dynamic>.from(images!.map((x) => x.toJson())),
       };
 }
 

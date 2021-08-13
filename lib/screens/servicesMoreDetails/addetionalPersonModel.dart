@@ -4,18 +4,18 @@ class AdditionalPersonModel {
   int? id;
   String? name;
   String? priceTxt;
-  int? price;
+  int price;
   double? sale;
   String? duration;
-  bool? selected;
+  bool selected;
   AdditionalPersonModel({
     this.id,
     this.name,
     this.priceTxt,
-    this.price,
+    required this.price,
     this.sale,
     this.duration,
-    this.selected,
+    required this.selected,
   });
 }
 
@@ -58,4 +58,8 @@ class AdditionalPersonProvider with ChangeNotifier {
       duration: "15 دقيقه",
     ),
   ];
+  List<AdditionalPersonModel> myWorkres = [];
+  void addnewItem(int id) {
+    myWorkres.add(services.firstWhere((element) => element.id == id));
+  }
 }

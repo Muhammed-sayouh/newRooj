@@ -9,13 +9,14 @@ class ItemInfoWidget extends StatelessWidget {
   final String duration;
   final String price;
   final String offer;
-
+  final int index;
   const ItemInfoWidget(
       {Key? key,
       required this.name,
       required this.duration,
       required this.price,
-      required this.offer})
+      required this.offer,
+      required this.index})
       : super(key: key);
 
   @override
@@ -43,14 +44,14 @@ class ItemInfoWidget extends StatelessWidget {
                   InkWell(
                     onTap: () => Get.to(
                       () => ServicesMoreDetailsScreen(
-                        duration: duration,
-                        name: name,
-                        price: price,
-                      ),
+                          duration: duration,
+                          name: name,
+                          price: price,
+                          index: index),
                       transition: Transition.zoom,
                     ),
                     child: Text(
-                      'المزيد',
+                      "more".tr,
                       style: TextStyle(
                           fontSize: 12, decoration: TextDecoration.underline),
                     ),
