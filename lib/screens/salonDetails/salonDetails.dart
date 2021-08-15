@@ -8,6 +8,7 @@ import 'package:rooj/helpers/changeColorForSalonDetails.dart';
 import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
+import 'package:rooj/screens/choosetime/chooseTime.dart';
 import 'package:rooj/screens/salonDetails/indecator.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
@@ -520,15 +521,22 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                         SizedBox(
                                           width: 8,
                                         ),
-                                        Container(
-                                          width: 35,
-                                          height: 35,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Colors.white,
+                                        InkWell(
+                                          onTap: () => Get.to(
+                                            () => ChooseTimeScreen(),
+                                            transition: Transition.zoom,
                                           ),
-                                          child: Center(
-                                              child: Icon(Icons.arrow_forward)),
+                                          child: Container(
+                                            width: 35,
+                                            height: 35,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.white,
+                                            ),
+                                            child: Center(
+                                                child:
+                                                    Icon(Icons.arrow_forward)),
+                                          ),
                                         ),
                                       ],
                                     ),

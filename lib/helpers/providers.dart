@@ -3,6 +3,7 @@ import 'package:provider/single_child_widget.dart';
 import 'package:rooj/helpers/changeColorForSalonDetails.dart';
 import 'package:rooj/helpers/changeColorProvider.dart';
 import 'package:rooj/providerModel/auth.dart';
+import 'package:rooj/providerModel/choseTimeProvider.dart';
 import 'package:rooj/providerModel/homeProvider.dart';
 import 'package:rooj/providerModel/offersProvider.dart';
 import 'package:rooj/providerModel/reservationsProvider.dart';
@@ -51,5 +52,8 @@ List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => AdditionalPersonProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => ChoseTimeProvider(),
   ),
 ];

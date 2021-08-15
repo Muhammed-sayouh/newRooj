@@ -55,3 +55,30 @@ Widget stackWidgetFullPage(
     ],
   );
 }
+
+Widget stackWidgetFullPageSmallappBar(
+    {required Widget body, required BuildContext context}) {
+  return Stack(
+    children: [
+      ClipPath(
+        clipper: MyCustomClipper(),
+        child: Container(
+          height: height(context) * 0.13,
+          width: width(context),
+          color: AppColors.mainColor,
+        ),
+      ),
+      Center(
+        child: Container(
+          height: height(context),
+          width: width(context),
+          decoration: BoxDecoration(
+            color: AppColors.mainBackGroundColor,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: body,
+        ),
+      ),
+    ],
+  );
+}

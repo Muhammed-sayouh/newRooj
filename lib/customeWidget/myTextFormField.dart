@@ -111,6 +111,48 @@ class MyTextFormFieldWithImageAndPerfix extends StatelessWidget {
   }
 }
 
+class MyTextFormFieldWithPerfix extends StatelessWidget {
+  final String hint;
+  final TextEditingController controller;
+  final bool obscureText;
+  final String suffix;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  const MyTextFormFieldWithPerfix(
+      {Key? key,
+      required this.hint,
+      this.keyboardType,
+      this.validator,
+      required this.obscureText,
+      required this.suffix,
+      required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      obscuringCharacter: '*',
+      keyboardType: keyboardType,
+      validator: validator,
+      decoration: InputDecoration(
+          filled: true,
+          hintStyle: new TextStyle(color: Colors.grey[600]),
+          hintText: hint,
+          fillColor: Colors.white,
+          suffixIcon: Padding(
+            padding: EdgeInsets.only(top: height(context) * 0.015),
+            child: Text(
+              suffix,
+              style: TextStyle(
+                  color: AppColors.mainColor, fontWeight: FontWeight.bold),
+            ),
+          )),
+    );
+  }
+}
+
 class MyTextFormField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
