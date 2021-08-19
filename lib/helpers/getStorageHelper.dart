@@ -44,4 +44,15 @@ class GetStorageHelper {
       return name;
     }
   }
+
+  static int? userid() {
+    GetStorage getStorage = GetStorage();
+    int? id;
+    if (getStorage.read('info') == null) {
+      return 000000;
+    } else {
+      id = getStorage.read('info')['client']['id'] ?? 000000;
+      return id;
+    }
+  }
 }

@@ -30,6 +30,32 @@ Widget stackWidget({required Widget body, required BuildContext context}) {
   );
 }
 
+Widget stackWidgetF({required Widget body, required BuildContext context}) {
+  return Stack(
+    children: [
+      ClipPath(
+        clipper: MyCustomClipper(),
+        child: Container(
+          height: height(context) * 0.13,
+          width: width(context),
+          color: AppColors.mainColor,
+        ),
+      ),
+      Center(
+        child: Container(
+          height: height(context) * 0.9,
+          width: width(context) * 0.9,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(15),
+          ),
+          child: body,
+        ),
+      ),
+    ],
+  );
+}
+
 Widget stackWidgetFullPage(
     {required Widget body, required BuildContext context}) {
   return Stack(

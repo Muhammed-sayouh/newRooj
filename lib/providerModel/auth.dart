@@ -13,6 +13,7 @@ class Auth with ChangeNotifier {
   bool isRegistered = false;
   bool loginfromfacebook = false;
   bool doneEdaitUserProfile = false;
+  bool doneEdaitVendorProfile = false;
   String? token;
   String? name;
   String? email;
@@ -169,6 +170,43 @@ class Auth with ChangeNotifier {
     }
   }
 
+  Future<bool> updateVendorProfile(
+      String name, String phone, String id, String email, String insta) async {
+    try {
+      Map<String, dynamic> map = {
+        'name': name,
+        'phone': phone,
+        "api_password": "QLJsQZgVWY9hVXSjPP",
+        "email": email,
+        "identity_number": id,
+        "instagram": insta,
+      };
+      print(map);
+      Dio.Response response = await dio().post(
+        'profile',
+        data: Dio.FormData.fromMap(map),
+        options: Dio.Options(
+          headers: {
+            'authorization': 'Bearer ${GetStorageHelper.getToken()}',
+            "Accept": "application/json",
+          },
+        ),
+      );
+      print('${response.data} resppppponse');
+      if (response.data['status'] == 400) {
+        doneEdaitVendorProfile = false;
+        throw HttpExeption('error');
+      }
+      if (response.data['status'] == 1) {
+        doneEdaitVendorProfile = true;
+      }
+      notifyListeners();
+      return doneEdaitVendorProfile;
+    } catch (error) {
+      throw (error);
+    }
+  }
+
   Future<dynamic> getUserProfile() async {
     try {
       Dio.Response response = await dio().post(
@@ -180,6 +218,34 @@ class Auth with ChangeNotifier {
         ),
         options: Dio.Options(
           headers: {'authorization': 'Bearer ${GetStorageHelper.getToken()}'},
+        ),
+      );
+      print(response.data);
+      if (response.data['status'] == 400) {
+        throw HttpExeption('error');
+      }
+      if (response.data['status'] == 1) {}
+      notifyListeners();
+      return response.data;
+    } catch (error) {
+      throw (error);
+    }
+  }
+
+  Future<dynamic> getProviderProfile() async {
+    try {
+      Dio.Response response = await dio().post(
+        '/auth/profile/provider',
+        data: Dio.FormData.fromMap(
+          {
+            "api_password": "QLJsQZgVWY9hVXSjPP",
+          },
+        ),
+        options: Dio.Options(
+          headers: {
+            'authorization': 'Bearer ${GetStorageHelper.getToken()}',
+            "Accept": "application/json",
+          },
         ),
       );
       print(response.data);

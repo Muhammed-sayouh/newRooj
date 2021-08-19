@@ -8,23 +8,31 @@ import 'package:rooj/customeWidget/appBar1.dart';
 import 'package:rooj/customeWidget/buttons.dart';
 import 'package:rooj/customeWidget/commenStackPage.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
-import 'package:rooj/customeWidget/smallButton.dart';
 import 'package:rooj/providerModel/choseTimeProvider.dart';
 import 'package:rooj/screens/confirmBooking/confirBooking.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
 class ChooseTimeScreen extends StatefulWidget {
-  const ChooseTimeScreen({Key? key}) : super(key: key);
-
+  final String adress;
+  final String name;
+  final String image;
+  final int salonId;
+  const ChooseTimeScreen(
+      {Key? key,
+      required this.adress,
+      required this.name,
+      required this.image,
+      required this.salonId})
+      : super(key: key);
   @override
   _ChooseTimeScreenState createState() => _ChooseTimeScreenState();
 }
 
 class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
-  DateTime? _currentDate;
+  DateTime? currentDate;
   DateTime? reservationDate;
-
+  String? selectedTime;
   bool loaderO = false;
   List<Appointment> times = [];
   Future<void> futureO() async {
@@ -54,6 +62,7 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(reservationDate);
     return Scaffold(
       appBar: myAppBar(title: 'اختيار الوقت والتاريخ', inMain: false),
       body: stackWidgetFullPageSmallappBar(
@@ -81,7 +90,7 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
                         reservationDate = date;
 
                         this.setState(() {
-                          _currentDate = date;
+                          currentDate = date;
                           reservationDate = date;
                         });
                       },
@@ -105,9 +114,11 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
                       locale: Get.locale!.languageCode,
                       markedDatesMap: null,
                       height: 420.0,
-                      selectedDateTime: _currentDate,
+                      selectedDateTime: currentDate,
                       daysHaveCircularBorder: true,
                       todayButtonColor: Colors.white,
+                      minSelectedDate:
+                          DateTime.now().subtract(Duration(days: 1)),
                     ),
                   ),
                 ),
@@ -150,6 +161,7 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
                                         times[index].selected =
                                             !times[index].selected;
                                       });
+                                      selectedTime = times[index].newTime;
                                     },
                                     child: Container(
                                       margin: EdgeInsets.all(8),
@@ -183,8 +195,20 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
                       Padding(
                         padding: const EdgeInsets.all(20.0),
                         child: InkWell(
-                          onTap: () => Get.to(() => ConFirmBookingScreen(),
-                              transition: Transition.zoom),
+                          onTap: currentDate == null || selectedTime == null
+                              ? () => customSnackBar(
+                                  title: "sorry".tr,
+                                  content: "chooseTimeAndDate".tr)
+                              : () => Get.to(
+                                  () => ConFirmBookingScreen(
+                                        adress: widget.adress,
+                                        name: widget.name,
+                                        image: widget.image,
+                                        selectedDate: currentDate.toString(),
+                                        selectedTime: selectedTime.toString(),
+                                        salonId: widget.salonId,
+                                      ),
+                                  transition: Transition.zoom),
                           child: saveButton(
                               title: "next".tr,
                               image: 'assets/images/next_circle.png'),

@@ -5,7 +5,8 @@ ThemeData getTheme() {
   return ThemeData(
     fontFamily: 'CairoRegular',
     // ignore: deprecated_member_use
-
+    primaryColor: AppColors.mainColor,
+    accentColor: AppColors.mainColor,
     inputDecorationTheme: InputDecorationTheme(
       focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(50),

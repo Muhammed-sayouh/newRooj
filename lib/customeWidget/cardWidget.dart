@@ -136,9 +136,13 @@ class CardWidgetForVendorProfile extends StatelessWidget {
   final String title;
   final String desc;
   final String adress;
-
+  final String image;
   const CardWidgetForVendorProfile(
-      {Key? key, required this.title, required this.desc, required this.adress})
+      {Key? key,
+      required this.title,
+      required this.desc,
+      required this.adress,
+      required this.image})
       : super(key: key);
   @override
   Widget build(BuildContext context) {
@@ -171,7 +175,7 @@ class CardWidgetForVendorProfile extends StatelessWidget {
                 topRight: Radius.circular(8),
               ),
               child: Image.network(
-                "https://cdn.pixabay.com/photo/2018/01/14/00/05/glass-3081015_1280.jpg",
+                image,
                 errorBuilder: (context, error, stackTrace) {
                   return Container(
                     width: double.infinity,
@@ -183,7 +187,7 @@ class CardWidgetForVendorProfile extends StatelessWidget {
                   );
                 },
                 width: MediaQuery.of(context).size.width,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fill,
                 height: 130,
               ),
             ),

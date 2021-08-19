@@ -212,5 +212,9 @@ Map<String, String> getEnglishLanguage() {
     "apply": "apply",
     "other choices": "other choices",
     "open": "open",
+    "sorry": "Sorry",
+    "minSirv200": "The lowest price for services at home is 200 riyals",
+    "chooseTimeAndDate": "Please select a time and date",
+    "both": "both"
   };
 }

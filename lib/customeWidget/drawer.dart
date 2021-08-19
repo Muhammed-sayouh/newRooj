@@ -5,6 +5,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/helpers/getStorageHelper.dart';
 import 'package:rooj/screens/aboutApp/aboutApp.dart';
+import 'package:rooj/screens/addOffer/addOfferScreen.dart';
 import 'package:rooj/screens/changeCity/changeCity.dart';
 import 'package:rooj/screens/changeLanguage/changeLanguage.dart';
 import 'package:rooj/screens/contactUs/contactUs.dart';
@@ -181,6 +182,22 @@ class _MyDrawerState extends State<MyDrawer> {
                           SizedBox(
                             height: height(context) * 0.05,
                           ),
+                          GetStorageHelper.userType() == '1'
+                              ? InkWell(
+                                  onTap: () {
+                                    Get.to(() => AddOfferScreen(),
+                                        transition: Transition.zoom);
+                                  },
+                                  child: drawerItem(
+                                      iconData: Icons.local_offer,
+                                      title: "اضافة العروض"),
+                                )
+                              : SizedBox(),
+                          GetStorageHelper.userType() == '1'
+                              ? SizedBox(
+                                  height: height(context) * 0.03,
+                                )
+                              : SizedBox(),
                           InkWell(
                             onTap: () => Get.to(() => WalletScreen(),
                                 transition: Transition.zoom),

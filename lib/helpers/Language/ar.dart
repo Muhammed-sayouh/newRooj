@@ -212,5 +212,9 @@ Map<String, String> getArabicLanguage() {
     "apply": "تطبيق",
     "other choices": "اختيارات اخري",
     "open": "مفتوح",
+    "sorry": "عفوا",
+    "minSirv200": "اقل سعر للخدمات في المنزل 200 ريال",
+    "chooseTimeAndDate": "يرجي اختيار الوقت والتاريخ",
+    "both": "كلاهما"
   };
 }

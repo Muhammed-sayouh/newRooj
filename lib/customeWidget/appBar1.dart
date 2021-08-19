@@ -29,7 +29,10 @@ PreferredSizeWidget myAppBar({required String title, required bool inMain}) {
         ),
       )
     ],
-    title: Text(title),
+    title: Text(
+      title,
+      style: TextStyle(color: Colors.white),
+    ),
     elevation: 0,
     centerTitle: true,
   );

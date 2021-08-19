@@ -3,6 +3,9 @@ import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
 class WavyHeaderImage extends StatelessWidget {
+  final String image;
+
+  const WavyHeaderImage({Key? key, required this.image}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -10,7 +13,13 @@ class WavyHeaderImage extends StatelessWidget {
         height: height(context) * 0.55,
         color: AppColors.mainColor,
         child: Image.network(
-          'https://egyptianstreets.com/wp-content/uploads/2020/09/cosmetics-on-pink-table.jpg',
+          image,
+          errorBuilder: (context, error, stackTrace) {
+            return Image.network(
+              'https://egyptianstreets.com/wp-content/uploads/2020/09/cosmetics-on-pink-table.jpg',
+              fit: BoxFit.fill,
+            );
+          },
           fit: BoxFit.fill,
         ),
       ),

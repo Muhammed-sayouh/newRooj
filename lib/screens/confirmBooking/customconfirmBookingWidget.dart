@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
@@ -30,22 +31,83 @@ class RowWidget extends StatelessWidget {
   }
 }
 
-class RowWidget2 extends StatelessWidget {
-  const RowWidget2({
+class RowWidget3 extends StatelessWidget {
+  final String total;
+  final int count;
+  const RowWidget3({
     Key? key,
+    required this.total,
+    required this.count,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Text(
-          'المبلغ الاجمالي',
+          'تكلفة الافراد',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
         ),
         Spacer(),
         Text(
-          '500 ريال',
+          '$count فرد * 15 ريال = $total ريال',
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.mainColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RowWidget2 extends StatelessWidget {
+  final String total;
+
+  const RowWidget2({
+    Key? key,
+    required this.total,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          'الاجمالي',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+        ),
+        Spacer(),
+        Text(
+          "$total ريال",
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.mainColor,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class RowWidget4 extends StatelessWidget {
+  final String total;
+
+  const RowWidget4({
+    Key? key,
+    required this.total,
+  }) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          'تكلفة الخدمات',
+          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.grey),
+        ),
+        Spacer(),
+        Text(
+          "$total ريال",
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
@@ -122,9 +184,13 @@ class NameAndAdressWidget extends StatelessWidget {
                   ),
                 ),
                 Spacer(),
-                Text(
-                  adress,
-                  style: TextStyle(color: Colors.grey),
+                Container(
+                  width: width(context) * 0.6,
+                  child: Text(
+                    adress,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(color: Colors.grey),
+                  ),
                 ),
               ],
             ),

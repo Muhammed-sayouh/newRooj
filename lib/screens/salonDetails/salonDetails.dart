@@ -512,21 +512,37 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                         ),
                                       )),
                                     ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "book now".tr,
-                                          style: TextStyle(color: Colors.white),
-                                        ),
-                                        SizedBox(
-                                          width: 8,
-                                        ),
-                                        InkWell(
-                                          onTap: () => Get.to(
-                                            () => ChooseTimeScreen(),
-                                            transition: Transition.zoom,
+                                    InkWell(
+                                      onTap: myProvider.getTotal() < 200 &&
+                                              place == 'in_home'
+                                          ? () => customSnackBar(
+                                              title: "sorry".tr,
+                                              content:
+                                                  "The lowest price for services at home is 200 riyals"
+                                                      .tr)
+                                          : () => Get.to(
+                                                () => ChooseTimeScreen(
+                                                  salonId: data.salon.id,
+                                                  adress: data.salon.address,
+                                                  name: data.salon.name,
+                                                  image:
+                                                      data.salon.images.isEmpty
+                                                          ? ''
+                                                          : '',
+                                                ),
+                                                transition: Transition.zoom,
+                                              ),
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            "book now".tr,
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
-                                          child: Container(
+                                          SizedBox(
+                                            width: 8,
+                                          ),
+                                          Container(
                                             width: 35,
                                             height: 35,
                                             decoration: BoxDecoration(
@@ -537,8 +553,8 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                 child:
                                                     Icon(Icons.arrow_forward)),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
