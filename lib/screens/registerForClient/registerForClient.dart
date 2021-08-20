@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/bkAuth.dart';
 import 'package:rooj/customeWidget/buttons.dart';
+import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/myTextFormField.dart';
-import 'package:rooj/screens/pinCode/pinCode.dart';
+import 'package:rooj/providerModel/auth.dart';
+import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:get/get.dart';
 import 'package:rooj/style/sizes.dart';
 
 class RegisterForClientScreen extends StatefulWidget {
+  final String phone;
+
+  const RegisterForClientScreen({Key? key, required this.phone})
+      : super(key: key);
   @override
   _RegisterForClientScreenState createState() =>
       _RegisterForClientScreenState();
@@ -15,8 +22,33 @@ class RegisterForClientScreen extends StatefulWidget {
 
 class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final TextEditingController phone = TextEditingController();
+  final TextEditingController name = TextEditingController();
   final TextEditingController password = TextEditingController();
+  final TextEditingController email = TextEditingController();
+
+  Future<void> _submit() async {
+    bool auth = Provider.of<Auth>(context, listen: false).isRegisteredUser;
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    showDaialogLoader(context);
+    try {
+      auth = await Provider.of<Auth>(context, listen: false)
+          .registerUser(name.text, widget.phone, email.text, password.text);
+    } on HttpExeption catch (error) {
+      print(error);
+      Navigator.of(context).pop();
+      showErrorDaialog("البريد الالكتروني مستخدم من قبل", context);
+    } catch (error) {
+      print(error);
+      Navigator.of(context).pop();
+      showErrorDaialog("يرجي التحقق من الانترنت", context);
+    } finally {
+      if (auth) {
+        Get.offAll(() => MainPage(index: 3), transition: Transition.zoom);
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,11 +81,34 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                         child: Column(
                           children: [
                             MyTextFormFieldWithImage(
-                              controller: phone,
-                              hint: "phonee".tr,
+                              controller: name,
+                              hint: "namee".tr,
+                              image: 'assets/images/user_off.png',
+                              obscureText: false,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'هذا الحقل مطلوب';
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            MyTextFormFieldWithImage(
+                              controller: email,
+                              hint: "email".tr,
                               image: 'assets/images/smart_phone_line.png',
                               obscureText: false,
-                              keyboardType: TextInputType.phone,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'هذا الحقل مطلوب';
+                                } else {
+                                  return null;
+                                }
+                              },
                             ),
                             SizedBox(
                               height: 10,
@@ -63,6 +118,18 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                               controller: password,
                               hint: "password".tr,
                               image: 'assets/images/lock_line.png',
+                              validator: (val) {
+                                if (val!.isEmpty) {
+                                  return 'هذا الحقل مطلوب';
+                                } else if (val.length < 6) {
+                                  return 'يجيب ان تكون كلمة المرور اكثر من 6 احر او ارقام';
+                                } else {
+                                  return null;
+                                }
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
                             ),
                           ],
                         )),
@@ -71,10 +138,7 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                     height: 25,
                   ),
                   InkWell(
-                    onTap: () => Get.to(
-                      () => PinCodeScreen(),
-                      transition: Transition.zoom,
-                    ),
+                    onTap: _submit,
                     child: saveButton(
                       title: "REgister".tr,
                       image: 'assets/images/next_circle.png',

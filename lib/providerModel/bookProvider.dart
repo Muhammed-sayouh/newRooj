@@ -7,7 +7,7 @@ import 'auth.dart';
 
 class BookingProiver with ChangeNotifier {
   bool done = false;
-
+  String? message;
   Future<bool> book({
     required int salonId,
     required String time,
@@ -22,13 +22,12 @@ class BookingProiver with ChangeNotifier {
       Map<String, dynamic> map = {
         "api_password": 'QLJsQZgVWY9hVXSjPP',
         "salon_id": salonId,
-        "booking_time": time,
-        "booking_date": date,
+        "booking_time": time.substring(0, 9),
+        "booking_date": date.substring(0, 10),
         "additional_persons": additional,
         // "worker_id": '',
         "payment_method_id": payMent,
-        "service[0][id]":
-            services.map((service) => {"id": service.id}).toList(),
+        "service": services.map((service) => {"id": service.id}).toList(),
         "lat": lat,
         "long": lag,
       };
@@ -46,6 +45,12 @@ class BookingProiver with ChangeNotifier {
       print(response.data);
       if (response.statusCode == 400) {
         done = false;
+        throw HttpExeption('error');
+      }
+      if (response.data['status'] == 0) {
+        done = false;
+        message = response.data['message'];
+        notifyListeners();
         throw HttpExeption('error');
       }
       if (response.data['status'] == 1) {

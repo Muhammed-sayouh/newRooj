@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/buttons.dart';
 import 'package:rooj/customeWidget/cardWidget.dart';
@@ -32,8 +35,22 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   bool loader = false;
 
   List<Profile.Offer> offers = [];
-  late int offerLenth;
-  late int sirvLenth;
+  int offerLenth = 0;
+  int sirvLenth = 0;
+  XFile? chosenImages;
+  XFile? _pickImageError;
+  Future<void> picImages() async {
+    try {
+      final ImagePicker _picker = ImagePicker();
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+      setState(() {
+        chosenImages = image;
+      });
+    } catch (e) {
+      chosenImages = _pickImageError;
+    }
+  }
 
   Future<void> futureO() async {
     setState(() {
@@ -60,8 +77,13 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
         print(_provider!.salon[i].services.length);
       }
       for (var i = 0; i < _provider!.salon[i].offers.length; i++) {
-        offerLenth = _provider!.salon[i].offers.length;
-        offers = _provider!.salon[i].offers;
+        if (_provider!.salon[i].offers.isEmpty) {
+          offerLenth = 0;
+          offers = [];
+        } else {
+          offerLenth = _provider!.salon[i].offers.length;
+          offers = _provider!.salon[i].offers;
+        }
       }
 
       setState(() {
@@ -87,7 +109,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
     try {
       auth = await Provider.of<Auth>(context, listen: false)
           .updateVendorProfile(
-              name.text, phone.text, identy.text, email.text, insta.text);
+              name.text, phone.text, identy.text, insta.text, chosenImages);
     } on HttpExeption catch (error) {
       print(error);
       setState(() {
@@ -303,24 +325,46 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       SizedBox(
                                         width: 5,
                                       ),
-                                      Column(
-                                        children: [
-                                          Text(
-                                            "ارفاق شهاده",
-                                            style: TextStyle(
-                                              fontSize: 13,
-                                              fontWeight: FontWeight.bold,
+                                      InkWell(
+                                        onTap: picImages,
+                                        child: Column(
+                                          children: [
+                                            Text(
+                                              "ارفاق شهاده",
+                                              style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                          Text(
-                                            "اختياري",
-                                            style: TextStyle(
-                                              fontSize: 11,
-                                              fontWeight: FontWeight.bold,
+                                            Text(
+                                              "اختياري",
+                                              style: TextStyle(
+                                                fontSize: 11,
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
-                                          ),
-                                        ],
-                                      )
+                                          ],
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5,
+                                      ),
+                                      chosenImages == null
+                                          ? SizedBox()
+                                          : SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                child: Image.file(
+                                                  File(
+                                                    chosenImages!.path,
+                                                  ),
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
                                     ],
                                   ),
                                 ],

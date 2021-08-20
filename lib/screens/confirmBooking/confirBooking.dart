@@ -9,6 +9,7 @@ import 'package:rooj/customeWidget/myTextFormField.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/providerModel/bookProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
+import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/screens/map/map.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
@@ -66,6 +67,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
   }
 
   Future<void> _submit(List<Datum> services) async {
+    print('1');
     bool done = Provider.of<BookingProiver>(context, listen: false).done;
 
     showDaialogLoader(context);
@@ -88,10 +90,16 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
       print(error);
       Get.back();
 
-      showErrorDaialog("NoInternet".tr, context);
+      showErrorDaialog("هذا الميعاد محجوز بالفعل", context);
     } finally {
       if (done) {
-        print('succses');
+        Get.back();
+        customSnackBar(title: 'تم الحجز', content: "تم الحجز بنجاح");
+        Future.delayed(Duration(seconds: 2)).then(
+          (value) => Get.offAll(
+            () => MainPage(index: 3),
+          ),
+        );
       }
     }
   }
@@ -378,7 +386,15 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                   ),
                   Center(
                     child: InkWell(
-                      onTap: () => _submit(myProvider.newList),
+                      onTap: lat == null
+                          ? () => customSnackBar(
+                              title: 'خطا', content: "يرجي تحديد موقعك")
+                          : payMent == false
+                              ? () => customSnackBar(
+                                    title: 'خطا',
+                                    content: "يرجي اختيار طريقة الدفع",
+                                  )
+                              : () => _submit(myProvider.newList),
                       child: saveButton(
                           title: 'تاكيد',
                           image: 'assets/images/next_circle.png'),

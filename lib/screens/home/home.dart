@@ -51,6 +51,7 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    print(GetStorageHelper.getToken());
     return Container(
       width: width(context),
       height: height(context),

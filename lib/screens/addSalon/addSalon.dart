@@ -8,20 +8,18 @@ import 'package:rooj/customeWidget/appBar1.dart';
 import 'package:rooj/customeWidget/commenStackPage.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/smallButton.dart';
-import 'package:rooj/providerModel/addOfferProvider.dart';
-import 'package:rooj/providerModel/auth.dart';
-import 'package:rooj/screens/mainPage/mainPage.dart';
+import 'package:rooj/providerModel/homeProvider.dart';
+import 'package:rooj/screens/addSalon/secondScreen.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
-import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
 
-class AddOfferScreen extends StatefulWidget {
+class AddSalonScreen extends StatefulWidget {
   @override
-  _AddOfferScreenState createState() => _AddOfferScreenState();
+  _AddSalonScreenState createState() => _AddSalonScreenState();
 }
 
-class _AddOfferScreenState extends State<AddOfferScreen> {
+class _AddSalonScreenState extends State<AddSalonScreen> {
   List<XFile>? chosenImages;
   dynamic _pickImageError;
 
@@ -35,15 +33,15 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
   ];
 
   bool loaderO = false;
-  List<Category.Datum> subCategories = [];
-  Future<void> futureSub() async {
-    loaderO = true;
+  List<Datum> homeItems = [];
+  Future<void> futureO() async {
+    setState(() {
+      loaderO = true;
+    });
 
     try {
-      subCategories = await Provider.of<Category.SubCategoriesProvider>(context,
-              listen: false)
-          .fetchSubCategories();
-
+      homeItems =
+          await Provider.of<HomeProvider>(context, listen: false).fetchHome();
       setState(() {
         loaderO = false;
       });
@@ -55,6 +53,29 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
     }
   }
 
+  void _submit() {
+    if (!_formKey.currentState!.validate()) {
+      return;
+    }
+    Get.to(
+      () => SecondScreenAddingSalon(
+          categoryId: subCategoryId.toString(),
+          name: name.text,
+          adress: adress.text,
+          timeFrom: selectedDateFrom.toString(),
+          timeTo: selectedDateTo.toString(),
+          images: chosenImages,
+          place: placeId.toString()),
+      transition: Transition.zoom,
+    );
+  }
+
+  @override
+  void initState() {
+    futureO();
+    super.initState();
+  }
+
   String? selectedplace;
   String? placeId;
 
@@ -64,10 +85,6 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController adress = TextEditingController();
-  TextEditingController price = TextEditingController();
-  TextEditingController offerPrice = TextEditingController();
-  TextEditingController percatnage = TextEditingController();
-  TextEditingController details = TextEditingController();
 
   Future<void> _selectDateFrom(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -110,57 +127,10 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
     }
   }
 
-  Future<void> _submit() async {
-    bool auth = Provider.of<AddOfferProvider>(context, listen: false).done;
-    if (!_formKey.currentState!.validate()) {
-      return;
-    }
-    showDaialogLoader(context);
-    try {
-      auth = await Provider.of<AddOfferProvider>(context, listen: false).signIn(
-        name: name.text,
-        price: price.text,
-        place: placeId.toString(),
-        details: details.text.toString(),
-        priceInService: offerPrice.text,
-        percentage: percatnage.text.toString(),
-        serviceStartDate: selectedDateFrom.toString().substring(0, 10),
-        serviceEndDate: selectedDateTo.toString().substring(0, 10),
-        categotyId: subCategoryId.toString(),
-        images: chosenImages,
-      );
-    } on HttpExeption catch (error) {
-      print(error);
-      Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
-    } catch (error) {
-      print(error);
-      Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
-    } finally {
-      if (auth) {
-        Get.back();
-        customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
-        Future.delayed(Duration(seconds: 1)).then(
-          (value) => Get.offAll(
-            () => MainPage(index: 3),
-            transition: Transition.zoom,
-          ),
-        );
-      }
-    }
-  }
-
-  @override
-  void initState() {
-    futureSub();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: 'اضافة عرض', inMain: false),
+      appBar: myAppBar(title: 'اضافة صالو', inMain: false),
       body: stackWidgetF(
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -171,7 +141,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'صور العرض',
+                      'صور الصالون',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -227,23 +197,9 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'اسم العرض',
+                        hintText: 'اسم المشغل',
                       ),
                       controller: name,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: 'التفاصيل'),
-                      controller: details,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return 'هذا الحقل مطلوب';
@@ -270,7 +226,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 35,
                     ),
                     Text(
-                      'وقت ابتداء وانتهاء العرض',
+                      'وقت الدوام',
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -311,7 +267,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 35,
                     ),
                     Text(
-                      'القسم الفرعي',
+                      'القسم',
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -339,7 +295,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                                     content: Center(
                                       child: Container(
                                         child: supCategoryWidget(
-                                            context, subCategories),
+                                            context, homeItems),
                                       ),
                                     ),
                                     shape: RoundedRectangleBorder(
@@ -357,7 +313,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                                   Expanded(
                                     child: Text(
                                       subCategory == null
-                                          ? "القسم الفرعي"
+                                          ? "القسم"
                                           : subCategory.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -376,7 +332,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 15,
                     ),
                     Text(
-                      'تقديم العرض في',
+                      'تقديم الخدمه في',
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -437,88 +393,21 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     SizedBox(
                       height: 35,
                     ),
-                    Text(
-                      'السعر',
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: 'السعر'),
-                      controller: price,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'نسبة الخصم',
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: '0 %'),
-                      controller: percatnage,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Text(
-                      'السعر بعد الخصم',
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: ' 0.0 ريال'),
-                      controller: offerPrice,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
                     Center(
-                        child: smallButton(
-                            context: context,
-                            title: "اضافه",
-                            onTap: subCategory == null ||
-                                    selectedplace == null ||
-                                    selectedDateFrom == null ||
-                                    selectedDateTo == null ||
-                                    chosenImages == null
-                                ? () => customSnackBar(
-                                    title: 'عفوا',
-                                    content: 'يرجي اكمال جميع الحقول')
-                                : _submit)),
+                      child: smallButton(
+                        context: context,
+                        title: "اضافه",
+                        onTap: subCategory == null ||
+                                selectedplace == null ||
+                                selectedDateFrom == null ||
+                                selectedDateTo == null ||
+                                chosenImages == null
+                            ? () => customSnackBar(
+                                title: 'عفوا',
+                                content: 'يرجي اكمال جميع الحقول')
+                            : _submit,
+                      ),
+                    ),
                     SizedBox(
                       height: 35,
                     )
@@ -581,17 +470,16 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
     );
   }
 
-  Widget supCategoryWidget(
-      BuildContext context, List<Category.Datum> subCategories) {
+  Widget supCategoryWidget(BuildContext context, List<Datum> homeItems) {
     return ListView.builder(
-      itemCount: subCategories.length,
+      itemCount: homeItems.length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return InkWell(
           onTap: () {
             setState(() {
-              subCategory = subCategories[index].name;
-              subCategoryId = subCategories[index].id.toString();
+              subCategory = homeItems[index].name;
+              subCategoryId = homeItems[index].id.toString();
             });
             Navigator.pop(context);
           },
@@ -607,7 +495,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
               children: [
                 Offstage(
                     offstage:
-                        subCategory == subCategories[index].name ? false : true,
+                        subCategory == homeItems[index].name ? false : true,
                     child:
                         Icon(Icons.check_circle, color: AppColors.mainColor)),
                 // SizedBox(width: 10),
@@ -616,7 +504,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     padding: EdgeInsets.only(bottom: 5),
                     child: Center(
                       child: Text(
-                        subCategories[index].name.toString(),
+                        homeItems[index].name.toString(),
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,

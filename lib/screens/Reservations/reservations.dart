@@ -49,6 +49,7 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(items.length);
     return Scaffold(
       backgroundColor: AppColors.mainBackGroundColor,
       appBar: myAppBar(title: "Reservations".tr, inMain: true),

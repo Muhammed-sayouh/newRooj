@@ -5,22 +5,18 @@ import 'package:rooj/customeWidget/buttons.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/myTextFormField.dart';
 import 'package:rooj/providerModel/auth.dart';
-import 'package:rooj/screens/enterPhoneForVendor/enterPhoneForVendor.dart';
-import 'package:rooj/screens/login/login.dart';
-import 'package:rooj/screens/mainPage/mainPage.dart';
-import 'package:rooj/screens/pinCode/pinCode.dart';
+import 'package:rooj/screens/pinCodeVendor/pinCodeVendor.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:get/get.dart';
 import 'package:rooj/style/sizes.dart';
 
-class MainAuthScreen extends StatefulWidget {
-  const MainAuthScreen({Key? key}) : super(key: key);
-
+class EnterPhoneForVendorScreen extends StatefulWidget {
   @override
-  _MainAuthScreenState createState() => _MainAuthScreenState();
+  _EnterPhoneForVendorScreenState createState() =>
+      _EnterPhoneForVendorScreenState();
 }
 
-class _MainAuthScreenState extends State<MainAuthScreen> {
+class _EnterPhoneForVendorScreenState extends State<EnterPhoneForVendorScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController phone = TextEditingController();
 
@@ -33,7 +29,7 @@ class _MainAuthScreenState extends State<MainAuthScreen> {
     showDaialogLoader(context);
     try {
       auth = await Provider.of<Auth>(context, listen: false)
-          .enterPhoneUser(phone.text, 0);
+          .enterPhoneUser(phone.text, 1);
       code = Provider.of<Auth>(context, listen: false).code;
     } on HttpExeption catch (error) {
       print(error);
@@ -46,7 +42,7 @@ class _MainAuthScreenState extends State<MainAuthScreen> {
     } finally {
       if (auth) {
         Get.to(
-            () => PinCodeScreen(
+            () => PinCodeForVendorScreen(
                   code: code,
                   phone: phone.text,
                 ),
@@ -114,71 +110,6 @@ class _MainAuthScreenState extends State<MainAuthScreen> {
                   ),
                   SizedBox(
                     height: height(context) * 0.05,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "haveAccount".tr,
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      InkWell(
-                        onTap: () => Get.to(
-                          () => LoginScreen(),
-                          transition: Transition.zoom,
-                        ),
-                        child: Text(
-                          "login".tr,
-                          style: TextStyle(
-                              color: AppColors.mainColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                  SizedBox(
-                    height: height(context) * 0.05,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "ProviderAccount".tr,
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
-                      ),
-                      InkWell(
-                        onTap: () => Get.to(
-                          () => EnterPhoneForVendorScreen(),
-                          transition: Transition.zoom,
-                        ),
-                        child: Text(
-                          "signUpNow".tr,
-                          style: TextStyle(
-                              color: AppColors.mainColor,
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: height(context) * 0.03,
-                  ),
-                  InkWell(
-                    onTap: () => Get.to(
-                      () => MainPage(index: 3),
-                      transition: Transition.zoom,
-                    ),
-                    child: Text(
-                      "unAuthEnter".tr,
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold),
-                    ),
                   ),
                 ],
               ),

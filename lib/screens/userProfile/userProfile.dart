@@ -31,8 +31,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       userInfo =
           await Provider.of<Auth>(context, listen: false).getUserProfile();
 
-      name.text = userInfo['data']['name'];
-      phone.text = userInfo['data']['phone'];
+      name.text = userInfo['client']['name'];
+      phone.text = userInfo['client']['phone'];
       setState(() {
         loader = false;
       });

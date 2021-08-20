@@ -7,19 +7,21 @@ import 'package:rooj/customeWidget/buttons.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/screens/registerForClient/registerForClient.dart';
+import 'package:rooj/screens/registerForVendor/registerForVendor.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
-class PinCodeScreen extends StatefulWidget {
+class PinCodeForVendorScreen extends StatefulWidget {
   final int? code;
   final String phone;
-  const PinCodeScreen({Key? key, required this.code, required this.phone})
+  const PinCodeForVendorScreen(
+      {Key? key, required this.code, required this.phone})
       : super(key: key);
   @override
-  _PinCodeScreenState createState() => _PinCodeScreenState();
+  _PinCodeForVendorScreenState createState() => _PinCodeForVendorScreenState();
 }
 
-class _PinCodeScreenState extends State<PinCodeScreen> {
+class _PinCodeForVendorScreenState extends State<PinCodeForVendorScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController code = TextEditingController();
 
@@ -44,7 +46,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
     } finally {
       if (auth) {
         Get.to(
-            () => RegisterForClientScreen(
+            () => RegisterForVendorScreen(
                   phone: widget.phone,
                 ),
             transition: Transition.zoom);
