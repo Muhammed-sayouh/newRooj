@@ -60,27 +60,27 @@ class Data {
 }
 
 class Salon {
-  Salon({
-    required this.id,
-    required this.createdAt,
-    required this.updatedAt,
-    required this.name,
-    required this.address,
-    required this.views,
-    required this.openingTime,
-    required this.closingTime,
-    required this.place,
-    required this.availability,
-    required this.wallet,
-    required this.cityId,
-    required this.categoryId,
-    required this.clientId,
-    required this.days,
-    required this.averageReview,
-    required this.images,
-    required this.workers,
-    required this.branches,
-  });
+  Salon(
+      {required this.id,
+      required this.createdAt,
+      required this.updatedAt,
+      required this.name,
+      required this.address,
+      required this.views,
+      required this.openingTime,
+      required this.closingTime,
+      required this.place,
+      required this.availability,
+      required this.wallet,
+      required this.cityId,
+      required this.categoryId,
+      required this.clientId,
+      required this.days,
+      required this.averageReview,
+      required this.images,
+      required this.workers,
+      required this.branches,
+      required this.selected});
 
   int id;
   DateTime createdAt;
@@ -101,6 +101,7 @@ class Salon {
   List<dynamic> images;
   List<dynamic> workers;
   List<dynamic> branches;
+  bool selected;
 
   factory Salon.fromJson(Map<String, dynamic> json) => Salon(
         id: json["id"],
@@ -122,6 +123,7 @@ class Salon {
         images: List<dynamic>.from(json["images"].map((x) => x)),
         workers: List<dynamic>.from(json["workers"].map((x) => x)),
         branches: List<dynamic>.from(json["branches"].map((x) => x)),
+        selected: false,
       );
 
   Map<String, dynamic> toJson() => {
@@ -180,7 +182,8 @@ class SalonItemDetailsProvider with ChangeNotifier {
               averageReview: 0,
               images: [],
               workers: [],
-              branches: []),
+              branches: [],
+              selected: false),
           isFav: '');
     }
   }

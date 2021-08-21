@@ -15,7 +15,7 @@ Widget rowWidget({
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
-              width: width(context) * 0.3,
+              width: width(context) * 0.33,
               child: Text(
                 title,
                 style: TextStyle(
@@ -26,7 +26,7 @@ Widget rowWidget({
             ),
             InkWell(
               child: Container(
-                width: width(context) * 0.27,
+                width: width(context) * 0.3,
                 child: Row(
                   children: [
                     Icon(

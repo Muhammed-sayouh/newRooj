@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/appBar1.dart';
 import 'package:rooj/customeWidget/commenStackPage.dart';
@@ -22,9 +23,6 @@ class AddSalonScreen extends StatefulWidget {
 class _AddSalonScreenState extends State<AddSalonScreen> {
   List<XFile>? chosenImages;
   dynamic _pickImageError;
-
-  DateTime? selectedDateFrom;
-  DateTime? selectedDateTo;
 
   List<Place> place = [
     Place("in home".tr, 'in_home'),
@@ -62,8 +60,8 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
           categoryId: subCategoryId.toString(),
           name: name.text,
           adress: adress.text,
-          timeFrom: selectedDateFrom.toString(),
-          timeTo: selectedDateTo.toString(),
+          timeFrom: DateFormat("hh:mma").format(selectedTimeFrom),
+          timeTo: DateFormat("hh:mma").format(selectedTimeTo),
           images: chosenImages,
           place: placeId.toString()),
       transition: Transition.zoom,
@@ -82,36 +80,48 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
   String? subCategory;
   String? subCategoryId;
 
+  DateTime selectedTimeFrom = DateTime.now();
+  DateTime selectedTimeTo = DateTime.now();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController adress = TextEditingController();
 
-  Future<void> _selectDateFrom(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialEntryMode: DatePickerEntryMode.calendarOnly,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2021),
-        lastDate: DateTime(2101));
+  fromTime() async {
+    TimeOfDay time = TimeOfDay.now();
+    final now = new DateTime.now();
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: time,
+    );
 
-    if (picked != null && picked != selectedDateFrom)
+    if (picked != null && picked != time) {
       setState(() {
-        selectedDateFrom = picked;
+        // add this line.
+        DateTime pickedToDate =
+            DateTime(now.year, now.month, now.day, picked.hour, picked.minute);
+        selectedTimeFrom = pickedToDate;
+        time = picked;
       });
+    }
   }
 
-  Future<void> _selectDateTo(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialEntryMode: DatePickerEntryMode.calendarOnly,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2021),
-        lastDate: DateTime(2101));
+  toTime() async {
+    TimeOfDay time = TimeOfDay.now();
+    final now = new DateTime.now();
+    TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: time,
+    );
 
-    if (picked != null && picked != selectedDateFrom)
+    if (picked != null && picked != time) {
       setState(() {
-        selectedDateTo = picked;
+        DateTime pickedToDate =
+            DateTime(now.year, now.month, now.day, picked.hour, picked.minute);
+        selectedTimeTo = pickedToDate;
+        time = picked;
       });
+    }
   }
 
   Future<void> picImages() async {
@@ -238,27 +248,25 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         InkWell(
-                          onTap: () => _selectDateFrom(context),
+                          onTap: () => fromTime(),
                           child: TimeWidget(
                             text: Center(
-                              child: selectedDateFrom == null
+                              child: selectedTimeFrom == null
                                   ? Text('وقت الابتداء ')
-                                  : Text(selectedDateFrom
-                                      .toString()
-                                      .substring(0, 10)),
+                                  : Text(DateFormat("hh:mma")
+                                      .format(selectedTimeFrom)),
                             ),
                           ),
                         ),
                         Text('الي'),
                         InkWell(
-                          onTap: () => _selectDateTo(context),
+                          onTap: () => toTime(),
                           child: TimeWidget(
                             text: Center(
-                                child: selectedDateTo == null
+                                child: selectedTimeTo == null
                                     ? Text('وقت النهايه')
-                                    : Text(selectedDateTo
-                                        .toString()
-                                        .substring(0, 10))),
+                                    : Text(DateFormat("hh:mma")
+                                        .format(selectedTimeTo))),
                           ),
                         ),
                       ],
@@ -396,11 +404,11 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     Center(
                       child: smallButton(
                         context: context,
-                        title: "اضافه",
+                        title: "التالي",
                         onTap: subCategory == null ||
                                 selectedplace == null ||
-                                selectedDateFrom == null ||
-                                selectedDateTo == null ||
+                                selectedTimeFrom == null ||
+                                selectedTimeTo == null ||
                                 chosenImages == null
                             ? () => customSnackBar(
                                 title: 'عفوا',

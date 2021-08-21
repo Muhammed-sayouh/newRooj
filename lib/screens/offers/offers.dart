@@ -64,7 +64,7 @@ class _OffersScreenState extends State<OffersScreen> {
 
   @override
   void initState() {
-    futureO().then((value) => futureB(homeItems[0].id!.toInt()));
+    futureO().then((value) => futureB(homeItems[0].id.toInt()));
     super.initState();
   }
 
@@ -115,7 +115,7 @@ class _OffersScreenState extends State<OffersScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 5),
                       child: InkWell(
                         onTap: () {
-                          futureB(homeItems[index].id!.toInt());
+                          futureB(homeItems[index].id.toInt());
                           setState(() => selected = !selected);
                           items.toggleSelected(index);
                           if (selected) {

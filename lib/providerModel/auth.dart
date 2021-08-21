@@ -174,28 +174,27 @@ class Auth with ChangeNotifier {
       imageServer = Dio.MultipartFile.fromFileSync(image.path,
           filename: "${image.path.split('/').last}");
     }
+    Map<String, dynamic> map = {
+      "api_password": "QLJsQZgVWY9hVXSjPP",
+      "phone": phone,
+      "type": 1,
+      "name": name,
+      // "city_id": cityId,
+      "password": password,
+      // "certificate": imageServer,
 
+      "identity_number": id,
+      "email": email,
+      "instagram": insta,
+      "password_confirmation": password,
+      "device_type": Platform.isAndroid ? "android" : "ios",
+      "device_token": '5555',
+    };
+    print(map);
     try {
       Dio.Response response = await dio().post(
         'register',
-        data: Dio.FormData.fromMap(
-          {
-            "api_password": "QLJsQZgVWY9hVXSjPP",
-            "phone": "14777414",
-            "type": 1,
-            "name": name,
-            // "city_id": cityId,
-            "password": password,
-            "certificate": imageServer,
-
-            "identity_number": id,
-            "email": email,
-            "instagram": insta,
-            "password_confirmation": password,
-            "device_type": Platform.isAndroid ? "android" : "ios",
-            "device_token": '5555',
-          },
-        ),
+        data: Dio.FormData.fromMap(map),
         options: Dio.Options(
           headers: {
             "Accept": "application/json",

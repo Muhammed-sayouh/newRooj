@@ -36,9 +36,12 @@ class _HomeState extends State<Home> {
         loaderO = false;
       });
     } catch (error) {
+      print(error);
       setState(() {
         loaderO = false;
       });
+      print(error);
+
       throw (error);
     }
   }
@@ -117,7 +120,7 @@ class _HomeState extends State<Home> {
                       return InkWell(
                         onTap: () => Get.to(
                           () => SalonCategoriesScreen(
-                            salonId: homeItems[index].id!.toInt(),
+                            salonId: homeItems[index].id.toInt(),
                             salonName: homeItems[index].name.toString(),
                           ),
                           transition: Transition.zoom,

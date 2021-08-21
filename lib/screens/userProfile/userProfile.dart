@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/buttons.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/myTextFormField.dart';
+import 'package:rooj/helpers/getStorageHelper.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/screens/test/test.dart';
 import 'package:rooj/style/colors.dart';
@@ -94,124 +95,126 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               image: AssetImage('assets/images/bg_icons.png'),
               fit: BoxFit.fill),
         ),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height * 0.4,
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/header.png'),
-                            fit: BoxFit.fill)),
-                    child: Stack(
+        child: GetStorageHelper.getToken() == ""
+            ? Center(child: Text('يرجي تسجيل الدخول اولا'))
+            : SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Stack(
                       children: [
-                        Positioned(
-                          bottom: width(context) * 0.02,
-                          left: width(context) * 0.03,
-                          child: Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: _profilePicture()),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height * 0.4,
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image: AssetImage('assets/images/header.png'),
+                                  fit: BoxFit.fill)),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                bottom: width(context) * 0.02,
+                                left: width(context) * 0.03,
+                                child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: _profilePicture()),
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: width(context) * 0.04),
-                child: loader
-                    ? loadingDialogForSmallestPages(context)
-                    : Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            Center(
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: InkWell(
-                                  onTap: () => Get.to(MyText()),
-                                  child: Text(
-                                    "edaitProfile".tr,
-                                    style: TextStyle(
-                                      color: AppColors.mainColor,
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width(context) * 0.04),
+                      child: loader
+                          ? loadingDialogForSmallestPages(context)
+                          : Form(
+                              key: _formKey,
+                              child: Column(
+                                children: [
+                                  Center(
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () => Get.to(MyText()),
+                                        child: Text(
+                                          "edaitProfile".tr,
+                                          style: TextStyle(
+                                            color: AppColors.mainColor,
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  MyTextFormFieldWithImage(
+                                    obscureText: false,
+                                    controller: name,
+                                    hint: "nameD".tr,
+                                    image: 'assets/images/user_off.png',
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Thisfieldisrequired".tr;
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  MyTextFormFieldWithImage(
+                                    obscureText: false,
+                                    controller: phone,
+                                    hint: "phone".tr,
+                                    image: 'assets/images/smart_phone_line.png',
+                                    validator: (value) {
+                                      if (value!.isEmpty) {
+                                        return "Thisfieldisrequired".tr;
+                                      } else {
+                                        return null;
+                                      }
+                                    },
+                                  ),
+                                ],
                               ),
                             ),
-                            MyTextFormFieldWithImage(
-                              obscureText: false,
-                              controller: name,
-                              hint: "nameD".tr,
-                              image: 'assets/images/user_off.png',
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Thisfieldisrequired".tr;
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            MyTextFormFieldWithImage(
-                              obscureText: false,
-                              controller: phone,
-                              hint: "phone".tr,
-                              image: 'assets/images/smart_phone_line.png',
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return "Thisfieldisrequired".tr;
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                          ],
+                    ),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: width(context) * 0.05),
+                      child: Text(
+                        "Change Password".tr,
+                        style: TextStyle(
+                          color: AppColors.mainColor,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: width(context) * 0.05),
-                child: Text(
-                  "Change Password".tr,
-                  style: TextStyle(
-                    color: AppColors.mainColor,
-                    decoration: TextDecoration.underline,
-                  ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Center(
+                      child: InkWell(
+                          onTap: _submit,
+                          child: saveButton(
+                              title: "save".tr,
+                              image: 'assets/images/next_circle.png')),
+                    ),
+                    SizedBox(
+                      height: height(context) * 0.15,
+                    ),
+                  ],
                 ),
               ),
-              SizedBox(
-                height: 25,
-              ),
-              Center(
-                child: InkWell(
-                    onTap: _submit,
-                    child: saveButton(
-                        title: "save".tr,
-                        image: 'assets/images/next_circle.png')),
-              ),
-              SizedBox(
-                height: height(context) * 0.15,
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }

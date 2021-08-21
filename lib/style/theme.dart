@@ -4,6 +4,7 @@ import 'package:rooj/style/colors.dart';
 ThemeData getTheme() {
   return ThemeData(
     fontFamily: 'CairoRegular',
+    timePickerTheme: TimePickerThemeData(),
     // ignore: deprecated_member_use
     primaryColor: AppColors.mainColor,
     accentColor: AppColors.mainColor,

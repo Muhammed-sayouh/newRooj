@@ -5,6 +5,7 @@ import 'package:rooj/style/colors.dart';
 
 PreferredSizeWidget myAppBar({required String title, required bool inMain}) {
   return AppBar(
+    centerTitle: true,
     leading: inMain
         ? SizedBox()
         : InkWell(

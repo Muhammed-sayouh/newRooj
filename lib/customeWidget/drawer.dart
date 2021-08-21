@@ -9,6 +9,7 @@ import 'package:rooj/screens/addOffer/addOfferScreen.dart';
 import 'package:rooj/screens/changeCity/changeCity.dart';
 import 'package:rooj/screens/changeLanguage/changeLanguage.dart';
 import 'package:rooj/screens/contactUs/contactUs.dart';
+import 'package:rooj/screens/fav/fav.dart';
 import 'package:rooj/screens/notifications/notifications.dart';
 import 'package:rooj/screens/privecy/privecy.dart';
 import 'package:rooj/screens/ratingApp/ratingApp.dart';
@@ -214,6 +215,16 @@ class _MyDrawerState extends State<MyDrawer> {
                             child: drawerItem(
                                 iconData: CupertinoIcons.bell,
                                 title: "notifications".tr),
+                          ),
+                          SizedBox(
+                            height: height(context) * 0.03,
+                          ),
+                          InkWell(
+                            onTap: () => Get.to(() => FavScreen(),
+                                transition: Transition.zoom),
+                            child: drawerItem(
+                                iconData: CupertinoIcons.heart,
+                                title: "المفضله"),
                           ),
                           SizedBox(
                             height: height(context) * 0.03,

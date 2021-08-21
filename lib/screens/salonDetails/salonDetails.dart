@@ -5,6 +5,9 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/helpers/changeColorForSalonDetails.dart';
+import 'package:rooj/helpers/getStorageHelper.dart';
+import 'package:rooj/providerModel/auth.dart';
+import 'package:rooj/providerModel/removeAndAddfavouriteProvider.dart';
 import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
@@ -101,6 +104,27 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     }
   }
 
+  Future<void> _submit(int id) async {
+    bool auth =
+        Provider.of<AddAndRemoveFavProvider>(context, listen: false).done;
+
+    try {
+      auth = await Provider.of<AddAndRemoveFavProvider>(context, listen: false)
+          .sent(id.toString());
+    } catch (error) {
+      print(error);
+
+      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+    }
+    // finally {
+    //   if (auth) {
+    //     futureO()
+    //         .then((value) => futureSub())
+    //         .then((value) => futureServices(id: subCategories[0].categoryId));
+    //   }
+    // }
+  }
+
   @override
   void initState() {
     futureO()
@@ -116,6 +140,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     bool selected = false; // default val. of bool
     final myProvider =
         Provider.of<SalonServicesProvider>(context, listen: false);
+    print(data.isFav);
     return Scaffold(
       body: Container(
           color: AppColors.mainBackGroundColor,
@@ -234,12 +259,23 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                             width: 5,
                                           ),
                                           InkWell(
-                                            onTap: () {},
+                                            onTap: () {
+                                              setState(() {
+                                                data.salon.selected =
+                                                    !data.salon.selected;
+                                              });
+                                              _submit(data.salon.id);
+                                            },
                                             child: SizedBox(
-                                              child: Image.asset(
-                                                'assets/images/notification_without_dot.png',
-                                                color: AppColors.mainColor,
-                                              ),
+                                              child: data.salon.selected
+                                                  ? Icon(
+                                                      CupertinoIcons.heart_fill,
+                                                      color: Colors.red,
+                                                    )
+                                                  : Icon(
+                                                      CupertinoIcons.heart,
+                                                      color: Colors.white,
+                                                    ),
                                               width: 25,
                                               height: 25,
                                             ),
@@ -425,46 +461,58 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                       .price
                                                       .toString(),
                                             ),
-                                            InkWell(
-                                              onTap: () {
-                                                services[index].selected =
-                                                    !services[index].selected;
-                                                if (services[index].selected) {
-                                                  myProvider.addToList(
-                                                      services[index]
-                                                          .id!
-                                                          .toInt());
-                                                } else {
-                                                  myProvider.removeFromList(
-                                                      services[index]
-                                                          .id!
-                                                          .toInt());
-                                                }
-                                                setState(() {});
-                                              },
-                                              child: Container(
-                                                  width: width(context) * 0.2,
-                                                  height: height(context) * 0.1,
-                                                  decoration: BoxDecoration(
-                                                    color: services[index]
-                                                            .selected
-                                                        ? AppColors.mainColor
-                                                        : Colors.white,
-                                                    border: Border(
-                                                      right: BorderSide(
-                                                        color: Colors.black,
-                                                      ),
-                                                    ),
+                                            GetStorageHelper.getToken() == ""
+                                                ? SizedBox()
+                                                : InkWell(
+                                                    onTap: () {
+                                                      services[index].selected =
+                                                          !services[index]
+                                                              .selected;
+                                                      if (services[index]
+                                                          .selected) {
+                                                        myProvider.addToList(
+                                                            services[index]
+                                                                .id!
+                                                                .toInt());
+                                                      } else {
+                                                        myProvider
+                                                            .removeFromList(
+                                                                services[index]
+                                                                    .id!
+                                                                    .toInt());
+                                                      }
+                                                      setState(() {});
+                                                    },
+                                                    child: Container(
+                                                        width: width(context) *
+                                                            0.2,
+                                                        height:
+                                                            height(context) *
+                                                                0.1,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: services[index]
+                                                                  .selected
+                                                              ? AppColors
+                                                                  .mainColor
+                                                              : Colors.white,
+                                                          border: Border(
+                                                            right: BorderSide(
+                                                              color:
+                                                                  Colors.black,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        child: Center(
+                                                          child: Icon(
+                                                            services[index]
+                                                                    .selected
+                                                                ? Icons.check
+                                                                : Icons.add,
+                                                            size: 40,
+                                                          ),
+                                                        )),
                                                   ),
-                                                  child: Center(
-                                                    child: Icon(
-                                                      services[index].selected
-                                                          ? Icons.check
-                                                          : Icons.add,
-                                                      size: 40,
-                                                    ),
-                                                  )),
-                                            ),
                                           ],
                                         ),
                                       );
