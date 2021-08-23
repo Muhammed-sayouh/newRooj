@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rooj/screens/moreDetails/moreDetails.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
@@ -206,12 +207,19 @@ class InfoWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text(
-                        "Show details".tr,
-                        style: TextStyle(
-                            color: AppColors.mainColor,
-                            fontSize: 13,
-                            fontWeight: FontWeight.bold),
+                      InkWell(
+                        onTap: () => Get.to(
+                            () => MoreDetailsScreen(
+                                  name: adress,
+                                ),
+                            transition: Transition.zoom),
+                        child: Text(
+                          "Show details".tr,
+                          style: TextStyle(
+                              color: AppColors.mainColor,
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ],
                   ),

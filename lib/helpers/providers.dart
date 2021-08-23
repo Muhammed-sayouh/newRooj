@@ -17,6 +17,7 @@ import 'package:rooj/providerModel/reservationsProvider.dart';
 import 'package:rooj/providerModel/salonDetailsProvider.dart';
 import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
+import 'package:rooj/providerModel/searchProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart';
 import 'package:rooj/providerModel/vendorProfileInfo.dart';
 import 'package:rooj/providerModel/walletProvider.dart';
@@ -87,5 +88,8 @@ List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => AddAndRemoveFavProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => SearchProvider(),
   ),
 ];

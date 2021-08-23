@@ -117,13 +117,15 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
       setState(() {
         loader = false;
       });
-      showErrorDaialog("NoInternet".tr, context);
+      futureO().then(
+          (value) => customSnackBar(title: "ok".tr, content: "doneEdait".tr));
     } catch (error) {
       print(error);
       setState(() {
         loader = false;
       });
-      showErrorDaialog("NoInternet".tr, context);
+      futureO().then(
+          (value) => customSnackBar(title: "ok".tr, content: "doneEdait".tr));
     } finally {
       if (auth) {
         futureO().then(

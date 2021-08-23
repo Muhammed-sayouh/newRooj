@@ -6,15 +6,16 @@ import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/helpers/changeColorForSalonDetails.dart';
 import 'package:rooj/helpers/getStorageHelper.dart';
-import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/providerModel/removeAndAddfavouriteProvider.dart';
 import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
 import 'package:rooj/screens/choosetime/chooseTime.dart';
 import 'package:rooj/screens/salonDetails/indecator.dart';
+import 'package:rooj/screens/viewLocation.dart/viewLocation.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
+import 'package:share/share.dart';
 
 import 'infoWidget.dart';
 import 'itemInfoWidget.dart';
@@ -36,7 +37,29 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
   int currentIndex = 0;
   String place = 'in_home';
   bool loaderO = false;
-  late Data data;
+  Data? data = Data(
+      isFav: 'false',
+      salon: Salon(
+          workers: [],
+          address: '',
+          availability: '',
+          averageReview: null,
+          branches: [],
+          categoryId: 00,
+          cityId: 00,
+          wallet: '',
+          clientId: 00,
+          closingTime: '',
+          createdAt: DateTime.now(),
+          days: null,
+          id: 00,
+          images: [],
+          name: '',
+          openingTime: '',
+          place: '',
+          selected: false,
+          updatedAt: DateTime.now(),
+          views: 0));
   List<Category.Datum> subCategories = [];
   List<Datum> services = [];
   late int catId;
@@ -140,7 +163,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     bool selected = false; // default val. of bool
     final myProvider =
         Provider.of<SalonServicesProvider>(context, listen: false);
-    print(data.isFav);
+    print(data!.isFav);
     return Scaffold(
       body: Container(
           color: AppColors.mainBackGroundColor,
@@ -199,12 +222,12 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                     currentIndex: currentIndex),
                               ),
                               InfoWidget(
-                                name: data.salon.name,
-                                rate: data.salon.averageReview,
-                                views: data.salon.views.toString(),
-                                adress: data.salon.address,
-                                from: data.salon.openingTime,
-                                to: data.salon.closingTime,
+                                name: data!.salon.name,
+                                rate: data!.salon.averageReview,
+                                views: data!.salon.views.toString(),
+                                adress: data!.salon.address,
+                                from: data!.salon.openingTime,
+                                to: data!.salon.closingTime,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
@@ -218,8 +241,11 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                 ),
                                 child: SizedBox(
                                   width: 45,
-                                  child:
-                                      Image.asset('assets/images/map_box.png'),
+                                  child: InkWell(
+                                      onTap: () => Get.to(() => ViewLocation(),
+                                          transition: Transition.zoom),
+                                      child: Image.asset(
+                                          'assets/images/map_box.png')),
                                 ),
                               ),
                               Container(
@@ -245,7 +271,10 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                       Row(
                                         children: [
                                           InkWell(
-                                            onTap: () {},
+                                            onTap: () async {
+                                              Share.share(
+                                                  'https://play.google.com/store/');
+                                            },
                                             child: SizedBox(
                                               child: Icon(
                                                 Icons.share,
@@ -261,13 +290,13 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                           InkWell(
                                             onTap: () {
                                               setState(() {
-                                                data.salon.selected =
-                                                    !data.salon.selected;
+                                                data!.salon.selected =
+                                                    !data!.salon.selected;
                                               });
-                                              _submit(data.salon.id);
+                                              _submit(data!.salon.id);
                                             },
                                             child: SizedBox(
-                                              child: data.salon.selected
+                                              child: data!.salon.selected
                                                   ? Icon(
                                                       CupertinoIcons.heart_fill,
                                                       color: Colors.red,
@@ -570,11 +599,11 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                       .tr)
                                           : () => Get.to(
                                                 () => ChooseTimeScreen(
-                                                  salonId: data.salon.id,
-                                                  adress: data.salon.address,
-                                                  name: data.salon.name,
+                                                  salonId: data!.salon.id,
+                                                  adress: data!.salon.address,
+                                                  name: data!.salon.name,
                                                   image:
-                                                      data.salon.images.isEmpty
+                                                      data!.salon.images.isEmpty
                                                           ? ''
                                                           : '',
                                                 ),

@@ -8,6 +8,7 @@ import 'package:rooj/providerModel/homeProvider.dart';
 import 'package:rooj/screens/home/clipperWidget.dart';
 import 'package:rooj/screens/home/listWidget.dart';
 import 'package:rooj/screens/salonsCategories/salonsCategories.dart';
+import 'package:rooj/screens/search/search.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
@@ -100,11 +101,15 @@ class _HomeState extends State<Home> {
                         ),
                       ],
                     ),
-                    child: MyTextFormFieldWithImage(
-                      obscureText: false,
-                      hint: "HomeSearch".tr,
-                      image: 'assets/images/search_icon.png',
-                      controller: search,
+                    child: InkWell(
+                      onTap: () => Get.to(() => SearchScreen(),
+                          transition: Transition.zoom),
+                      child: MyTextFormFieldWithImageClicable(
+                        obscureText: false,
+                        hint: "HomeSearch".tr,
+                        image: 'assets/images/search_icon.png',
+                        controller: search,
+                      ),
                     ),
                   ),
                 ),

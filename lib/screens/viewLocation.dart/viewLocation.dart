@@ -4,19 +4,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/screens/confirmBooking/confirBooking.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
-class PickLocation extends StatefulWidget {
+class ViewLocation extends StatefulWidget {
   @override
-  _PickLocationState createState() => _PickLocationState();
+  _ViewLocationState createState() => _ViewLocationState();
 }
 
-class _PickLocationState extends State<PickLocation> {
+class _ViewLocationState extends State<ViewLocation> {
   Completer<GoogleMapController> _controller = Completer();
   // GoogleMapController? myController;
   late double currentLat;
@@ -202,27 +202,22 @@ class _PickLocationState extends State<PickLocation> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(15),
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.of(context).pop<LocationModel>(
-                              LocationModel(
-                                lat: double.parse(currentLat.toString()),
-                                lng: double.parse(currentLong.toString()),
-                              ),
-                            );
-                          },
-                          child: Icon(
-                            Icons.check_circle,
-                            color: AppColors.mainColor,
-                            size: 32,
-                          ),
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(15),
+                    //   child: Align(
+                    //     alignment: Alignment.topLeft,
+                    //     child: InkWell(
+                    //       onTap: () {
+                    //         Get.back();
+                    //       },
+                    //       child: Icon(
+                    //         Icons.check_circle,
+                    //         color: AppColors.mainColor,
+                    //         size: 32,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.all(15),
                       child: Align(
@@ -236,12 +231,7 @@ class _PickLocationState extends State<PickLocation> {
                             padding: const EdgeInsets.all(2.0),
                             child: InkWell(
                               onTap: () {
-                                Navigator.of(context).pop<LocationModel>(
-                                  LocationModel(
-                                    lat: double.parse(currentLat.toString()),
-                                    lng: double.parse(currentLong.toString()),
-                                  ),
-                                );
+                                Get.back();
                               },
                               child: Icon(
                                 Icons.cancel_outlined,

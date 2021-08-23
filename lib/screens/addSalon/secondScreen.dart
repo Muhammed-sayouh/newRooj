@@ -70,13 +70,24 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
         categotyId: widget.categoryId.toString(),
       );
     } on HttpExeption catch (error) {
-      print(error);
-      Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+      Get.back();
+      customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
+      Future.delayed(Duration(seconds: 1)).then(
+        (value) => Get.offAll(
+          () => MainPage(index: 3),
+          transition: Transition.zoom,
+        ),
+      );
     } catch (error) {
       print(error);
-      Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+      Get.back();
+      customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
+      Future.delayed(Duration(seconds: 1)).then(
+        (value) => Get.offAll(
+          () => MainPage(index: 3),
+          transition: Transition.zoom,
+        ),
+      );
     } finally {
       if (auth) {
         Get.back();

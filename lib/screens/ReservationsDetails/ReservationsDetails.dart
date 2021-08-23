@@ -92,7 +92,24 @@ class _ReservationsDetailsScreenState extends State<ReservationsDetailsScreen> {
                       Divider(
                         thickness: 1,
                       ),
-                      RowWidget(),
+                      Row(
+                        children: [
+                          Text(
+                            'الخدمات',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            '',
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.mainColor,
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: 8,
                       ),

@@ -166,9 +166,18 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                                   ),
                                   Padding(
                                     padding: const EdgeInsets.all(3.0),
-                                    child: Icon(
-                                      Icons.cancel_outlined,
-                                      color: Colors.red,
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          myProvider.removeFromList(myProvider
+                                              .newList[index].id!
+                                              .toInt());
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.cancel_outlined,
+                                        color: Colors.red,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -211,7 +220,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                                     ),
                                   ),
                                   Text(
-                                    myProvider.getTotal().toString(),
+                                    myProvider.newList[index].price.toString(),
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.mainColor),
