@@ -67,11 +67,11 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
           Provider.of<Profile.GetProviderProfile>(context, listen: false)
               .provider;
 
-      name.text = _provider!.name;
-      phone.text = _provider!.phone;
-      email.text = _provider!.email;
-      identy.text = _provider!.identityNumber;
-      insta.text = _provider!.instagram;
+      name.text = _provider!.name ?? '';
+      phone.text = _provider!.phone ?? '';
+      email.text = _provider!.email ?? '';
+      identy.text = _provider!.identityNumber ?? '';
+      insta.text = _provider!.instagram ?? '';
 
       for (var i = 0; i < _provider!.salon.length; i++) {
         sirvLenth = _provider!.salon[i].services.length;

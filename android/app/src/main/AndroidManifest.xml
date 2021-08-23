@@ -2,7 +2,7 @@
     package="com.example.rooj">
    <application
         android:label="rooj"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyCrsTVja4leOLfOxV6EfP1oSyQv_bpj7yg"/>
         <activity

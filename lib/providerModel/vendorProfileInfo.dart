@@ -51,12 +51,12 @@ class Provider {
   });
 
   int id;
-  String name;
-  String email;
-  String phone;
+  String? name;
+  String? email;
+  String? phone;
   String? image;
-  String identityNumber;
-  String instagram;
+  String? identityNumber;
+  String? instagram;
   List<Salon> salon;
 
   factory Provider.fromJson(Map<String, dynamic> json) => Provider(

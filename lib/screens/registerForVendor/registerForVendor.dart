@@ -69,7 +69,14 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("يرجي التحقق من الانترنت", context);
+      customSnackBar(
+          title: 'تم التسجيل',
+          content:
+              "تم التسجيل بنجاح يرجي تسجيل الدخول للاستمتاع بخدمات التطبيق ");
+      Future.delayed(Duration(
+        seconds: 3,
+      )).then((value) =>
+          Get.offAll(() => SplashScreen(), transition: Transition.zoom));
     } finally {
       if (auth) {
         Navigator.of(context).pop();
@@ -139,6 +146,8 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Thisfieldisrequired".tr;
+                              } else if (value.length < 8) {
+                                return 'كلمة المرور يجيب ان لا تقل عن 8 احرف او ارقام';
                               } else {
                                 return null;
                               }

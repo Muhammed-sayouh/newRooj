@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rooj/screens/notifications/notifications.dart';
 import 'package:rooj/style/colors.dart';
 
 PreferredSizeWidget myAppBar({required String title, required bool inMain}) {
@@ -24,9 +25,14 @@ PreferredSizeWidget myAppBar({required String title, required bool inMain}) {
     actions: [
       Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Icon(
-          CupertinoIcons.bell,
-          color: Colors.white,
+        child: InkWell(
+          onTap: () {
+            Get.to(() => NotificationsScreen(), transition: Transition.zoom);
+          },
+          child: Icon(
+            CupertinoIcons.bell,
+            color: Colors.white,
+          ),
         ),
       )
     ],
