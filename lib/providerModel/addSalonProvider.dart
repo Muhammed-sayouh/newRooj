@@ -5,6 +5,7 @@ import 'package:rooj/helpers/getStorageHelper.dart';
 import 'package:rooj/network/dio.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/providerModel/daysProvider.dart';
+import 'package:rooj/screens/addSalon/secondScreen.dart';
 
 class AddSalonProvider with ChangeNotifier {
   bool done = false;
@@ -14,7 +15,7 @@ class AddSalonProvider with ChangeNotifier {
     required String adress,
     required List<XFile>? images,
     required List<String> workes,
-    required List<String> branches,
+    required List<Branches> branches,
     required List<DayModel> days,
     required String place,
     required String availability,
@@ -43,18 +44,17 @@ class AddSalonProvider with ChangeNotifier {
       "category_id": categotyId,
       "city_id": '1',
       "workers": workes.map((workes) => {"name": workes}).toList(),
-      "branches": branches.map((branches) => {"name": branches}).toList(),
-      "days": days.map((e) => e).toList(),
+      "branches": branches
+          .map(
+              (branches) => {"address": branches.adress, "name": branches.name})
+          .toList(),
+      "days": days.map((e) => e.day).toList(),
       "opening_time": startDate.substring(0, 5),
       "closing_time": endDate.substring(0, 5),
     };
     for (var i = 0; i < newImage.length; i++) {
       body["images[$i]"] = newImage[i];
     }
-
-    // for (var i = 0; i < newdays.length; i++) {
-    //   body["days[$i]"] = newdays[i];
-    // }
 
     print(body);
     try {
@@ -77,7 +77,6 @@ class AddSalonProvider with ChangeNotifier {
       if (response.data['status'] == 1) {
         done = true;
       }
-
       notifyListeners();
       return done;
     } catch (error) {

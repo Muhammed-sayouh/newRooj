@@ -7,7 +7,7 @@ class ItemForSalonDetails extends ChangeNotifier {
     _color = color;
   }
 
-  int selectedIndex = 0; // to know active index
+  int? selectedIndex = -1; // to know active index
   late String _name;
   // ignore: unused_field
   late Color _color;

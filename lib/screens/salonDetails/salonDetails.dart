@@ -33,6 +33,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     'https://s2.best-wallpaper.net/wallpaper/1280x800/1111/Vector-woman-pink-stylish_1280x800.jpg',
     'https://media.istockphoto.com/photos/beautiful-african-american-model-picture-id911119588?k=6&m=911119588&s=612x612&w=0&h=mE6fnfqz3yfK7BLnY1rwUgNn7Mvm3ywclKVDSbS54a4=',
   ];
+  ScrollController _scrollController = new ScrollController();
 
   int currentIndex = 0;
   String place = 'in_home';
@@ -62,6 +63,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
           views: 0));
   List<Category.Datum> subCategories = [];
   List<Datum> services = [];
+  List<Datum> felterdservices = [];
   late int catId;
   Future<void> futureO() async {
     Provider.of<SalonServicesProvider>(context, listen: false).newList.clear();
@@ -148,17 +150,26 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     // }
   }
 
+  bool selectAll = true;
   @override
   void initState() {
     futureO()
         .then((value) => futureSub())
-        .then((value) => futureServices(id: subCategories[0].categoryId));
+        .then((value) => futureServices(id: subCategories[0].categoryId))
+        .then((value) => {felterdservices = services})
+        .then(
+          (value) => _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 200),
+              curve: Curves.easeOut),
+        );
 
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    print(widget.id);
     final items = Provider.of<ItemForSalonDetails>(context);
     bool selected = false; // default val. of bool
     final myProvider =
@@ -395,46 +406,89 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                           height: height(context) * 0.07,
                           child: Center(
                             child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: subCategories.length,
+                              controller: _scrollController,
+                              itemCount: subCategories.length + 1,
                               scrollDirection: Axis.horizontal,
+                              reverse: true,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(horizontal: 5),
-                                  child: InkWell(
-                                    onTap: () {
-                                      catId = subCategories[index].categoryId;
-                                      futureServices(
-                                        id: subCategories[index].categoryId,
-                                      );
-
-                                      setState(() => selected = !selected);
-                                      items.toggleSelected(index);
-                                      if (selected) {
-                                        items.setColor(AppColors.mainColor);
-                                      }
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        color: items.selectedIndex == index
-                                            ? items.getColor()
-                                            : Colors.white,
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          '  ${subCategories[index].name}  ',
-                                          style: TextStyle(
-                                            color: items.selectedIndex == index
-                                                ? Colors.white
-                                                : Colors.black,
+                                if (index == subCategories.length) {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: InkWell(
+                                      onTap: () {
+                                        setState(() {
+                                          selectAll = true;
+                                          felterdservices = services;
+                                          items.toggleSelected(5000);
+                                        });
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: selectAll
+                                              ? AppColors.mainColor
+                                              : Colors.white,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            ' الكل  ',
+                                            style: TextStyle(
+                                              color: selectAll
+                                                  ? Colors.white
+                                                  : Colors.black,
+                                            ),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                );
+                                  );
+                                } else {
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5),
+                                    child: InkWell(
+                                      onTap: () {
+                                        catId = subCategories[index].categoryId;
+                                        // futureServices(
+                                        //   id: subCategories[index].categoryId,
+                                        // );
+                                        felterdservices = services
+                                            .where((element) =>
+                                                element.subcategoryId ==
+                                                subCategories[index].id)
+                                            .toList();
+                                        setState(() => selected = !selected);
+                                        selectAll = false;
+                                        items.toggleSelected(index);
+                                        if (selected) {
+                                          items.setColor(AppColors.mainColor);
+                                        }
+                                      },
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: items.selectedIndex == index
+                                              ? items.getColor()
+                                              : Colors.white,
+                                        ),
+                                        child: Center(
+                                          child: Text(
+                                            '  ${subCategories[index].name}  ',
+                                            style: TextStyle(
+                                              color:
+                                                  items.selectedIndex == index
+                                                      ? Colors.white
+                                                      : Colors.black,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                }
                               },
                             ),
                           ),
@@ -468,25 +522,25 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                           children: [
                                             ItemInfoWidget(
                                               index: index,
-                                              duration: services[index]
+                                              duration: felterdservices[index]
                                                   .duration
                                                   .toString(),
-                                              name: services[index]
+                                              name: felterdservices[index]
                                                   .name
                                                   .toString(),
-                                              offer: services[index]
+                                              offer: felterdservices[index]
                                                           .priceInOffer ==
                                                       00
                                                   ? ''
-                                                  : services[index]
+                                                  : felterdservices[index]
                                                       .priceInOffer
                                                       .toString(),
-                                              price: services[index]
+                                              price: felterdservices[index]
                                                           .price
                                                           .toString() ==
                                                       "00"
                                                   ? ''
-                                                  : services[index]
+                                                  : felterdservices[index]
                                                       .price
                                                       .toString(),
                                             ),
@@ -494,19 +548,22 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                 ? SizedBox()
                                                 : InkWell(
                                                     onTap: () {
-                                                      services[index].selected =
+                                                      felterdservices[index]
+                                                              .selected =
                                                           !services[index]
                                                               .selected;
-                                                      if (services[index]
+                                                      if (felterdservices[index]
                                                           .selected) {
                                                         myProvider.addToList(
-                                                            services[index]
+                                                            felterdservices[
+                                                                    index]
                                                                 .id!
                                                                 .toInt());
                                                       } else {
                                                         myProvider
                                                             .removeFromList(
-                                                                services[index]
+                                                                felterdservices[
+                                                                        index]
                                                                     .id!
                                                                     .toInt());
                                                       }
@@ -520,11 +577,14 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                                 0.1,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color: services[index]
-                                                                  .selected
-                                                              ? AppColors
-                                                                  .mainColor
-                                                              : Colors.white,
+                                                          color:
+                                                              felterdservices[
+                                                                          index]
+                                                                      .selected
+                                                                  ? AppColors
+                                                                      .mainColor
+                                                                  : Colors
+                                                                      .white,
                                                           border: Border(
                                                             right: BorderSide(
                                                               color:
@@ -534,7 +594,8 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                         ),
                                                         child: Center(
                                                           child: Icon(
-                                                            services[index]
+                                                            felterdservices[
+                                                                        index]
                                                                     .selected
                                                                 ? Icons.check
                                                                 : Icons.add,
@@ -546,7 +607,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                         ),
                                       );
                                     },
-                                    itemCount: services.length),
+                                    itemCount: felterdservices.length),
                               ),
                         myProvider.getTotal() == 0
                             ? SizedBox()

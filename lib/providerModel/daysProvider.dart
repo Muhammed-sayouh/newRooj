@@ -15,13 +15,13 @@ class DaysProvider with ChangeNotifier {
   List<DayModel> selectedDays = [];
 
   List<DayModel> days = [
-    DayModel(day: 'السبت', id: 0, selected: false),
-    DayModel(day: 'الاحد', id: 1, selected: false),
-    DayModel(day: 'الاثنين', id: 2, selected: false),
-    DayModel(day: 'الثلاثاء', id: 3, selected: false),
-    DayModel(day: 'الاربعاء', id: 4, selected: false),
-    DayModel(day: 'الخميس', id: 5, selected: false),
-    DayModel(day: 'الجمعه', id: 6, selected: false),
+    DayModel(day: 'saturday', id: 0, selected: false),
+    DayModel(day: 'sunday', id: 1, selected: false),
+    DayModel(day: 'monday', id: 2, selected: false),
+    DayModel(day: 'tuesday', id: 3, selected: false),
+    DayModel(day: 'wednesday', id: 4, selected: false),
+    DayModel(day: 'thursday', id: 5, selected: false),
+    DayModel(day: 'friday', id: 6, selected: false),
   ];
 
   void addToList(int id) {

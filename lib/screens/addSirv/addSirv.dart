@@ -12,12 +12,12 @@ import 'package:rooj/customeWidget/smallButton.dart';
 import 'package:rooj/providerModel/addOfferProvider.dart';
 import 'package:rooj/providerModel/addSirvProvider.dart';
 import 'package:rooj/providerModel/auth.dart';
-import 'package:rooj/providerModel/homeProvider.dart';
 import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
+import 'package:rooj/providerModel/vendorProfileInfo.dart' as Profile;
 
 class AddSirvScreen extends StatefulWidget {
   @override
@@ -33,12 +33,40 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
 
   List<Place> place = [
     Place("in home".tr, 'in_home'),
-    Place("in salon".tr, 'in_salon'),
+    Place("in salon".tr, 'both'),
     Place('both'.tr, 'both')
   ];
 
+  int? id;
   bool loaderO = false;
   List<Category.Datum> subCategories = [];
+  Profile.Provider? _provider;
+  Future<void> futureO() async {
+    setState(() {
+      loaderO = true;
+    });
+
+    try {
+      await Provider.of<Profile.GetProviderProfile>(context, listen: false)
+          .fetchProvider();
+      _provider =
+          Provider.of<Profile.GetProviderProfile>(context, listen: false)
+              .provider;
+
+      for (var i = 0; i < _provider!.salon.length; i++) {
+        id = _provider!.salon[i].id;
+      }
+      setState(() {
+        loaderO = false;
+      });
+    } catch (error) {
+      setState(() {
+        loaderO = false;
+      });
+      throw (error);
+    }
+  }
+
   Future<void> futureSub() async {
     loaderO = true;
 
@@ -127,6 +155,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
         details: details.text.toString(),
         categotyId: subCategoryId.toString(),
         images: chosenImages,
+        salonId: id.toString(),
         duration: '',
       );
     } on HttpExeption catch (error) {
@@ -154,6 +183,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
   @override
   void initState() {
     futureSub();
+    futureO();
     super.initState();
   }
 

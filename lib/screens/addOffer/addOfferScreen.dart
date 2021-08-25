@@ -15,6 +15,7 @@ import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
+import 'package:rooj/providerModel/vendorProfileInfo.dart' as Profile;
 
 class AddOfferScreen extends StatefulWidget {
   @override
@@ -22,6 +23,8 @@ class AddOfferScreen extends StatefulWidget {
 }
 
 class _AddOfferScreenState extends State<AddOfferScreen> {
+  int? id;
+
   List<XFile>? chosenImages;
   dynamic _pickImageError;
 
@@ -30,9 +33,36 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
 
   List<Place> place = [
     Place("in home".tr, 'in_home'),
-    Place("in salon".tr, 'in_salon'),
+    Place("in salon".tr, 'both'),
     Place('both'.tr, 'both')
   ];
+
+  Profile.Provider? _provider;
+  Future<void> futureO() async {
+    setState(() {
+      loaderO = true;
+    });
+
+    try {
+      await Provider.of<Profile.GetProviderProfile>(context, listen: false)
+          .fetchProvider();
+      _provider =
+          Provider.of<Profile.GetProviderProfile>(context, listen: false)
+              .provider;
+
+      for (var i = 0; i < _provider!.salon.length; i++) {
+        id = _provider!.salon[i].id;
+      }
+      setState(() {
+        loaderO = false;
+      });
+    } catch (error) {
+      setState(() {
+        loaderO = false;
+      });
+      throw (error);
+    }
+  }
 
   bool loaderO = false;
   List<Category.Datum> subCategories = [];
@@ -118,17 +148,17 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
     showDaialogLoader(context);
     try {
       auth = await Provider.of<AddOfferProvider>(context, listen: false).signIn(
-        name: name.text,
-        price: price.text,
-        place: placeId.toString(),
-        details: details.text.toString(),
-        priceInService: offerPrice.text,
-        percentage: percatnage.text.toString(),
-        serviceStartDate: selectedDateFrom.toString().substring(0, 10),
-        serviceEndDate: selectedDateTo.toString().substring(0, 10),
-        categotyId: subCategoryId.toString(),
-        images: chosenImages,
-      );
+          name: name.text,
+          price: price.text,
+          place: placeId.toString(),
+          details: details.text.toString(),
+          priceInService: offerPrice.text,
+          percentage: percatnage.text.toString(),
+          serviceStartDate: selectedDateFrom.toString().substring(0, 10),
+          serviceEndDate: selectedDateTo.toString().substring(0, 10),
+          categotyId: subCategoryId.toString(),
+          images: chosenImages,
+          salonId: id.toString());
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
@@ -154,6 +184,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
   @override
   void initState() {
     futureSub();
+    futureO();
     super.initState();
   }
 

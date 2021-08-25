@@ -20,6 +20,7 @@ class AddOfferProvider with ChangeNotifier {
     required String serviceStartDate,
     required String serviceEndDate,
     required String categotyId,
+    required String salonId,
   }) async {
     List newImage = [];
 
@@ -39,7 +40,7 @@ class AddOfferProvider with ChangeNotifier {
       "percentage": percentage,
       "offer_start_date": serviceStartDate,
       "offer_end_date": serviceEndDate,
-      "salon_id": GetStorageHelper.userid().toString(),
+      "salon_id": salonId,
     };
     for (var i = 0; i < newImage.length; i++) {
       body["images[$i]"] = newImage[i];

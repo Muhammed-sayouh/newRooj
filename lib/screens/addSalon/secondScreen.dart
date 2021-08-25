@@ -10,7 +10,6 @@ import 'package:rooj/customeWidget/smallButton.dart';
 import 'package:rooj/providerModel/addSalonProvider.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/providerModel/daysProvider.dart';
-import 'package:rooj/providerModel/homeProvider.dart';
 import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
@@ -45,10 +44,11 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
   String? categoryId;
 
   List<String> workers = [];
-  List<String> branches = [];
+  List<Branches> branches = [];
 
   TextEditingController workersController = TextEditingController();
   TextEditingController branchesController = TextEditingController();
+  TextEditingController branchesNameController = TextEditingController();
 
   Future<void> _submit() async {
     bool auth = Provider.of<AddSalonProvider>(context, listen: false).done;
@@ -70,24 +70,10 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
         categotyId: widget.categoryId.toString(),
       );
     } on HttpExeption catch (error) {
-      Get.back();
-      customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
-      Future.delayed(Duration(seconds: 1)).then(
-        (value) => Get.offAll(
-          () => MainPage(index: 3),
-          transition: Transition.zoom,
-        ),
-      );
+      customSnackBar(title: 'خطا', content: "لم تتم الاضافه");
     } catch (error) {
       print(error);
-      Get.back();
-      customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
-      Future.delayed(Duration(seconds: 1)).then(
-        (value) => Get.offAll(
-          () => MainPage(index: 3),
-          transition: Transition.zoom,
-        ),
-      );
+      customSnackBar(title: 'خطا', content: "لم تتم الاضافه");
     } finally {
       if (auth) {
         Get.back();
@@ -323,9 +309,22 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                           return AlertDialog(
                             backgroundColor: AppColors.backGroundColor,
                             content: Container(
-                              height: height(context) * 0.18,
+                              height: height(context) * 0.28,
                               child: Column(
                                 children: [
+                                  Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: width(context) * 0.02),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        hintText: 'اسم الفرع',
+                                      ),
+                                      controller: branchesNameController,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
                                   Padding(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: width(context) * 0.02),
@@ -341,10 +340,14 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      if (branchesController.text.length == 0) {
+                                      if (branchesController.text.length == 0 ||
+                                          branchesNameController.text.length ==
+                                              00) {
                                         Get.back();
                                       } else {
-                                        branches.add(branchesController.text);
+                                        branches.add(Branches(
+                                            adress: branchesController.text,
+                                            name: branchesNameController.text));
                                         branchesController.clear();
                                         Get.back();
                                       }
@@ -454,4 +457,11 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
       );
     });
   }
+}
+
+class Branches {
+  final String name;
+  final String adress;
+
+  Branches({required this.name, required this.adress});
 }

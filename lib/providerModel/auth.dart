@@ -179,7 +179,6 @@ class Auth with ChangeNotifier {
       "phone": phone,
       "type": 1,
       "name": name,
-      // "city_id": cityId,
       "password": password,
       // "certificate": imageServer,
 

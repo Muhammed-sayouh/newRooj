@@ -233,21 +233,6 @@ class CardWidgetForVendorProfile extends StatelessWidget {
                   SizedBox(
                     width: width(context) * 0.2,
                   ),
-                  SizedBox(
-                    height: 20,
-                    width: 20,
-                    child: Image.asset(
-                      'assets/images/edit_line.png',
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  SizedBox(
-                    width: width(context) * 0.04,
-                  ),
-                  Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  )
                 ],
               ),
             ),

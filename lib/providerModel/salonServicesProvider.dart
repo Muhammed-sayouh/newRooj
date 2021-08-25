@@ -163,17 +163,22 @@ class SalonServicesProvider with ChangeNotifier {
     Map<String, dynamic> map = {
       "api_password": "QLJsQZgVWY9hVXSjPP",
       "salon_id": salonId.toString(),
-      "lang": Get.locale!.languageCode,
-      "place": place,
-      'subcategory_id': subcategory
+      // "lang": Get.locale!.languageCode,
+      // "place": place,
+      // 'subcategory_id': subcategory
     };
 
     print(map);
     try {
       Dio.Response response = await dio().post(
-        'category-service',
+        'salon-services',
         data: Dio.FormData.fromMap(
           map,
+        ),
+        options: Dio.Options(
+          headers: {
+            "Accept": "application/json",
+          },
         ),
       );
 

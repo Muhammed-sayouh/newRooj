@@ -320,13 +320,13 @@ class _ServicesMoreDetailsScreenState extends State<ServicesMoreDetailsScreen> {
                                         Provider.of<SalonServicesProvider>(
                                                 context,
                                                 listen: false)
-                                            .myList[widget.index]
+                                            .newList[widget.index]
                                             .addetionalPresons++;
                                       } else {
                                         Provider.of<SalonServicesProvider>(
                                                 context,
                                                 listen: false)
-                                            .myList[widget.index]
+                                            .newList[widget.index]
                                             .addetionalPresons--;
                                       }
                                     },

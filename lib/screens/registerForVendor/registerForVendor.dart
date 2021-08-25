@@ -68,15 +68,7 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
       showErrorDaialog("البريد الالكتروني مستخدم من قبل", context);
     } catch (error) {
       print(error);
-      Navigator.of(context).pop();
-      customSnackBar(
-          title: 'تم التسجيل',
-          content:
-              "تم التسجيل بنجاح يرجي تسجيل الدخول للاستمتاع بخدمات التطبيق ");
-      Future.delayed(Duration(
-        seconds: 3,
-      )).then((value) =>
-          Get.offAll(() => SplashScreen(), transition: Transition.zoom));
+      showErrorDaialog("يرجي ادخال رابط انستجرام صحيح", context);
     } finally {
       if (auth) {
         Navigator.of(context).pop();

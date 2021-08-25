@@ -140,7 +140,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: 'اضافة صالو', inMain: false),
+      appBar: myAppBar(title: 'اضافة صالون', inMain: false),
       body: stackWidgetF(
           body: Padding(
             padding: const EdgeInsets.all(8.0),

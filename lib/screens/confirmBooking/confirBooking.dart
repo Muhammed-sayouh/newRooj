@@ -135,7 +135,24 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                   Divider(
                     thickness: 1,
                   ),
-                  RowWidget(),
+                  Row(
+                    children: [
+                      Text(
+                        'الخدمات',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Spacer(),
+                      Text(
+                        '',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.mainColor,
+                        ),
+                      ),
+                    ],
+                  ),
                   SizedBox(
                     height: 8,
                   ),
@@ -189,10 +206,14 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    myProvider.newList[index].name.toString(),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.bold,
+                                  Container(
+                                    width: width(context) * 0.23,
+                                    child: Text(
+                                      myProvider.newList[index].name.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
                                   Text(

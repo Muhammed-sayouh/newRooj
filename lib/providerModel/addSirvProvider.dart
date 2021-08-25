@@ -9,15 +9,15 @@ import 'auth.dart';
 class AddSirvProvider with ChangeNotifier {
   bool done = false;
 
-  Future<bool> signIn({
-    required String name,
-    required String price,
-    List<XFile>? images,
-    required String place,
-    required String details,
-    required String categotyId,
-    required String duration,
-  }) async {
+  Future<bool> signIn(
+      {required String name,
+      required String price,
+      List<XFile>? images,
+      required String place,
+      required String details,
+      required String categotyId,
+      required String duration,
+      required String salonId}) async {
     List newImage = [];
 
     images!.forEach((v) {
@@ -33,7 +33,7 @@ class AddSirvProvider with ChangeNotifier {
       "details": details,
       "subcategory_id": categotyId,
       "duration": duration,
-      "salon_id": GetStorageHelper.userid().toString(),
+      "salon_id": salonId,
     };
     for (var i = 0; i < newImage.length; i++) {
       body["images[$i]"] = newImage[i];

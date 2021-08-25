@@ -37,6 +37,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
   bool loader = false;
 
   List<Profile.Offer> offers = [];
+  List<Profile.Service> services = [];
   int offerLenth = 0;
   int sirvLenth = 0;
   XFile? chosenImages;
@@ -75,7 +76,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
 
       for (var i = 0; i < _provider!.salon.length; i++) {
         sirvLenth = _provider!.salon[i].services.length;
-        print(_provider!.salon[i].offers.length);
+        services = _provider!.salon[i].services;
         print(_provider!.salon[i].services.length);
       }
       for (var i = 0; i < _provider!.salon[i].offers.length; i++) {
@@ -538,17 +539,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                           return CardWidgetForVendorProfile(
                                             adress: '',
                                             desc: '',
-                                            title: _provider!.salon[index]
-                                                .services[index].name,
-                                            image: _provider!
-                                                    .salon[index]
-                                                    .services[index]
-                                                    .image
-                                                    .isEmpty
+                                            title: services[index].name,
+                                            image: services[index].image.isEmpty
                                                 ? ''
-                                                : _provider!
-                                                    .salon[index]
-                                                    .services[index]
+                                                : services[index]
                                                     .image[0]
                                                     .imagePath,
                                           );
