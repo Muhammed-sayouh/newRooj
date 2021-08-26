@@ -140,7 +140,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: 'اضافة صالون', inMain: false),
+      appBar: myAppBar(title: "Add salon".tr, inMain: false),
       body: stackWidgetF(
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -151,7 +151,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'صور الصالون',
+                      "Salon Pictures".tr,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -207,12 +207,12 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'اسم المشغل',
+                        hintText: "Salon name".tr,
                       ),
                       controller: name,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -222,11 +222,11 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: 'العنوان'),
+                      decoration: InputDecoration(hintText: "adress".tr),
                       controller: adress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -236,7 +236,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                       height: 35,
                     ),
                     Text(
-                      'وقت الدوام',
+                      "Working time".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -252,19 +252,19 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                           child: TimeWidget(
                             text: Center(
                               child: selectedTimeFrom == null
-                                  ? Text('وقت الابتداء ')
+                                  ? Text("Start time".tr)
                                   : Text(DateFormat("hh:mma")
                                       .format(selectedTimeFrom)),
                             ),
                           ),
                         ),
-                        Text('الي'),
+                        Text('to'.tr),
                         InkWell(
                           onTap: () => toTime(),
                           child: TimeWidget(
                             text: Center(
                                 child: selectedTimeTo == null
-                                    ? Text('وقت النهايه')
+                                    ? Text("End Time".tr)
                                     : Text(DateFormat("hh:mma")
                                         .format(selectedTimeTo))),
                           ),
@@ -275,7 +275,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                       height: 35,
                     ),
                     Text(
-                      'القسم',
+                      "Category".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -321,7 +321,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                                   Expanded(
                                     child: Text(
                                       subCategory == null
-                                          ? "القسم"
+                                          ? "Category".tr
                                           : subCategory.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -340,7 +340,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                       height: 15,
                     ),
                     Text(
-                      'تقديم الخدمه في',
+                      "Service place".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -383,7 +383,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                             Expanded(
                               child: Text(
                                 selectedplace == null
-                                    ? "المكان"
+                                    ? "place".tr
                                     : selectedplace.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -404,15 +404,15 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     Center(
                       child: smallButton(
                         context: context,
-                        title: "التالي",
+                        title: "next".tr,
                         onTap: subCategory == null ||
                                 selectedplace == null ||
                                 selectedTimeFrom == null ||
                                 selectedTimeTo == null ||
                                 chosenImages == null
                             ? () => customSnackBar(
-                                title: 'عفوا',
-                                content: 'يرجي اكمال جميع الحقول')
+                                title: "sorry".tr,
+                                content: "Please complete all fields".tr)
                             : _submit,
                       ),
                     ),

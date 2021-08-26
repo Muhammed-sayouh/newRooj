@@ -85,16 +85,16 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Get.back();
-      showErrorDaialog("NoInternet".tr, context);
+      showErrorDaialog("This Date is already booked".tr, context);
     } catch (error) {
       print(error);
       Get.back();
 
-      showErrorDaialog("هذا الميعاد محجوز بالفعل", context);
+      showErrorDaialog("This Date is already booked".tr, context);
     } finally {
       if (done) {
         Get.back();
-        customSnackBar(title: 'تم الحجز', content: "تم الحجز بنجاح");
+        customSnackBar(title: "Booked".tr, content: "Succsessfully Booked".tr);
         Future.delayed(Duration(seconds: 2)).then(
           (value) => Get.offAll(
             () => MainPage(index: 3),
@@ -109,7 +109,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
     final myProvider =
         Provider.of<SalonServicesProvider>(context, listen: false);
     return Scaffold(
-      appBar: myAppBar(title: 'تاكيد الحجز', inMain: false),
+      appBar: myAppBar(title: "Confirm Booking".tr, inMain: false),
       body: stackWidget(
           body: Padding(
             padding: EdgeInsets.symmetric(
@@ -138,7 +138,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                   Row(
                     children: [
                       Text(
-                        'الخدمات',
+                        "Services".tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -217,7 +217,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                                     ),
                                   ),
                                   Text(
-                                    '${myProvider.newList[index].addetionalPresons.toString()} فرد',
+                                    '${myProvider.newList[index].addetionalPresons.toString()} ${"Preson".tr}',
                                     style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       color: Colors.grey,
@@ -261,7 +261,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                     thickness: 1,
                   ),
                   Text(
-                    'تفاصيل الفاتورة',
+                    "Invoice Details".tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -270,9 +270,9 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                     height: 20,
                   ),
                   MyTextFormFieldWithPerfix(
-                      hint: "برومو كود",
+                      hint: "Bromo Code".tr,
                       obscureText: false,
-                      suffix: 'تفعيل',
+                      suffix: "Active".tr,
                       controller: promo),
                   SizedBox(
                     height: 20,
@@ -322,8 +322,8 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                           children: [
                             Text(
                               lat == null
-                                  ? 'تحديد مكاني'
-                                  : "تم تحديد موقعك بنجاح",
+                                  ? "select my location".tr
+                                  : "your location has been selected".tr,
                               style: TextStyle(
                                 color: lat == null ? Colors.grey : Colors.black,
                               ),
@@ -341,7 +341,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                     height: 25,
                   ),
                   Text(
-                    'الدفع',
+                    "payment".tr,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
@@ -370,7 +370,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                                   'assets/images/online_money.png',
                                 ),
                               ),
-                              Text('الدفع اون لين')
+                              Text("Online payment".tr)
                             ],
                           )),
                         ),
@@ -403,7 +403,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                                     'assets/images/mony.png',
                                   ),
                                 ),
-                                Text('الدفع كاش'),
+                                Text("Cash payment".tr),
                               ],
                             )),
                           ),
@@ -418,15 +418,16 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                     child: InkWell(
                       onTap: lat == null
                           ? () => customSnackBar(
-                              title: 'خطا', content: "يرجي تحديد موقعك")
+                              title: "error".tr,
+                              content: "Please select your location".tr)
                           : payMent == false
                               ? () => customSnackBar(
-                                    title: 'خطا',
-                                    content: "يرجي اختيار طريقة الدفع",
+                                    title: "error".tr,
+                                    content: "Please select Payment way".tr,
                                   )
                               : () => _submit(myProvider.newList),
                       child: saveButton(
-                          title: 'تاكيد',
+                          title: "Confirm".tr,
                           image: 'assets/images/next_circle.png'),
                     ),
                   ),

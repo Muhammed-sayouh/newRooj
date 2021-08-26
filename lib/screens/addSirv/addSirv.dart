@@ -161,15 +161,14 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+      showErrorDaialog("NoInternet".tr, context);
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
-    } finally {
+      showErrorDaialog("NoInternet".tr, context);
       if (auth) {
         Get.back();
-        customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
+        customSnackBar(title: "success".tr, content: "Successfully added".tr);
         Future.delayed(Duration(seconds: 1)).then(
           (value) => Get.offAll(
             () => MainPage(index: 3),
@@ -190,7 +189,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: 'اضافة خدمه', inMain: false),
+      appBar: myAppBar(title: "Add Service".tr, inMain: false),
       body: stackWidgetF(
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -201,7 +200,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'صور الخدمه',
+                      "Service Pictures".tr,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -257,12 +256,12 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'اسم الخدمه',
+                        hintText: "Service name".tr,
                       ),
                       controller: name,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -272,11 +271,11 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: 'السعر'),
+                      decoration: InputDecoration(hintText: "price".tr),
                       controller: price,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -286,14 +285,14 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                       height: 10,
                     ),
                     MyTextFormFieldWithPerfix(
-                      hint: 'المده',
+                      hint: "Duration".tr,
                       obscureText: false,
-                      suffix: "دقيقه",
+                      suffix: "Minute".tr,
                       controller: duration,
                       keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -303,7 +302,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                       height: 35,
                     ),
                     Text(
-                      'نوع الخدمه',
+                      "Service type".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -349,7 +348,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                                   Expanded(
                                     child: Text(
                                       subCategory == null
-                                          ? "النوع"
+                                          ? "Type".tr
                                           : subCategory.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -368,7 +367,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                       height: 15,
                     ),
                     Text(
-                      'تقديم العرض في',
+                      "Service place".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -411,7 +410,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                             Expanded(
                               child: Text(
                                 selectedplace == null
-                                    ? "المكان"
+                                    ? "place".tr
                                     : selectedplace.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -430,17 +429,17 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                       height: 35,
                     ),
                     Text(
-                      'تفاصيل اخري',
+                      "Another Details".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: 'التفاصيل'),
+                      decoration: InputDecoration(hintText: "Details".tr),
                       controller: details,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -452,13 +451,13 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                     Center(
                         child: smallButton(
                             context: context,
-                            title: "اضافه",
+                            title: "add".tr,
                             onTap: subCategory == null ||
                                     selectedplace == null ||
                                     chosenImages == null
                                 ? () => customSnackBar(
-                                    title: 'عفوا',
-                                    content: 'يرجي اكمال جميع الحقول')
+                                    title: "sorry".tr,
+                                    content: "Please complete all fields".tr)
                                 : _submit)),
                     SizedBox(
                       height: 35,

@@ -69,15 +69,15 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
         endDate: widget.timeTo,
         categotyId: widget.categoryId.toString(),
       );
-    } on HttpExeption catch (error) {
-      customSnackBar(title: 'خطا', content: "لم تتم الاضافه");
+    } on HttpExeption catch (_) {
+      showErrorDaialog("NoInternet".tr, context);
     } catch (error) {
       print(error);
-      customSnackBar(title: 'خطا', content: "لم تتم الاضافه");
+      showErrorDaialog("NoInternet".tr, context);
     } finally {
       if (auth) {
         Get.back();
-        customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
+        customSnackBar(title: "success".tr, content: "Successfully added".tr);
         Future.delayed(Duration(seconds: 1)).then(
           (value) => Get.offAll(
             () => MainPage(index: 3),
@@ -94,7 +94,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
         Provider.of<DaysProvider>(context, listen: false).days;
 
     return Scaffold(
-      appBar: myAppBar(title: 'اضافة مشغل', inMain: false),
+      appBar: myAppBar(title: "Add salon".tr, inMain: false),
       body: stackWidgetF(
           body: SingleChildScrollView(
             child: Padding(
@@ -103,7 +103,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'ايام العمل المتاحه',
+                    "Available Working days".tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -144,7 +144,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                           child: Container(
                                             color: AppColors.mainColor,
                                             child: Text(
-                                              '              تم              ',
+                                              '              ${"ok".tr}              ',
                                               style: TextStyle(
                                                   color: Colors.white),
                                             ),
@@ -169,7 +169,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                               Expanded(
                                 child: Text(
                                   category == null
-                                      ? "الايام"
+                                      ? "days".tr
                                       : category.toString(),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
@@ -190,7 +190,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                     height: 30,
                   ),
                   Text(
-                    'العاملين',
+                    "Workers".tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -222,7 +222,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                         horizontal: width(context) * 0.02),
                                     child: TextFormField(
                                       decoration: InputDecoration(
-                                        hintText: 'اسم العامل',
+                                        hintText: "Worker name".tr,
                                       ),
                                       controller: workersController,
                                     ),
@@ -243,7 +243,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                     child: Container(
                                       color: AppColors.mainColor,
                                       child: Text(
-                                        '              تم              ',
+                                        '              ${"ok".tr}              ',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
@@ -266,8 +266,8 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                           Expanded(
                             child: Text(
                               workers.isEmpty
-                                  ? "العاملين"
-                                  : "تم اضافة ${workers.length} عامل",
+                                  ? "Workers".tr
+                                  : "${"has been adedd".tr} ${workers.length} ${"worker".tr}",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -285,7 +285,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                     height: 30,
                   ),
                   Text(
-                    'الفروع',
+                    "Branches".tr,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -317,7 +317,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                         horizontal: width(context) * 0.02),
                                     child: TextFormField(
                                       decoration: InputDecoration(
-                                        hintText: 'اسم الفرع',
+                                        hintText: "Branch Name".tr,
                                       ),
                                       controller: branchesNameController,
                                     ),
@@ -330,7 +330,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                         horizontal: width(context) * 0.02),
                                     child: TextFormField(
                                       decoration: InputDecoration(
-                                        hintText: 'عنوان الفرع',
+                                        hintText: "Branch adress".tr,
                                       ),
                                       controller: branchesController,
                                     ),
@@ -355,7 +355,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                                     child: Container(
                                       color: AppColors.mainColor,
                                       child: Text(
-                                        '              تم              ',
+                                        '              ${"ok".tr}              ',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
@@ -378,8 +378,8 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                           Expanded(
                             child: Text(
                               branches.isEmpty
-                                  ? "عنوانين الفروع"
-                                  : "تم اضافة ${branches.length} فرع",
+                                  ? "Branches adresses".tr
+                                  : "${"has been adedd".tr} ${branches.length} ${"Branch".tr}",
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(
@@ -398,7 +398,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                   ),
                   Center(
                     child: smallButton(
-                        context: context, title: "اضافه", onTap: _submit),
+                        context: context, title: "add".tr, onTap: _submit),
                   ),
                 ],
               ),

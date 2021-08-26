@@ -64,7 +64,7 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
   Widget build(BuildContext context) {
     print(reservationDate);
     return Scaffold(
-      appBar: myAppBar(title: 'اختيار الوقت والتاريخ', inMain: false),
+      appBar: myAppBar(title: "Choose Date and Time".tr, inMain: false),
       body: stackWidgetFullPageSmallappBar(
         context: context,
         body: SingleChildScrollView(
@@ -126,7 +126,7 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
                   height: 8,
                 ),
                 Text(
-                  'المواعيد المتاحه',
+                  "Available Times".tr,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     color: AppColors.mainColor,

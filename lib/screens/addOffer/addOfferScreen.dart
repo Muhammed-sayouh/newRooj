@@ -162,15 +162,15 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+      showErrorDaialog("NoInternet".tr, context);
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+      showErrorDaialog("NoInternet".tr, context);
     } finally {
       if (auth) {
         Get.back();
-        customSnackBar(title: 'تم الاضافه', content: "تمت الاضافه بنجاح");
+        customSnackBar(title: "success".tr, content: "Successfully added".tr);
         Future.delayed(Duration(seconds: 1)).then(
           (value) => Get.offAll(
             () => MainPage(index: 3),
@@ -191,7 +191,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: 'اضافة عرض', inMain: false),
+      appBar: myAppBar(title: "Add Offer".tr, inMain: false),
       body: stackWidgetF(
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -202,7 +202,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'صور العرض',
+                      "Offer Pictures".tr,
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
@@ -258,12 +258,12 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     ),
                     TextFormField(
                       decoration: InputDecoration(
-                        hintText: 'اسم العرض',
+                        hintText: "Offer name".tr,
                       ),
                       controller: name,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -273,11 +273,11 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: 'التفاصيل'),
+                      decoration: InputDecoration(hintText: 'Details'.tr),
                       controller: details,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -287,11 +287,11 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: 'العنوان'),
+                      decoration: InputDecoration(hintText: "adress".tr),
                       controller: adress,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -301,7 +301,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 35,
                     ),
                     Text(
-                      'وقت ابتداء وانتهاء العرض',
+                      "Offer start and end time".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -317,20 +317,20 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                           child: TimeWidget(
                             text: Center(
                               child: selectedDateFrom == null
-                                  ? Text('وقت الابتداء ')
+                                  ? Text("Start time".tr)
                                   : Text(selectedDateFrom
                                       .toString()
                                       .substring(0, 10)),
                             ),
                           ),
                         ),
-                        Text('الي'),
+                        Text("To".tr),
                         InkWell(
                           onTap: () => _selectDateTo(context),
                           child: TimeWidget(
                             text: Center(
                                 child: selectedDateTo == null
-                                    ? Text('وقت النهايه')
+                                    ? Text("End Time".tr)
                                     : Text(selectedDateTo
                                         .toString()
                                         .substring(0, 10))),
@@ -342,7 +342,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 35,
                     ),
                     Text(
-                      'القسم الفرعي',
+                      "Subsections".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -388,7 +388,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                                   Expanded(
                                     child: Text(
                                       subCategory == null
-                                          ? "القسم الفرعي"
+                                          ? "Subsections".tr
                                           : subCategory.toString(),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
@@ -407,7 +407,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 15,
                     ),
                     Text(
-                      'تقديم العرض في',
+                      "Offer place".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -450,7 +450,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                             Expanded(
                               child: Text(
                                 selectedplace == null
-                                    ? "المكان"
+                                    ? "place".tr
                                     : selectedplace.toString(),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
@@ -469,7 +469,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 35,
                     ),
                     Text(
-                      'السعر',
+                      "price".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -478,11 +478,13 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: 'السعر'),
+                      decoration: InputDecoration(
+                        hintText: "price".tr,
+                      ),
                       controller: price,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -492,7 +494,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 15,
                     ),
                     Text(
-                      'نسبة الخصم',
+                      "discount percentage".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -505,7 +507,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       controller: percatnage,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "Thisfieldisrequired".tr;
                         } else {
                           return null;
                         }
@@ -515,7 +517,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 15,
                     ),
                     Text(
-                      'السعر بعد الخصم',
+                      "Price after discout".tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontWeight: FontWeight.bold),
@@ -524,11 +526,11 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       height: 10,
                     ),
                     TextFormField(
-                      decoration: InputDecoration(hintText: ' 0.0 ريال'),
+                      decoration: InputDecoration(hintText: ' 0.0 ${"sr".tr}'),
                       controller: offerPrice,
                       validator: (value) {
                         if (value!.isEmpty) {
-                          return 'هذا الحقل مطلوب';
+                          return "discount percentage".tr;
                         } else {
                           return null;
                         }
@@ -540,15 +542,15 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     Center(
                         child: smallButton(
                             context: context,
-                            title: "اضافه",
+                            title: "add".tr,
                             onTap: subCategory == null ||
                                     selectedplace == null ||
                                     selectedDateFrom == null ||
                                     selectedDateTo == null ||
                                     chosenImages == null
                                 ? () => customSnackBar(
-                                    title: 'عفوا',
-                                    content: 'يرجي اكمال جميع الحقول')
+                                    title: "sorry".tr,
+                                    content: "Please complete all fields".tr)
                                 : _submit)),
                     SizedBox(
                       height: 35,

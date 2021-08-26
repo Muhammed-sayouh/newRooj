@@ -139,7 +139,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     } catch (error) {
       print(error);
 
-      showErrorDaialog("تحقق من الاتصال بالانترنت", context);
+      showErrorDaialog("NoInternet".tr, context);
     }
     // finally {
     //   if (auth) {
@@ -433,7 +433,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                         ),
                                         child: Center(
                                           child: Text(
-                                            ' الكل  ',
+                                            '  ${"All".tr}  ',
                                             style: TextStyle(
                                               color: selectAll
                                                   ? Colors.white
