@@ -65,17 +65,20 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("البريد الالكتروني مستخدم من قبل", context);
+      showErrorDaialog("Email is already in use".tr, context);
     } catch (error) {
       print(error);
-      showErrorDaialog("يرجي ادخال رابط انستجرام صحيح", context);
+      showErrorDaialog(
+          'Please enter a valid Instagram link and a valid email address'.tr,
+          context);
     } finally {
       if (auth) {
         Navigator.of(context).pop();
         customSnackBar(
-            title: 'تم التسجيل',
+            title: "ok".tr,
             content:
-                "تم التسجيل بنجاح يرجي تسجيل الدخول للاستمتاع بخدمات التطبيق ");
+                "Registered successfully. Please login to enjoy the application services"
+                    .tr);
         Future.delayed(Duration(
           seconds: 3,
         )).then((value) =>
@@ -117,7 +120,7 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           MyTextFormFieldWithImage(
                             obscureText: false,
                             controller: name,
-                            hint: 'الاسم',
+                            hint: "namee".tr,
                             image: 'assets/images/user_off.png',
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -133,13 +136,14 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           MyTextFormFieldWithImage(
                             obscureText: false,
                             controller: password,
-                            hint: 'كلمة المرور',
+                            hint: "password".tr,
                             image: 'assets/images/lock_line.png',
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return "Thisfieldisrequired".tr;
                               } else if (value.length < 8) {
-                                return 'كلمة المرور يجيب ان لا تقل عن 8 احرف او ارقام';
+                                return 'The password must be at least 8 letters or numbers'
+                                    .tr;
                               } else {
                                 return null;
                               }
@@ -151,7 +155,7 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           MyTextFormFieldWithImage(
                             obscureText: false,
                             controller: identy,
-                            hint: 'رقم الهوية او السجل التجارى',
+                            hint: 'ID number or commercial register'.tr,
                             image: 'assets/images/smart_phone_line.png',
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -167,7 +171,7 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           MyTextFormFieldWithImage(
                             obscureText: false,
                             controller: email,
-                            hint: 'الايميل',
+                            hint: "email".tr,
                             image: 'assets/images/message.png',
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -183,7 +187,7 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           MyTextFormFieldWithImage(
                             obscureText: false,
                             controller: insta,
-                            hint: 'الانستقرام',
+                            hint: "Instagram".tr,
                             image: 'assets/images/instegram_line.png',
                             validator: (value) {
                               if (value!.isEmpty) {
@@ -221,14 +225,14 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                                 child: Column(
                                   children: [
                                     Text(
-                                      "ارفاق شهاده",
+                                      "attach testimony".tr,
                                       style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                     Text(
-                                      "اختياري",
+                                      'Optional'.tr,
                                       style: TextStyle(
                                         fontSize: 11,
                                         fontWeight: FontWeight.bold,

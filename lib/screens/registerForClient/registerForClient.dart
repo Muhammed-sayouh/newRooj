@@ -38,11 +38,11 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("البريد الالكتروني مستخدم من قبل", context);
+      showErrorDaialog("Email is already in use".tr, context);
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("يرجي التحقق من الانترنت", context);
+      showErrorDaialog("NoInternet".tr, context);
     } finally {
       if (auth) {
         Get.offAll(() => MainPage(index: 3), transition: Transition.zoom);
@@ -87,7 +87,7 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                               obscureText: false,
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return 'هذا الحقل مطلوب';
+                                  return "Thisfieldisrequired".tr;
                                 } else {
                                   return null;
                                 }
@@ -104,7 +104,7 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                               keyboardType: TextInputType.emailAddress,
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return 'هذا الحقل مطلوب';
+                                  return "Thisfieldisrequired".tr;
                                 } else {
                                   return null;
                                 }
@@ -120,9 +120,10 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                               image: 'assets/images/lock_line.png',
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return 'هذا الحقل مطلوب';
-                                } else if (val.length < 6) {
-                                  return 'يجيب ان تكون كلمة المرور اكثر من 6 احر او ارقام';
+                                  return "Thisfieldisrequired".tr;
+                                } else if (val.length < 8) {
+                                  return 'The password must be at least 8 letters or numbers'
+                                      .tr;
                                 } else {
                                   return null;
                                 }

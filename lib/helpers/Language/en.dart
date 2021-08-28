@@ -274,5 +274,46 @@ Map<String, String> getEnglishLanguage() {
     "Cash payment": "Cash payment",
     "Please select your location": "Please select your location",
     "Please select Payment way": "Please select Payment way",
+    "The phone number is already in use": "The phone number is already in use",
+    "Please enter the phone number": "Please enter the phone number",
+    'Please enter a valid phone number': 'Please enter a valid phone number',
+    'Favorite': 'Favorite',
+    'Please login first': 'Please login first',
+    'You dont have any items in your favourites':
+        'You dont have any items in your favourites',
+    "This user does not exist": "This user does not exist",
+    'Please enter the password': 'Please enter the password',
+    'The password must be at least 8 letters or numbers':
+        'The password must be at least 8 letters or numbers',
+    'Salon details': 'Salon details',
+    'location': 'location',
+    "Times": "Times",
+    'There are no offers in this section':
+        'There are no offers in this section',
+    'wrong code': 'wrong code',
+    'enter code': 'enter code',
+    'Rate us on': 'Rate us on',
+    "Email is already in use": "Email is already in use",
+    'Please enter a valid Instagram link and a valid email address':
+        'Please enter a valid Instagram link and a valid email address',
+    "Registered successfully. Please login to enjoy the application services":
+        "Registered successfully. Please login to enjoy the application services",
+    'ID number or commercial register': 'ID number or commercial register',
+    "Instagram": "Instagram",
+    "attach testimony": "attach testimony",
+    'Optional': 'Optional',
+    'Reservation details': 'Reservation details',
+    "Service Provider Search": "Service Provider Search",
+    "Search by service name": "Search by service name",
+    'Search by service name or provider': 'Search by service name or provider',
+    'There are no results for this search':
+        'There are no results for this search',
+    "Salons": "Salons",
+    'current balance': 'current balance',
+    'Previous Reservations': 'Previous Reservations',
+    'the sales': 'the sales',
+    'site commission': 'site commission',
+    'total commission': 'total commission',
+    'Pay the commission': 'Pay the commission',
   };
 }

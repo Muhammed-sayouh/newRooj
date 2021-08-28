@@ -61,13 +61,13 @@ class _WalletScreenState extends State<WalletScreen> {
                       SizedBox(
                         height: height(context) * 0.02,
                       ),
-                      Center(child: Text('الرصيد الحالي')),
+                      Center(child: Text('current balance'.tr)),
                       SizedBox(
                         height: height(context) * 0.01,
                       ),
                       Center(
                         child: Text(
-                          '${info.wallet} ريال',
+                          '${info.wallet} ${"sr".tr}',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -79,7 +79,7 @@ class _WalletScreenState extends State<WalletScreen> {
                         height: height(context) * 0.05,
                       ),
                       Text(
-                        'حجوزات سابقه',
+                        'Previous Reservations'.tr,
                         style: TextStyle(
                           color: AppColors.mainColor,
                           fontSize: 20,
@@ -104,7 +104,7 @@ class _WalletScreenState extends State<WalletScreen> {
                             width: width(context) * 0.3,
                             child: Center(
                               child: Text(
-                                'المبيعات',
+                                'the sales'.tr,
                                 style: TextStyle(
                                   color: AppColors.mainColor,
                                   fontSize: 20,
@@ -120,7 +120,7 @@ class _WalletScreenState extends State<WalletScreen> {
                             width: width(context) * 0.4,
                             child: Center(
                               child: Text(
-                                'عمولة الموقع',
+                                'site commission'.tr,
                                 style: TextStyle(
                                   color: AppColors.mainColor,
                                   fontSize: 20,
@@ -148,13 +148,15 @@ class _WalletScreenState extends State<WalletScreen> {
                       SizedBox(
                         height: height(context) * 0.04,
                       ),
-                      Center(child: Text('مجموع العموله')),
+                      Center(
+                        child: Text('total commission'.tr),
+                      ),
                       SizedBox(
                         height: height(context) * 0.01,
                       ),
                       Center(
                         child: Text(
-                          '60 ريال',
+                          '60 ${"sr".tr}',
                           style: TextStyle(
                             color: Colors.black,
                             fontSize: 20,
@@ -168,7 +170,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       Center(
                         child: smallButton(
                             context: context,
-                            title: 'دفع العموله',
+                            title: 'Pay the commission'.tr,
                             onTap: () {}),
                       )
                     ],

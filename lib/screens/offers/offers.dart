@@ -157,7 +157,7 @@ class _OffersScreenState extends State<OffersScreen> {
                               padding:
                                   EdgeInsets.only(top: height(context) * 0.2),
                               child: Text(
-                                'لا يوجد عروض في هذا القسم',
+                                'There are no offers in this section'.tr,
                                 style: TextStyle(
                                     color: AppColors.mainColor,
                                     fontSize: 18,

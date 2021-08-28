@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rooj/style/colors.dart';
+import 'package:get/get.dart';
 
 class OfferCardWidget extends StatelessWidget {
   final String name;
@@ -77,7 +78,7 @@ class OfferCardWidget extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(1.0),
                   child: Text(
-                    ' نسبة الخصم $percentage% ',
+                    ' ${"discount percentage".tr} $percentage% ',
                     style: TextStyle(color: Colors.white, fontSize: 11),
                   ),
                 ),

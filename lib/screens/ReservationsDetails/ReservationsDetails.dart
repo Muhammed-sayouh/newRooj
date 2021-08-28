@@ -62,7 +62,7 @@ class _ReservationsDetailsScreenState extends State<ReservationsDetailsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: myAppBarRservationsDetails(
-        title: 'تفاصيل الحجز',
+        title: 'Reservation details'.tr,
         inMain: false,
       ),
       body: loaderO
@@ -95,7 +95,7 @@ class _ReservationsDetailsScreenState extends State<ReservationsDetailsScreen> {
                       Row(
                         children: [
                           Text(
-                            'الخدمات',
+                            "Services".tr,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                             ),
@@ -206,7 +206,7 @@ class _ReservationsDetailsScreenState extends State<ReservationsDetailsScreen> {
                         thickness: 1,
                       ),
                       Text(
-                        'تفاصيل الفاتورة',
+                        "Invoice Details".tr,
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                         ),
@@ -256,7 +256,7 @@ class _ReservationsDetailsScreenState extends State<ReservationsDetailsScreen> {
                                             'assets/images/online_money.png',
                                           ),
                                         ),
-                                        Text('الدفع اون لين')
+                                        Text("Online payment".tr)
                                       ],
                                     )),
                                   )
@@ -279,7 +279,7 @@ class _ReservationsDetailsScreenState extends State<ReservationsDetailsScreen> {
                                             'assets/images/mony.png',
                                           ),
                                         ),
-                                        Text('الدفع كاش'),
+                                        Text("Cash payment".tr),
                                       ],
                                     )),
                                   ),

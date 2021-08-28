@@ -30,7 +30,7 @@ class _RatingAppScreenState extends State<RatingAppScreen> {
                   height: height(context) * 0.03,
                 ),
                 Text(
-                  'قم بتقيمينا علي',
+                  'Rate us on'.tr,
                   style: TextStyle(
                     color: AppColors.mainColor,
                     fontSize: 20,

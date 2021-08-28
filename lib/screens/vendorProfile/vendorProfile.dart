@@ -161,7 +161,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
               fit: BoxFit.fill),
         ),
         child: GetStorageHelper.getToken() == ""
-            ? Center(child: Text('يرجي تسجيل الدخول اولا'))
+            ? Center(child: Text('Please login first'.tr))
             : SingleChildScrollView(
                 child: loader
                     ? Center(
@@ -203,7 +203,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                     child: Column(
                                       children: [
                                         Text(
-                                          'تعديل حسابي',
+                                          "edaitProfile".tr,
                                           style: TextStyle(
                                             color: AppColors.mainColor,
                                             fontSize: 20,
@@ -216,7 +216,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         MyTextFormFieldWithImage(
                                           obscureText: false,
                                           controller: name,
-                                          hint: 'الاسم',
+                                          hint: 'namee'.tr,
                                           image: 'assets/images/user_off.png',
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -232,7 +232,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         MyTextFormFieldWithImage(
                                           obscureText: false,
                                           controller: phone,
-                                          hint: 'رقم الجوال',
+                                          hint: "phone".tr,
                                           image:
                                               'assets/images/smart_phone_line.png',
                                           validator: (value) {
@@ -266,7 +266,9 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         MyTextFormFieldWithImage(
                                           obscureText: false,
                                           controller: identy,
-                                          hint: 'رقم الهوية او السجل التجارى',
+                                          hint:
+                                              'ID number or commercial register'
+                                                  .tr,
                                           image:
                                               'assets/images/smart_phone_line.png',
                                           validator: (value) {
@@ -283,7 +285,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         MyTextFormFieldWithImage(
                                           obscureText: false,
                                           controller: email,
-                                          hint: 'الايميل',
+                                          hint: "email".tr,
                                           image: 'assets/images/message.png',
                                           validator: (value) {
                                             if (value!.isEmpty) {
@@ -299,7 +301,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         MyTextFormFieldWithImage(
                                           obscureText: false,
                                           controller: insta,
-                                          hint: 'الانستقرام',
+                                          hint: "Instagram".tr,
                                           image:
                                               'assets/images/instegram_line.png',
                                           validator: (value) {
@@ -340,7 +342,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                               child: Column(
                                                 children: [
                                                   Text(
-                                                    "ارفاق شهاده",
+                                                    "attach testimony".tr,
                                                     style: TextStyle(
                                                       fontSize: 13,
                                                       fontWeight:
@@ -348,7 +350,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                                     ),
                                                   ),
                                                   Text(
-                                                    "اختياري",
+                                                    'Optional'.tr,
                                                     style: TextStyle(
                                                       fontSize: 11,
                                                       fontWeight:
@@ -407,8 +409,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                       ),
                                       child: rowWidget(
                                         context: context,
-                                        title: 'المشاغل',
-                                        addString: "اضف مشغل",
+                                        title: "Salons".tr,
+                                        addString: "Add salon".tr,
                                       ),
                                     )
                                   : Padding(
@@ -420,7 +422,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                           transition: Transition.zoom,
                                         ),
                                         child: Text(
-                                          'المشاغل',
+                                          "Salons".tr,
                                           style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold,
@@ -470,7 +472,7 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 padding: EdgeInsets.symmetric(
                                     horizontal: width(context) * 0.02),
                                 child: Text(
-                                  'العروض',
+                                  "offers".tr,
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -524,8 +526,8 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                 ),
                                 child: rowWidget(
                                   context: context,
-                                  title: 'الخدمات',
-                                  addString: "اضف خدمه",
+                                  title: "Services".tr,
+                                  addString: "Add Service".tr,
                                 ),
                               ),
                               sirvLenth == 0

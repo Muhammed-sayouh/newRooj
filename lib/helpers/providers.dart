@@ -8,8 +8,10 @@ import 'package:rooj/providerModel/addSirvProvider.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/providerModel/bookProvider.dart';
 import 'package:rooj/providerModel/choseTimeProvider.dart';
+import 'package:rooj/providerModel/citeisProvider.dart';
 import 'package:rooj/providerModel/daysProvider.dart';
 import 'package:rooj/providerModel/homeProvider.dart';
+import 'package:rooj/providerModel/notificationsPorvider.dart';
 import 'package:rooj/providerModel/offersProvider.dart';
 import 'package:rooj/providerModel/removeAndAddfavouriteProvider.dart';
 import 'package:rooj/providerModel/reservationDetailsPRovider.dart';
@@ -91,5 +93,11 @@ List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => SearchProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => NotificationsProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => CitiesProvider(),
   ),
 ];

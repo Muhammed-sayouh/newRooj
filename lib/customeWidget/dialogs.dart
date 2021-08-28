@@ -136,6 +136,18 @@ Widget loadingDialogForPages(BuildContext context) {
       ));
 }
 
+Widget loadingDialogForBigPages(BuildContext context) {
+  return Container(
+      height: height(context),
+      width: width(context),
+      child: Center(
+        child: SpinKitHourGlass(
+          color: AppColors.mainColor,
+          size: 25,
+        ),
+      ));
+}
+
 Widget loadingDialogForSmallPages(BuildContext context) {
   return Container(
       height: height(context) * 0.58,

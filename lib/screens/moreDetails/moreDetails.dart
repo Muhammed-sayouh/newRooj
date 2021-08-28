@@ -75,7 +75,7 @@ class _MoreDetailsScreenState extends State<MoreDetailsScreen> {
                                   width: 6,
                                 ),
                                 Text(
-                                  'تفاصيل الصالون',
+                                  'Salon details'.tr,
                                   style: TextStyle(
                                       color: AppColors.mainColor,
                                       fontSize: 19,
@@ -141,7 +141,7 @@ class _MoreDetailsScreenState extends State<MoreDetailsScreen> {
                 padding:
                     EdgeInsets.symmetric(horizontal: width(context) * 0.04),
                 child: Text(
-                  'الفروع',
+                  "Branches".tr,
                   style: TextStyle(
                       color: AppColors.mainColor,
                       fontSize: 16,
@@ -179,7 +179,7 @@ class _MoreDetailsScreenState extends State<MoreDetailsScreen> {
                               ),
                             ),
                             Text(
-                              'الموقع',
+                              'location'.tr,
                               style: TextStyle(color: AppColors.mainColor),
                             )
                           ],
@@ -196,7 +196,7 @@ class _MoreDetailsScreenState extends State<MoreDetailsScreen> {
                 padding:
                     EdgeInsets.symmetric(horizontal: width(context) * 0.04),
                 child: Text(
-                  'المواعيد',
+                  "Times".tr,
                   style: TextStyle(
                       color: AppColors.mainColor,
                       fontSize: 16,

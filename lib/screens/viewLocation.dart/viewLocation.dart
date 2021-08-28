@@ -7,7 +7,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:rooj/screens/confirmBooking/confirBooking.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 

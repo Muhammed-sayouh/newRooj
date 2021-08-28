@@ -32,11 +32,11 @@ class _LoginScreenState extends State<LoginScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("هذا المستخدم غير موجود", context);
+      showErrorDaialog("This user does not exist".tr, context);
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("هذا المستخدم غير موجود", context);
+      showErrorDaialog("This user does not exist".tr, context);
     } finally {
       if (auth) {
         Get.offAll(MainPage(index: 3));
@@ -82,9 +82,9 @@ class _LoginScreenState extends State<LoginScreen> {
                               keyboardType: TextInputType.phone,
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return 'يرجي ادخال رقم الهاتف';
+                                  return "Please enter the phone number".tr;
                                 } else if (val.length > 9) {
-                                  return 'يرجي ادخال رقم هاتف صحيح';
+                                  return 'Please enter a valid phone number'.tr;
                                 } else {
                                   return null;
                                 }
@@ -101,9 +101,10 @@ class _LoginScreenState extends State<LoginScreen> {
                               image: 'assets/images/lock_line.png',
                               validator: (val) {
                                 if (val!.isEmpty) {
-                                  return 'يرجي ادخال كلمة المرور';
+                                  return 'Please enter the password'.tr;
                                 } else if (val.length < 8) {
-                                  return 'كلمة المرور يجيب ان لا تقل عن 8 احرف او ارقام';
+                                  return 'The password must be at least 8 letters or numbers'
+                                      .tr;
                                 } else {
                                   return null;
                                 }

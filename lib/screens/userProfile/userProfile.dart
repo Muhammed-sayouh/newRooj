@@ -98,7 +98,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               fit: BoxFit.fill),
         ),
         child: GetStorageHelper.getToken() == ""
-            ? Center(child: Text('يرجي تسجيل الدخول اولا'))
+            ? Center(child: Text('Please login first'.tr))
             : SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,

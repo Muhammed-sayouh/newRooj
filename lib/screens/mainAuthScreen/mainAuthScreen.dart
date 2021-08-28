@@ -91,11 +91,11 @@ class _MainAuthScreenState extends State<MainAuthScreen> {
                         keyboardType: TextInputType.phone,
                         validator: (val) {
                           if (val!.isEmpty) {
-                            return 'يرجي ادخال رقم الهاتف';
+                            return "Please enter the phone number".tr;
                           } else if (val.length > 9) {
-                            return 'يرجي ادخال رقم هاتف صحيح';
+                            return 'Please enter a valid phone number'.tr;
                           } else if (val.length < 6) {
-                            return 'يرجي ادخال رقم هاتف صحيح';
+                            return 'Please enter a valid phone number'.tr;
                           } else {
                             return null;
                           }

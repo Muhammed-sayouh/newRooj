@@ -139,11 +139,7 @@ class _PickLocationState extends State<PickLocation> {
 
   @override
   Widget build(BuildContext context) {
-    print('object');
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('موقعك'),
-      // ),
       body: loader
           ? Container(
               height: height(context),

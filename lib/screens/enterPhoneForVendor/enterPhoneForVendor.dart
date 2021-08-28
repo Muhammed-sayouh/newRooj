@@ -34,11 +34,11 @@ class _EnterPhoneForVendorScreenState extends State<EnterPhoneForVendorScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("رقم الهاتف مستخدم من قبل", context);
+      showErrorDaialog("The phone number is already in use".tr, context);
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("رقم الهاتف مستخدم من قبل", context);
+      showErrorDaialog("The phone number is already in use".tr, context);
     } finally {
       if (auth) {
         Get.to(
@@ -87,11 +87,11 @@ class _EnterPhoneForVendorScreenState extends State<EnterPhoneForVendorScreen> {
                         keyboardType: TextInputType.phone,
                         validator: (val) {
                           if (val!.isEmpty) {
-                            return 'يرجي ادخال رقم الهاتف';
+                            return "Please enter the phone number".tr;
                           } else if (val.length > 9) {
-                            return 'يرجي ادخال رقم هاتف صحيح';
+                            return 'Please enter a valid phone number'.tr;
                           } else if (val.length < 6) {
-                            return 'يرجي ادخال رقم هاتف صحيح';
+                            return 'Please enter a valid phone number'.tr;
                           } else {
                             return null;
                           }

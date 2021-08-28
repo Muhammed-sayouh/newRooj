@@ -36,11 +36,11 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("كود خاطئ", context);
+      showErrorDaialog('wrong code'.tr, context);
     } catch (error) {
       print(error);
       Navigator.of(context).pop();
-      showErrorDaialog("يرجي التحقق من الانترنت", context);
+      showErrorDaialog("NoInternet".tr, context);
     } finally {
       if (auth) {
         Get.to(
@@ -73,7 +73,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                 children: [
                   Center(
                     child: Text(
-                      'ادخال الكود',
+                      'enter code'.tr,
                       style: TextStyle(
                           color: AppColors.mainColor,
                           fontSize: 25,
@@ -118,7 +118,7 @@ class _PinCodeScreenState extends State<PinCodeScreen> {
                   InkWell(
                     onTap: _submit,
                     child: saveButton(
-                        title: 'التالي',
+                        title: "next".tr,
                         image: 'assets/images/next_circle.png'),
                   ),
                 ],

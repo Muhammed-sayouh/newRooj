@@ -57,7 +57,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: myAppBar(title: 'بحث', inMain: false),
+      appBar: myAppBar(title: "Search".tr, inMain: false),
       body: stackWidget(
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -87,7 +87,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            "بحث بمقدم الخدمه",
+                            "Service Provider Search".tr,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -118,7 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            "بحث باسم الخدمه",
+                            "Search by service name".tr,
                             style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
@@ -137,12 +137,12 @@ class _SearchScreenState extends State<SearchScreen> {
                   key: _formKey,
                   child: TextFormField(
                     decoration: InputDecoration(
-                      hintText: 'ابحث باسم الخدمة او مقدمها',
+                      hintText: 'Search by service name or provider'.tr,
                     ),
                     controller: search,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'هذا الجقل مطلوب';
+                        return "Thisfieldisrequired".tr;
                       } else {
                         return null;
                       }
@@ -166,8 +166,8 @@ class _SearchScreenState extends State<SearchScreen> {
                   },
                   child: MyTextFormFieldWithImageClicable(
                       hint: lat == null
-                          ? 'اختار موقعك الحالى'
-                          : "تم تحديد موقعك بنجاح",
+                          ? "select my location".tr
+                          : "your location has been selected".tr,
                       obscureText: false,
                       image: 'assets/images/marker_line.png',
                       controller: map),
@@ -183,7 +183,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     ? loadingDialogForSmallPages(context)
                     : searchItems.isEmpty
                         ? Text(
-                            'لا يوجد توجد نتائج لهذا البحث',
+                            'There are no results for this search'.tr,
                             style: TextStyle(
                                 color: AppColors.mainColor, fontSize: 16),
                           )

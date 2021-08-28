@@ -55,7 +55,7 @@ class _ReservationsScreenState extends State<ReservationsScreen> {
       backgroundColor: AppColors.mainBackGroundColor,
       appBar: myAppBar(title: "Reservations".tr, inMain: true),
       body: GetStorageHelper.getToken() == ""
-          ? Center(child: Text('يرجي تسجيل الدخول اولا'))
+          ? Center(child: Text('Please login first'.tr))
           : stackWidget(
               body: Column(
                 children: [
