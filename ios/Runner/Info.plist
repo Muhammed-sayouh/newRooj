@@ -41,5 +41,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>we use location to make user able to determine his place of order.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>we use image picker to make user able to upload his salon images.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>we use camera to make user able to upload his salon images.</string>
 </dict>
 </plist>
