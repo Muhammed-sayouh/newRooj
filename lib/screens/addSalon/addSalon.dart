@@ -258,7 +258,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                             ),
                           ),
                         ),
-                        Text('to'.tr),
+                        Text('To'.tr),
                         InkWell(
                           onTap: () => toTime(),
                           child: TimeWidget(

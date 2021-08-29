@@ -268,9 +268,11 @@ class MyTextFormField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final bool obscureText;
-  const MyTextFormField(
+  String? Function(String?)? validator;
+  MyTextFormField(
       {Key? key,
       required this.hint,
+      this.validator,
       required this.obscureText,
       required this.controller})
       : super(key: key);
@@ -279,6 +281,7 @@ class MyTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: validator,
       obscureText: obscureText,
       obscuringCharacter: '*',
       decoration: InputDecoration(
@@ -295,9 +298,11 @@ class MyBigTextFormField extends StatelessWidget {
   final String hint;
   final TextEditingController controller;
   final bool obscureText;
-  const MyBigTextFormField(
+  String? Function(String?)? validator;
+  MyBigTextFormField(
       {Key? key,
       required this.hint,
+      this.validator,
       required this.obscureText,
       required this.controller})
       : super(key: key);
@@ -306,6 +311,7 @@ class MyBigTextFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
+      validator: validator,
       obscureText: obscureText,
       obscuringCharacter: '*',
       maxLines: 5,

@@ -110,19 +110,19 @@ class _LoginScreenState extends State<LoginScreen> {
                                 }
                               },
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 8),
-                              child: Align(
-                                alignment: Get.locale!.languageCode == 'ar'
-                                    ? Alignment.centerLeft
-                                    : Alignment.centerRight,
-                                child: Text(
-                                  "forgetPassword".tr,
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                              ),
-                            )
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.symmetric(horizontal: 8),
+                            //   child: Align(
+                            //     alignment: Get.locale!.languageCode == 'ar'
+                            //         ? Alignment.centerLeft
+                            //         : Alignment.centerRight,
+                            //     child: Text(
+                            //       "forgetPassword".tr,
+                            //       style: TextStyle(fontSize: 14),
+                            //     ),
+                            //   ),
+                            // )
                           ],
                         )),
                   ),

@@ -17,10 +17,12 @@ class ChooseTimeScreen extends StatefulWidget {
   final String adress;
   final String name;
   final String image;
+  final String place;
   final int salonId;
   const ChooseTimeScreen(
       {Key? key,
       required this.adress,
+      required this.place,
       required this.name,
       required this.image,
       required this.salonId})
@@ -201,6 +203,7 @@ class _ChooseTimeScreenState extends State<ChooseTimeScreen> {
                                   content: "chooseTimeAndDate".tr)
                               : () => Get.to(
                                   () => ConFirmBookingScreen(
+                                        place: widget.place,
                                         adress: widget.adress,
                                         name: widget.name,
                                         image: widget.image,

@@ -47,7 +47,7 @@ class BookingProiver with ChangeNotifier {
         done = false;
         throw HttpExeption('error');
       }
-      if (response.data['status'] == 0) {
+      if (response.statusCode == 403) {
         done = false;
         message = response.data['message'];
         notifyListeners();

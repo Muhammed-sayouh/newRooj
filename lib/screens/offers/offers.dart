@@ -6,6 +6,7 @@ import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/myTextFormField.dart';
 import 'package:rooj/helpers/changeColorProvider.dart';
 import 'package:rooj/providerModel/offersProvider.dart';
+import 'package:rooj/screens/salonDetails/salonDetails.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:get/get.dart';
 import 'package:rooj/style/sizes.dart';
@@ -170,10 +171,19 @@ class _OffersScreenState extends State<OffersScreen> {
                           child: ListView.builder(
                           itemCount: offers.length,
                           itemBuilder: (context, index) {
-                            return OfferCardWidget(
-                              image: '',
-                              name: offers[index].name,
-                              percentage: offers[index].percentage.toString(),
+                            return InkWell(
+                              onTap: () {
+                                print(offers[index].id);
+                                Get.to(
+                                    SalonDetailsScreen(
+                                        id: offers[index].salonId),
+                                    transition: Transition.zoom);
+                              },
+                              child: OfferCardWidget(
+                                image: '',
+                                name: offers[index].name,
+                                percentage: offers[index].percentage.toString(),
+                              ),
                             );
                           },
                         ))

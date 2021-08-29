@@ -3,8 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/appBar1.dart';
 import 'package:rooj/customeWidget/commenStackPage.dart';
+import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/smallButton.dart';
 import 'package:rooj/providerModel/citeisProvider.dart';
+import 'package:rooj/providerModel/switchCity.dart';
+import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
@@ -15,9 +18,7 @@ class ChangeCityScreen extends StatefulWidget {
 }
 
 class _ChangeCityScreenState extends State<ChangeCityScreen> {
-  String? _character = 'المدينه';
-
-  List<String> cities = ['المدينه', 'مكه', 'الطائف', 'ابها'];
+  int? selectedId;
 
   bool loaderO = false;
   List<Datum> homeItems = [];
@@ -40,6 +41,31 @@ class _ChangeCityScreenState extends State<ChangeCityScreen> {
       print(error);
 
       throw (error);
+    }
+  }
+
+  Future<void> _submit() async {
+    bool done = Provider.of<SwitchCityProvider>(context, listen: false).done;
+
+    showDaialogLoader(context);
+    try {
+      done = await Provider.of<SwitchCityProvider>(context, listen: false)
+          .switchCity(selectedId.toString());
+    } catch (error) {
+      print(error);
+      Navigator.of(context).pop();
+      showErrorDaialog("This user does not exist".tr, context);
+    } finally {
+      if (done) {
+        customSnackBar(
+            title: "ok".tr,
+            content: "The city has been changed successfully".tr);
+        Future.delayed(Duration(seconds: 2)).then(
+          (value) => Get.offAll(
+            MainPage(index: 3),
+          ),
+        );
+      }
     }
   }
 
@@ -69,9 +95,13 @@ class _ChangeCityScreenState extends State<ChangeCityScreen> {
                     child: InkWell(
                       onTap: () {
                         setState(() {
+                          homeItems.forEach((element) {
+                            element.selected = false;
+                          });
                           homeItems[index].selected =
                               !homeItems[index].selected;
                         });
+                        selectedId = homeItems[index].id;
                       },
                       child: Container(
                         width: width(context),
@@ -92,7 +122,10 @@ class _ChangeCityScreenState extends State<ChangeCityScreen> {
                                 Container(
                                   decoration: BoxDecoration(
                                       border: Border.all(
-                                          color: AppColors.mainColor, width: 2),
+                                          color: homeItems[index].selected
+                                              ? AppColors.mainColor
+                                              : Colors.grey,
+                                          width: 2),
                                       shape: BoxShape.circle),
                                   child: Padding(
                                     padding: const EdgeInsets.all(3.0),
@@ -101,7 +134,9 @@ class _ChangeCityScreenState extends State<ChangeCityScreen> {
                                       height: 7,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        color: AppColors.mainColor,
+                                        color: homeItems[index].selected
+                                            ? AppColors.mainColor
+                                            : Colors.white,
                                       ),
                                     ),
                                   ),
@@ -132,7 +167,10 @@ class _ChangeCityScreenState extends State<ChangeCityScreen> {
             smallButton(
               context: context,
               title: "save".tr,
-              onTap: () {},
+              onTap: selectedId == null
+                  ? () => customSnackBar(
+                      title: 'خطا', content: "يرجي اختيار المدينه")
+                  : _submit,
             )
           ],
         ),

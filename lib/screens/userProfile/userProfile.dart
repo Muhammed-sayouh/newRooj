@@ -141,15 +141,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                   Center(
                                     child: Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: InkWell(
-                                        onTap: () => Get.to(MyText()),
-                                        child: Text(
-                                          "edaitProfile".tr,
-                                          style: TextStyle(
-                                            color: AppColors.mainColor,
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                      child: Text(
+                                        "edaitProfile".tr,
+                                        style: TextStyle(
+                                          color: AppColors.mainColor,
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
                                         ),
                                       ),
                                     ),
@@ -190,17 +187,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     SizedBox(
                       height: 3,
                     ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: width(context) * 0.05),
-                      child: Text(
-                        "Change Password".tr,
-                        style: TextStyle(
-                          color: AppColors.mainColor,
-                          decoration: TextDecoration.underline,
-                        ),
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //       horizontal: width(context) * 0.05),
+                    //   child: Text(
+                    //     "Change Password".tr,
+                    //     style: TextStyle(
+                    //       color: AppColors.mainColor,
+                    //       decoration: TextDecoration.underline,
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 25,
                     ),

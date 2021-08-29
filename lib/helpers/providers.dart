@@ -6,9 +6,11 @@ import 'package:rooj/providerModel/addOfferProvider.dart';
 import 'package:rooj/providerModel/addSalonProvider.dart';
 import 'package:rooj/providerModel/addSirvProvider.dart';
 import 'package:rooj/providerModel/auth.dart';
+import 'package:rooj/providerModel/basicSittingProvider.dart';
 import 'package:rooj/providerModel/bookProvider.dart';
 import 'package:rooj/providerModel/choseTimeProvider.dart';
 import 'package:rooj/providerModel/citeisProvider.dart';
+import 'package:rooj/providerModel/contactUsProvider.dart';
 import 'package:rooj/providerModel/daysProvider.dart';
 import 'package:rooj/providerModel/homeProvider.dart';
 import 'package:rooj/providerModel/notificationsPorvider.dart';
@@ -21,6 +23,7 @@ import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/providerModel/searchProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart';
+import 'package:rooj/providerModel/switchCity.dart';
 import 'package:rooj/providerModel/vendorProfileInfo.dart';
 import 'package:rooj/providerModel/walletProvider.dart';
 import 'package:rooj/screens/servicesMoreDetails/addetionalPersonModel.dart';
@@ -99,5 +102,14 @@ List<SingleChildWidget> providers = [
   ),
   ChangeNotifierProvider(
     create: (context) => CitiesProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => SwitchCityProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => BasicSittingProvider(),
+  ),
+  ChangeNotifierProvider(
+    create: (context) => ContactUsProvider(),
   ),
 ];

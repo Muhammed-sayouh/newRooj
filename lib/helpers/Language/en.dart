@@ -315,5 +315,9 @@ Map<String, String> getEnglishLanguage() {
     'site commission': 'site commission',
     'total commission': 'total commission',
     'Pay the commission': 'Pay the commission',
+    "Your message has been sent successfully, the administration will contact you soon":
+        "Your message has been sent successfully, the administration will contact you soon",
+    "The city has been changed successfully":
+        "The city has been changed successfully",
   };
 }

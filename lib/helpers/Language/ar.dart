@@ -313,5 +313,8 @@ Map<String, String> getArabicLanguage() {
     'site commission': 'عمولة الموقع',
     'total commission': 'مجموع العموله',
     'Pay the commission': 'دفع العموله',
+    "Your message has been sent successfully, the administration will contact you soon":
+        "تم ارسال رسالتك بنجاح ستتواصل معك الاداره قريبا",
+    "The city has been changed successfully": "تم تغيير المدينه بنجاح",
   };
 }

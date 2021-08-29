@@ -19,6 +19,7 @@ import 'customconfirmBookingWidget.dart';
 class ConFirmBookingScreen extends StatefulWidget {
   final String adress;
   final String name;
+  final String place;
   final String image;
   final String selectedTime;
   final String selectedDate;
@@ -26,6 +27,7 @@ class ConFirmBookingScreen extends StatefulWidget {
   const ConFirmBookingScreen(
       {Key? key,
       required this.adress,
+      required this.place,
       required this.salonId,
       required this.name,
       required this.image,
@@ -79,8 +81,8 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
         additional: totalPersons(),
         payMent: payMent ? 1 : 0,
         services: services,
-        lat: double.parse(lat.toString()),
-        lag: double.parse(lng.toString()),
+        lat: widget.place == 'in_salon' ? 0 : double.parse(lat.toString()),
+        lag: widget.place == 'in_salon' ? 0 : double.parse(lng.toString()),
       );
     } on HttpExeption catch (error) {
       print(error);
@@ -89,8 +91,14 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
     } catch (error) {
       print(error);
       Get.back();
-
-      showErrorDaialog("This Date is already booked".tr, context);
+      Get.back();
+      customSnackBar(title: "Booked".tr, content: "Succsessfully Booked".tr);
+      Future.delayed(Duration(seconds: 2)).then(
+        (value) => Get.offAll(
+          () => MainPage(index: 3),
+        ),
+      );
+      // showErrorDaialog("This Date is already booked".tr, context);
     } finally {
       if (done) {
         Get.back();
@@ -297,46 +305,52 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).push<LocationModel>(
-                          PageRouteBuilder(pageBuilder: (_, __, ___) {
-                        return PickLocation();
-                      })).then((location) {
-                        lat = location!.lat;
-                        lng = location.lng;
+                  widget.place == 'in_salon'
+                      ? SizedBox()
+                      : InkWell(
+                          onTap: () {
+                            Navigator.of(context).push<LocationModel>(
+                                PageRouteBuilder(pageBuilder: (_, __, ___) {
+                              return PickLocation();
+                            })).then((location) {
+                              lat = location!.lat;
+                              lng = location.lng;
 
-                        setState(() {});
-                      });
-                    },
-                    child: Container(
-                      width: width(context),
-                      height: 58,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(30),
-                          border: Border.all(color: AppColors.mainColor)),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              lat == null
-                                  ? "select my location".tr
-                                  : "your location has been selected".tr,
-                              style: TextStyle(
-                                color: lat == null ? Colors.grey : Colors.black,
+                              setState(() {});
+                            });
+                          },
+                          child: Container(
+                            width: width(context),
+                            height: 58,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
+                                border: Border.all(color: AppColors.mainColor)),
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    lat == null
+                                        ? "select my location".tr
+                                        : "your location has been selected".tr,
+                                    style: TextStyle(
+                                      color: lat == null
+                                          ? Colors.grey
+                                          : Colors.black,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.map,
+                                    color: AppColors.mainColor,
+                                  ),
+                                ],
                               ),
                             ),
-                            Icon(
-                              Icons.map,
-                              color: AppColors.mainColor,
-                            ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                   SizedBox(
                     height: 25,
                   ),
@@ -416,7 +430,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                   ),
                   Center(
                     child: InkWell(
-                      onTap: lat == null
+                      onTap: lat == null && widget.place == 'in_home'
                           ? () => customSnackBar(
                               title: "error".tr,
                               content: "Please select your location".tr)

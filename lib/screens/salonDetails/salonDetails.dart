@@ -660,6 +660,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                       .tr)
                                           : () => Get.to(
                                                 () => ChooseTimeScreen(
+                                                  place: place,
                                                   salonId: data!.salon.id,
                                                   adress: data!.salon.address,
                                                   name: data!.salon.name,
