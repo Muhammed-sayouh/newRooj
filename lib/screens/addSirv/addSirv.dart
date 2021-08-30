@@ -166,6 +166,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
       print(error);
       Navigator.of(context).pop();
       showErrorDaialog("NoInternet".tr, context);
+    } finally {
       if (auth) {
         Get.back();
         customSnackBar(title: "success".tr, content: "Successfully added".tr);

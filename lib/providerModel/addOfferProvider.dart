@@ -65,6 +65,7 @@ class AddOfferProvider with ChangeNotifier {
       }
       if (response.data['status'] == 1) {
         done = true;
+        print('object');
       }
 
       notifyListeners();
