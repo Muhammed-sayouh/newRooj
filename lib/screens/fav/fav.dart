@@ -66,7 +66,8 @@ class _FavScreenState extends State<FavScreen> {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () => Get.to(
-                                () => SalonDetailsScreen(id: _orders[index].id),
+                                () => SalonDetailsScreen(
+                                    id: _orders[index].itemId),
                                 transition: Transition.zoom,
                               ),
                               child: CardWidgetFav(

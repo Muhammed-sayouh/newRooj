@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
+import 'package:rooj/db/db.dart';
 import 'package:rooj/helpers/getStorageHelper.dart';
 import 'package:rooj/screens/aboutApp/aboutApp.dart';
 import 'package:rooj/screens/addOffer/addOfferScreen.dart';
@@ -325,12 +326,14 @@ class _MyDrawerState extends State<MyDrawer> {
                                   okTitle: "خروج",
                                   okAction: () {
                                     GetStorage storage = GetStorage();
-                                    storage.erase().then(
-                                          (value) => Get.offAll(
-                                            () => SplashScreen(),
-                                            transition: Transition.zoom,
-                                          ),
-                                        );
+                                    DbHelper helper = DbHelper();
+                                    storage.erase().then((value) =>
+                                        helper.deleteAllOrders().then(
+                                              (value) => Get.offAll(
+                                                () => SplashScreen(),
+                                                transition: Transition.zoom,
+                                              ),
+                                            ));
                                   },
                                   cancel: () => Get.back());
                             },
