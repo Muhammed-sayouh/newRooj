@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/screens/moreDetails/moreDetails.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
@@ -12,10 +13,12 @@ class InfoWidget extends StatelessWidget {
   final String adress;
   final String from;
   final String to;
+  final List<Branch> branches;
 
   const InfoWidget(
       {Key? key,
       required this.name,
+      required this.branches,
       required this.rate,
       required this.views,
       required this.adress,
@@ -210,8 +213,7 @@ class InfoWidget extends StatelessWidget {
                       InkWell(
                         onTap: () => Get.to(
                             () => MoreDetailsScreen(
-                                  name: adress,
-                                ),
+                                name: adress, branches: branches),
                             transition: Transition.zoom),
                         child: Text(
                           "Show details".tr,

@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rooj/screens/viewLocation.dart/viewLocation.dart';
+import 'package:rooj/providerModel/salonItemDetailsProvider.dart' as Info;
 
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 
 class MoreDetailsScreen extends StatefulWidget {
   final String name;
+  final List<Info.Branch> branches;
 
-  const MoreDetailsScreen({
-    Key? key,
-    required this.name,
-  }) : super(key: key);
+  const MoreDetailsScreen(
+      {Key? key, required this.name, required this.branches})
+      : super(key: key);
   @override
   _MoreDetailsScreenState createState() => _MoreDetailsScreenState();
 }
@@ -151,44 +151,50 @@ class _MoreDetailsScreenState extends State<MoreDetailsScreen> {
               SizedBox(
                 height: 8,
               ),
-              Container(
-                width: width(context),
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: width(context) * 0.06,
-                    ),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
-                      ),
-                      height: 50,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: width(context) * 0.015),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: width(context) * 0.67,
-                              child: Text(
-                                widget.name,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(),
+              ...widget.branches
+                  .map(
+                    (e) => Container(
+                      width: width(context),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: width(context) * 0.06,
+                          ),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: Colors.white,
+                            ),
+                            height: 50,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: width(context) * 0.015),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Container(
+                                    width: width(context) * 0.67,
+                                    child: Text(
+                                      e.name.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(),
+                                    ),
+                                  ),
+                                  Text(
+                                    e.address.toString(),
+                                    style:
+                                        TextStyle(color: AppColors.mainColor),
+                                  )
+                                ],
                               ),
                             ),
-                            Text(
-                              'location'.tr,
-                              style: TextStyle(color: AppColors.mainColor),
-                            )
-                          ],
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
+                  )
+                  .toList(),
               SizedBox(
                 height: 8,
               ),

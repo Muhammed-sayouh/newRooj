@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
 import 'package:rooj/screens/servicesMoreDetails/servicesMoreDetails.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
@@ -9,10 +10,12 @@ class ItemInfoWidget extends StatelessWidget {
   final String duration;
   final String price;
   final String offer;
+  final List<Branch> workers;
   final int index;
   const ItemInfoWidget(
       {Key? key,
       required this.name,
+      required this.workers,
       required this.duration,
       required this.price,
       required this.offer,
@@ -47,7 +50,8 @@ class ItemInfoWidget extends StatelessWidget {
                           duration: duration,
                           name: name,
                           price: price,
-                          index: index),
+                          index: index,
+                          workers: workers),
                       transition: Transition.zoom,
                     ),
                     child: Text(

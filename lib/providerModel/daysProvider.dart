@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+import 'salonItemDetailsProvider.dart';
+
 class DayModel {
   String day;
   int id;
@@ -13,6 +15,7 @@ class DayModel {
 
 class DaysProvider with ChangeNotifier {
   List<DayModel> selectedDays = [];
+  List<Branch> selectedworkers = [];
 
   List<DayModel> days = [
     DayModel(day: 'saturday', id: 0, selected: false),
@@ -30,5 +33,13 @@ class DaysProvider with ChangeNotifier {
 
   void removeFromList(int id) {
     selectedDays.remove(days.firstWhere((element) => element.id == id));
+  }
+
+  void addToListWorkrs(Branch value) {
+    selectedworkers.add(value);
+  }
+
+  void removeFromListWorkrs(Branch value) {
+    selectedDays.remove(value);
   }
 }

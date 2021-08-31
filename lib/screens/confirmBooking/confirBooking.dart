@@ -8,6 +8,7 @@ import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/myTextFormField.dart';
 import 'package:rooj/providerModel/auth.dart';
 import 'package:rooj/providerModel/bookProvider.dart';
+import 'package:rooj/providerModel/daysProvider.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/screens/map/map.dart';
@@ -71,6 +72,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
   Future<void> _submit(List<Datum> services) async {
     print('1');
     bool done = Provider.of<BookingProiver>(context, listen: false).done;
+    final myProvider = Provider.of<DaysProvider>(context, listen: false);
 
     showDaialogLoader(context);
     try {
@@ -83,7 +85,9 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
         services: services,
         lat: widget.place == 'in_salon' ? 0 : double.parse(lat.toString()),
         lag: widget.place == 'in_salon' ? 0 : double.parse(lng.toString()),
+        selectedworkers: myProvider.selectedworkers,
       );
+      myProvider.selectedworkers.clear();
     } on HttpExeption catch (error) {
       print(error);
       Get.back();

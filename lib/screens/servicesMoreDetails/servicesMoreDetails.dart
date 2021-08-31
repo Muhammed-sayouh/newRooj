@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/customeWidget/smallButton.dart';
+import 'package:rooj/providerModel/daysProvider.dart';
+import 'package:rooj/providerModel/salonItemDetailsProvider.dart' as Info;
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/screens/salonDetails/itemInfoWidget.dart';
 import 'package:rooj/style/colors.dart';
@@ -16,9 +18,11 @@ class ServicesMoreDetailsScreen extends StatefulWidget {
   final String price;
   final String duration;
   final int index;
+  final List<Info.Branch> workers;
   const ServicesMoreDetailsScreen({
     Key? key,
     required this.name,
+    required this.workers,
     required this.price,
     required this.duration,
     required this.index,
@@ -239,35 +243,81 @@ class _ServicesMoreDetailsScreenState extends State<ServicesMoreDetailsScreen> {
               SizedBox(
                 height: 8,
               ),
-              Container(
-                width: width(context),
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: width(context) * 0.06,
-                    ),
+              StatefulBuilder(
+                builder: (context, setState) {
+                  return Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: width(context) * 0.04),
                     child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+                      width: width(context),
+                      height: 50,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(15),
-                        color: Colors.white,
+                        border: Border.all(color: Colors.black),
                       ),
-                      height: 50,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: width(context) * 0.015),
+                      child: InkWell(
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: AppColors.backGroundColor,
+                              content: Center(
+                                child: Container(
+                                  child: Column(
+                                    children: [
+                                      selectDayWidget(context, widget.workers),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: Container(
+                                          color: AppColors.mainColor,
+                                          child: Text(
+                                            '              ${"ok".tr}              ',
+                                            style:
+                                                TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    20,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('without preference'.tr),
-                            Icon(
-                              Icons.arrow_downward_rounded,
-                            )
+                            Expanded(
+                              child: Text(
+                                "Workers".tr,
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 15,
+                                    color: Colors.black),
+                              ),
+                            ),
+                            Icon(Icons.keyboard_arrow_down, size: 30)
                           ],
                         ),
                       ),
                     ),
-                  ),
-                ),
+                  );
+                },
               ),
               SizedBox(
                 height: 8,
@@ -376,5 +426,56 @@ class _ServicesMoreDetailsScreenState extends State<ServicesMoreDetailsScreen> {
         ),
       ),
     );
+  }
+
+  Widget selectDayWidget(BuildContext context, List<Info.Branch> workers) {
+    final dayProvider = Provider.of<DaysProvider>(context, listen: false);
+    return StatefulBuilder(builder: (context, setState) {
+      return ListView.builder(
+        itemCount: workers.length,
+        shrinkWrap: true,
+        itemBuilder: (context, index) {
+          return Container(
+            padding: EdgeInsets.all(5),
+            decoration: BoxDecoration(
+              color: AppColors.mainColor,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            margin: EdgeInsets.symmetric(vertical: 5),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(bottom: 5),
+                  child: Center(
+                    child: Text(
+                      workers[index].name.toString(),
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
+                ),
+                Checkbox(
+                    value: workers[index].selected,
+                    onChanged: (val) {
+                      print(dayProvider.selectedworkers.length);
+                      setState(() {
+                        workers[index].selected = !workers[index].selected;
+                      });
+                      if (workers[index].selected) {
+                        dayProvider.addToListWorkrs(workers[index]);
+                      } else {
+                        dayProvider.removeFromListWorkrs(workers[index]);
+                      }
+                    }),
+              ],
+            ),
+          );
+        },
+      );
+    });
   }
 }

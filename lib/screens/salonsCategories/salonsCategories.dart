@@ -305,26 +305,30 @@ class _SalonCategoriesScreenState extends State<SalonCategoriesScreen> {
               ? loadingDialogForSmallPages(context)
               : Expanded(
                   child: ListView.builder(
-                  itemCount: salonDetailsItems.length,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () => Get.to(
-                        () =>
-                            SalonDetailsScreen(id: salonDetailsItems[index].id),
-                        transition: Transition.zoom,
-                      ),
-                      child: CardWidget(
-                        name: salonDetailsItems[index].name,
-                        image: salonDetailsItems[index].images!.isEmpty ||
-                                salonDetailsItems[index].images == null
-                            ? ''
-                            : salonDetailsItems[index].images!.first.imagePath,
-                        rate: salonDetailsItems[index].averageReview,
-                        adress: salonDetailsItems[index].address,
-                      ),
-                    );
-                  },
-                ))
+                    itemCount: salonDetailsItems.length,
+                    itemBuilder: (context, index) {
+                      return InkWell(
+                        onTap: () => Get.to(
+                          () => SalonDetailsScreen(
+                              id: salonDetailsItems[index].id),
+                          transition: Transition.zoom,
+                        ),
+                        child: CardWidget(
+                          name: salonDetailsItems[index].name,
+                          image: salonDetailsItems[index].images!.isEmpty ||
+                                  salonDetailsItems[index].images == null
+                              ? ''
+                              : salonDetailsItems[index]
+                                  .images!
+                                  .first
+                                  .imagePath,
+                          rate: salonDetailsItems[index].averageReview,
+                          adress: salonDetailsItems[index].address,
+                        ),
+                      );
+                    },
+                  ),
+                )
         ],
       ),
     );

@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
+import 'package:rooj/db/db.dart';
+import 'package:rooj/db/orderInfo.dart';
 import 'package:rooj/helpers/changeColorForSalonDetails.dart';
 import 'package:rooj/helpers/getStorageHelper.dart';
+import 'package:rooj/providerModel/daysProvider.dart';
 import 'package:rooj/providerModel/removeAndAddfavouriteProvider.dart';
-import 'package:rooj/providerModel/salonItemDetailsProvider.dart';
+import 'package:rooj/providerModel/salonItemDetailsProvider.dart' as Info;
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'package:rooj/providerModel/subCategoriesProvider.dart' as Category;
 import 'package:rooj/screens/choosetime/chooseTime.dart';
@@ -36,11 +39,12 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
   ScrollController _scrollController = new ScrollController();
 
   int currentIndex = 0;
+  int counter = 1;
   String place = 'in_home';
   bool loaderO = false;
-  Data? data = Data(
+  Info.Data? data = Info.Data(
       isFav: 'false',
-      salon: Salon(
+      salon: Info.Salon(
           workers: [],
           address: '',
           availability: '',
@@ -58,18 +62,21 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
           name: '',
           openingTime: '',
           place: '',
-          selected: false,
           updatedAt: DateTime.now(),
-          views: 0));
+          views: 0),
+      serviceInHome: [],
+      servicesInSalon: []);
   List<Category.Datum> subCategories = [];
   List<Datum> services = [];
   List<Datum> felterdservices = [];
   late int catId;
   Future<void> futureO() async {
     Provider.of<SalonServicesProvider>(context, listen: false).newList.clear();
+    Provider.of<DaysProvider>(context, listen: false).selectedworkers.clear();
     loaderO = true;
     try {
-      data = await Provider.of<SalonItemDetailsProvider>(context, listen: false)
+      data = await Provider.of<Info.SalonItemDetailsProvider>(context,
+              listen: false)
           .fetchSalonItemDetails(widget.id);
 
       setState(() {
@@ -150,9 +157,21 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
     // }
   }
 
+  bool fav = false;
+  void isVav() {
+    DbHelper helper = DbHelper();
+    helper.isexisting(widget.id).then((value) {
+      print(value);
+      setState(() {
+        fav = value;
+      });
+    });
+  }
+
   bool selectAll = true;
   @override
   void initState() {
+    isVav();
     futureO()
         .then((value) => futureSub())
         .then((value) => futureServices(id: subCategories[0].categoryId))
@@ -169,7 +188,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.id);
+    print('${widget.id} real ID');
     final items = Provider.of<ItemForSalonDetails>(context);
     bool selected = false; // default val. of bool
     final myProvider =
@@ -191,7 +210,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                           child: Stack(
                             children: [
                               CarouselSlider.builder(
-                                itemCount: images.length,
+                                itemCount: data!.salon!.images.length,
                                 itemBuilder: (BuildContext context,
                                         int itemIndex, int pageViewIndex) =>
                                     ClipRRect(
@@ -205,7 +224,8 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                         : Radius.circular(0),
                                   ),
                                   child: Image.network(
-                                    images[itemIndex],
+                                    data!.salon!.images[itemIndex].imagePath
+                                        .toString(),
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -233,12 +253,13 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                     currentIndex: currentIndex),
                               ),
                               InfoWidget(
-                                name: data!.salon.name,
-                                rate: data!.salon.averageReview,
-                                views: data!.salon.views.toString(),
-                                adress: data!.salon.address,
-                                from: data!.salon.openingTime,
-                                to: data!.salon.closingTime,
+                                name: data!.salon!.name.toString(),
+                                rate: data!.salon!.averageReview.toString(),
+                                views: data!.salon!.views.toString(),
+                                adress: data!.salon!.address.toString(),
+                                from: data!.salon!.openingTime.toString(),
+                                to: data!.salon!.closingTime.toString(),
+                                branches: data!.salon!.branches,
                               ),
                               Padding(
                                 padding: EdgeInsets.only(
@@ -300,21 +321,66 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                           ),
                                           InkWell(
                                             onTap: () {
-                                              setState(() {
-                                                data!.salon.selected =
-                                                    !data!.salon.selected;
-                                              });
-                                              _submit(data!.salon.id);
+                                              setState(() {});
+                                              DbHelper helper = DbHelper();
+                                              if (fav) {
+                                                helper
+                                                    .delete(data!.salon!.id!
+                                                        .toInt())
+                                                    .then((value) {
+                                                  // customSnackBar(
+                                                  //     content:
+                                                  //         'تم الازاله من المفضله',
+                                                  //     title: 'تم');
+                                                  setState(() {
+                                                    fav = false;
+                                                  });
+                                                });
+                                              } else {
+                                                helper
+                                                    .createOrder(
+                                                        OrderInfo(
+                                                            id: data!.salon!.id!
+                                                                .toInt(),
+                                                            imageUrl: data!
+                                                                .salon!
+                                                                .images[0]
+                                                                .imagePath
+                                                                .toString(),
+                                                            itemId: data!
+                                                                .salon!.id!
+                                                                .toInt(),
+                                                            name: data!
+                                                                .salon!.name
+                                                                .toString(),
+                                                            price: data!
+                                                                .salon!.address
+                                                                .toString(),
+                                                            saleprice: '',
+                                                            quantity: 0),
+                                                        counter: counter)
+                                                    .then((value) {
+                                                  setState(() {
+                                                    fav = true;
+                                                  });
+                                                  // customSnackBar(
+                                                  //     content:
+                                                  //         'تم الاضافه الي المفضله بنجاح',
+                                                  //     title: 'تم الاضافه');
+                                                });
+                                              }
                                             },
                                             child: SizedBox(
-                                              child: data!.salon.selected
+                                              child: fav
                                                   ? Icon(
                                                       CupertinoIcons.heart_fill,
-                                                      color: Colors.red,
+                                                      color:
+                                                          AppColors.mainColor,
                                                     )
                                                   : Icon(
                                                       CupertinoIcons.heart,
-                                                      color: Colors.white,
+                                                      color:
+                                                          AppColors.mainColor,
                                                     ),
                                               width: 25,
                                               height: 25,
@@ -543,6 +609,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                                   : felterdservices[index]
                                                       .price
                                                       .toString(),
+                                              workers: data!.salon!.workers,
                                             ),
                                             GetStorageHelper.getToken() == ""
                                                 ? SizedBox()
@@ -661,13 +728,16 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                           : () => Get.to(
                                                 () => ChooseTimeScreen(
                                                   place: place,
-                                                  salonId: data!.salon.id,
-                                                  adress: data!.salon.address,
-                                                  name: data!.salon.name,
-                                                  image:
-                                                      data!.salon.images.isEmpty
-                                                          ? ''
-                                                          : '',
+                                                  salonId:
+                                                      data!.salon!.id!.toInt(),
+                                                  adress: data!.salon!.address
+                                                      .toString(),
+                                                  name: data!.salon!.name
+                                                      .toString(),
+                                                  image: data!
+                                                          .salon!.images.isEmpty
+                                                      ? ''
+                                                      : '',
                                                 ),
                                                 transition: Transition.zoom,
                                               ),

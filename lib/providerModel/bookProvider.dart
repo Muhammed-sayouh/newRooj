@@ -4,20 +4,21 @@ import 'package:rooj/helpers/getStorageHelper.dart';
 import 'package:rooj/network/dio.dart';
 import 'package:rooj/providerModel/salonServicesProvider.dart';
 import 'auth.dart';
+import 'salonItemDetailsProvider.dart';
 
 class BookingProiver with ChangeNotifier {
   bool done = false;
   String? message;
-  Future<bool> book({
-    required int salonId,
-    required String time,
-    required String date,
-    required int additional,
-    required int payMent,
-    required List<Datum> services,
-    required double lat,
-    required double lag,
-  }) async {
+  Future<bool> book(
+      {required int salonId,
+      required String time,
+      required String date,
+      required int additional,
+      required int payMent,
+      required List<Datum> services,
+      required double lat,
+      required double lag,
+      required List<Branch> selectedworkers}) async {
     try {
       Map<String, dynamic> map = {
         "api_password": 'QLJsQZgVWY9hVXSjPP',
@@ -30,6 +31,8 @@ class BookingProiver with ChangeNotifier {
         "service": services.map((service) => {"id": service.id}).toList(),
         "lat": lat,
         "long": lag,
+        // "worker_id":  selectedworkers[0].id
+        // selectedworkers.map((e) => {"id": e.id}).toList(),
       };
       print(map);
       Dio.Response response = await dio().post(
