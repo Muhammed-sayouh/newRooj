@@ -102,7 +102,7 @@ Map<String, String> getArabicLanguage() {
     "Searchbyservicename": "ابحث بإسم الخدمة",
     "Pleaseenterthesectionfirst": "يرجي ادخال القسم اولا",
     "Searchbymap": "البحث بالخريطه",
-    "Subsections": "القسم الفرعيه",
+    "Subsections": "القسم الفرعي",
     "researchResults": "نتائج البحث",
     "NoSearch": "لا يوجد نتائج لهذا البحث",
     "delivery": "يوجد توصيل طلبات",

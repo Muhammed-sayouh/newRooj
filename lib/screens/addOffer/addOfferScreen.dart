@@ -151,7 +151,8 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
           name: name.text,
           price: price.text,
           place: placeId.toString(),
-          details: details.text.toString(),
+          details:
+              details.text.isEmpty ? "لا يوجد تفاصيل" : details.text.toString(),
           priceInService: offerPrice.text,
           percentage: percatnage.text.toString(),
           serviceStartDate: selectedDateFrom.toString().substring(0, 10),
@@ -256,91 +257,6 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     SizedBox(
                       height: 35,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Offer name".tr,
-                      ),
-                      controller: name,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: 'Details'.tr),
-                      controller: details,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: "adress".tr),
-                      controller: adress,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
-                    Text(
-                      "Offer start and end time".tr,
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        InkWell(
-                          onTap: () => _selectDateFrom(context),
-                          child: TimeWidget(
-                            text: Center(
-                              child: selectedDateFrom == null
-                                  ? Text("Start time".tr)
-                                  : Text(selectedDateFrom
-                                      .toString()
-                                      .substring(0, 10)),
-                            ),
-                          ),
-                        ),
-                        Text("To".tr),
-                        InkWell(
-                          onTap: () => _selectDateTo(context),
-                          child: TimeWidget(
-                            text: Center(
-                                child: selectedDateTo == null
-                                    ? Text("End Time".tr)
-                                    : Text(selectedDateTo
-                                        .toString()
-                                        .substring(0, 10))),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
                     Text(
                       "Subsections".tr,
                       style: TextStyle(
@@ -405,6 +321,84 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                           ),
                     SizedBox(
                       height: 15,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Offer name".tr,
+                      ),
+                      controller: name,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Thisfieldisrequired".tr;
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(hintText: 'Details'.tr),
+                      controller: details,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(hintText: "adress".tr),
+                      controller: adress,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Thisfieldisrequired".tr;
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 35,
+                    ),
+                    Text(
+                      "Offer start and end time".tr,
+                      style: TextStyle(
+                          color: AppColors.mainColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        InkWell(
+                          onTap: () => _selectDateFrom(context),
+                          child: TimeWidget(
+                            text: Center(
+                              child: selectedDateFrom == null
+                                  ? Text("Start time".tr)
+                                  : Text(selectedDateFrom
+                                      .toString()
+                                      .substring(0, 10)),
+                            ),
+                          ),
+                        ),
+                        Text("To".tr),
+                        InkWell(
+                          onTap: () => _selectDateTo(context),
+                          child: TimeWidget(
+                            text: Center(
+                                child: selectedDateTo == null
+                                    ? Text("End Time".tr)
+                                    : Text(selectedDateTo
+                                        .toString()
+                                        .substring(0, 10))),
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 35,
                     ),
                     Text(
                       "Offer place".tr,
@@ -481,6 +475,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                       decoration: InputDecoration(
                         hintText: "price".tr,
                       ),
+                      keyboardType: TextInputType.number,
                       controller: price,
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -505,6 +500,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     TextFormField(
                       decoration: InputDecoration(hintText: '0 %'),
                       controller: percatnage,
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "Thisfieldisrequired".tr;
@@ -528,6 +524,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                     TextFormField(
                       decoration: InputDecoration(hintText: ' 0.0 ${"sr".tr}'),
                       controller: offerPrice,
+                      keyboardType: TextInputType.number,
                       validator: (value) {
                         if (value!.isEmpty) {
                           return "discount percentage".tr;

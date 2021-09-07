@@ -152,7 +152,8 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
         name: name.text,
         price: price.text,
         place: placeId.toString(),
-        details: details.text.toString(),
+        details:
+            details.text.isEmpty ? 'لا يوجد تفاصيل' : details.text.toString(),
         categotyId: subCategoryId.toString(),
         images: chosenImages,
         salonId: id.toString(),
@@ -255,53 +256,6 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                     SizedBox(
                       height: 35,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Service name".tr,
-                      ),
-                      controller: name,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: "price".tr),
-                      controller: price,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    MyTextFormFieldWithPerfix(
-                      hint: "Duration".tr,
-                      obscureText: false,
-                      suffix: "Minute".tr,
-                      controller: duration,
-                      keyboardType: TextInputType.number,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
-                    ),
-                    SizedBox(
-                      height: 35,
-                    ),
                     Text(
                       "Service type".tr,
                       style: TextStyle(
@@ -366,6 +320,54 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                           ),
                     SizedBox(
                       height: 15,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        hintText: "Service name".tr,
+                      ),
+                      controller: name,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Thisfieldisrequired".tr;
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    TextFormField(
+                      decoration: InputDecoration(hintText: "price".tr),
+                      controller: price,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Thisfieldisrequired".tr;
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    MyTextFormFieldWithPerfix(
+                      hint: "Duration".tr,
+                      obscureText: false,
+                      suffix: "Minute".tr,
+                      controller: duration,
+                      keyboardType: TextInputType.number,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return "Thisfieldisrequired".tr;
+                        } else {
+                          return null;
+                        }
+                      },
+                    ),
+                    SizedBox(
+                      height: 35,
                     ),
                     Text(
                       "Service place".tr,
@@ -438,13 +440,6 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                     TextFormField(
                       decoration: InputDecoration(hintText: "Details".tr),
                       controller: details,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
                     ),
                     SizedBox(
                       height: 35,

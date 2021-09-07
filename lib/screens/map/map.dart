@@ -6,10 +6,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
-import 'package:rooj/customeWidget/dialogs.dart';
 import 'package:rooj/screens/confirmBooking/confirBooking.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
+import 'package:geocoding/geocoding.dart' as Geo;
+import 'dart:core';
 
 class PickLocation extends StatefulWidget {
   @override
@@ -25,6 +26,7 @@ class _PickLocationState extends State<PickLocation> {
   Marker marker = Marker(
     markerId: MarkerId("1"),
   );
+  String fullAdress = '';
   // BitmapDescriptor? pinLocationIcon;
 
   // var location = Location();
@@ -121,10 +123,28 @@ class _PickLocationState extends State<PickLocation> {
     _locationData = await location.getLocation();
     currentLat = _locationData.latitude!;
     currentLong = _locationData.longitude!;
+    List<Geo.Placemark> placemarks = await Geo.placemarkFromCoordinates(
+        _locationData.latitude!, _locationData.longitude!);
+
+    String? country = placemarks[0].country;
+    String? administrativeArea = placemarks[0].administrativeArea;
+    String? street = placemarks[0].street;
+    fullAdress = country! + administrativeArea! + '  ${street!}';
     setState(() {
       loader = false;
     });
     print('$_locationData _locationData');
+  }
+
+  Future getlocationAdress(double lat, double lang) async {
+    List<Geo.Placemark> placemarks =
+        await Geo.placemarkFromCoordinates(lat, lang);
+
+    String? country = placemarks[0].country;
+    String? administrativeArea = placemarks[0].administrativeArea;
+    String? street = placemarks[0].street;
+    fullAdress = country! + administrativeArea! + '  ${street!}';
+    print(fullAdress);
   }
 
   Future<void> moveCamera() async {
@@ -179,8 +199,8 @@ class _PickLocationState extends State<PickLocation> {
                               onTap: (location) {
                                 currentLat = location.latitude;
                                 currentLong = location.longitude;
-                                // getLocationAddress(
-                                //     location, location.latitude, location.longitude);
+                                getlocationAdress(
+                                    location.latitude, location.longitude);
 
                                 setState(() {});
                               },
@@ -206,9 +226,9 @@ class _PickLocationState extends State<PickLocation> {
                           onTap: () {
                             Navigator.of(context).pop<LocationModel>(
                               LocationModel(
-                                lat: double.parse(currentLat.toString()),
-                                lng: double.parse(currentLong.toString()),
-                              ),
+                                  lat: double.parse(currentLat.toString()),
+                                  lng: double.parse(currentLong.toString()),
+                                  adress: fullAdress),
                             );
                           },
                           child: Icon(
@@ -234,9 +254,9 @@ class _PickLocationState extends State<PickLocation> {
                               onTap: () {
                                 Navigator.of(context).pop<LocationModel>(
                                   LocationModel(
-                                    lat: double.parse(currentLat.toString()),
-                                    lng: double.parse(currentLong.toString()),
-                                  ),
+                                      lat: double.parse(currentLat.toString()),
+                                      lng: double.parse(currentLong.toString()),
+                                      adress: fullAdress),
                                 );
                               },
                               child: Icon(

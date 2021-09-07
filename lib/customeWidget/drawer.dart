@@ -200,16 +200,20 @@ class _MyDrawerState extends State<MyDrawer> {
                                   height: height(context) * 0.03,
                                 )
                               : SizedBox(),
-                          InkWell(
-                            onTap: () => Get.to(() => WalletScreen(),
-                                transition: Transition.zoom),
-                            child: drawerItem(
-                                iconData: CupertinoIcons.creditcard,
-                                title: "Wallet".tr),
-                          ),
-                          SizedBox(
-                            height: height(context) * 0.03,
-                          ),
+                          GetStorageHelper.userType() == '1'
+                              ? SizedBox()
+                              : InkWell(
+                                  onTap: () => Get.to(() => WalletScreen(),
+                                      transition: Transition.zoom),
+                                  child: drawerItem(
+                                      iconData: CupertinoIcons.creditcard,
+                                      title: "Wallet".tr),
+                                ),
+                          GetStorageHelper.userType() == '1'
+                              ? SizedBox()
+                              : SizedBox(
+                                  height: height(context) * 0.03,
+                                ),
                           InkWell(
                             onTap: () => Get.to(() => NotificationsScreen(),
                                 transition: Transition.zoom),

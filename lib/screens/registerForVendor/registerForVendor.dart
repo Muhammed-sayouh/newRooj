@@ -149,22 +149,22 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                               }
                             },
                           ),
-                          SizedBox(
-                            height: 10,
-                          ),
-                          MyTextFormFieldWithImage(
-                            obscureText: false,
-                            controller: identy,
-                            hint: 'ID number or commercial register'.tr,
-                            image: 'assets/images/smart_phone_line.png',
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Thisfieldisrequired".tr;
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
+                          // MyTextFormFieldWithImage(
+                          //   obscureText: false,
+                          //   controller: identy,
+                          //   hint: 'ID number or commercial register'.tr,
+                          //   image: 'assets/images/smart_phone_line.png',
+                          //   validator: (value) {
+                          //     if (value!.isEmpty) {
+                          //       return "Thisfieldisrequired".tr;
+                          //     } else {
+                          //       return null;
+                          //     }
+                          //   },
+                          // ),
                           SizedBox(
                             height: 10,
                           ),
@@ -200,67 +200,67 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           SizedBox(
                             height: 10,
                           ),
-                          Row(
-                            children: [
-                              Container(
-                                width: 33,
-                                height: 33,
-                                margin: EdgeInsets.all(7),
-                                decoration: BoxDecoration(
-                                  color: AppColors.textFieldIconBackColor,
-                                  borderRadius: BorderRadius.circular(30),
-                                ),
-                                child: SizedBox(
-                                  width: 15,
-                                  height: 15,
-                                  child: Image.asset(
-                                      "assets/images/image_placeholder.png"),
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              InkWell(
-                                onTap: picImages,
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      "attach testimony".tr,
-                                      style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
-                                      'Optional'.tr,
-                                      style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              chosenImages == null
-                                  ? SizedBox()
-                                  : SizedBox(
-                                      width: 50,
-                                      height: 50,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Image.file(
-                                          File(
-                                            chosenImages!.path,
-                                          ),
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                    ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     Container(
+                          //       width: 33,
+                          //       height: 33,
+                          //       margin: EdgeInsets.all(7),
+                          //       decoration: BoxDecoration(
+                          //         color: AppColors.textFieldIconBackColor,
+                          //         borderRadius: BorderRadius.circular(30),
+                          //       ),
+                          //       child: SizedBox(
+                          //         width: 15,
+                          //         height: 15,
+                          //         child: Image.asset(
+                          //             "assets/images/image_placeholder.png"),
+                          //       ),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 5,
+                          //     ),
+                          //     InkWell(
+                          //       onTap: picImages,
+                          //       child: Column(
+                          //         children: [
+                          //           Text(
+                          //             "attach testimony".tr,
+                          //             style: TextStyle(
+                          //               fontSize: 13,
+                          //               fontWeight: FontWeight.bold,
+                          //             ),
+                          //           ),
+                          //           Text(
+                          //             'Optional'.tr,
+                          //             style: TextStyle(
+                          //               fontSize: 11,
+                          //               fontWeight: FontWeight.bold,
+                          //             ),
+                          //           ),
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     SizedBox(
+                          //       width: 5,
+                          //     ),
+                          //     chosenImages == null
+                          //         ? SizedBox()
+                          //         : SizedBox(
+                          //             width: 50,
+                          //             height: 50,
+                          //             child: ClipRRect(
+                          //               borderRadius: BorderRadius.circular(10),
+                          //               child: Image.file(
+                          //                 File(
+                          //                   chosenImages!.path,
+                          //                 ),
+                          //                 fit: BoxFit.fill,
+                          //               ),
+                          //             ),
+                          // //           ),
+                          //   ],
+                          // ),
                         ],
                       ),
                     ),

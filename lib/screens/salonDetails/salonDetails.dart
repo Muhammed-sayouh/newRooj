@@ -40,7 +40,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
 
   int currentIndex = 0;
   int counter = 1;
-  String place = 'in_home';
+  String place = 'in_salon';
   bool loaderO = false;
   Info.Data? data = Info.Data(
       isFav: 'false',
@@ -401,38 +401,6 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                             InkWell(
                               onTap: () {
                                 setState(() {
-                                  place = 'in_home';
-                                });
-                                futureServices(id: catId);
-                              },
-                              child: Container(
-                                width: width(context) * 0.5,
-                                height: height(context) * 0.08,
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  border: Border(
-                                    bottom: BorderSide(
-                                        color: place == 'in_home'
-                                            ? AppColors.mainColor
-                                            : Colors.white,
-                                        width: 2.5),
-                                  ),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "in home".tr,
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: AppColors.mainColor,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                setState(() {
                                   place = 'in_salon';
                                 });
                                 futureServices(id: catId);
@@ -453,6 +421,38 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                 child: Center(
                                   child: Text(
                                     "in salon".tr,
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.mainColor,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                setState(() {
+                                  place = 'in_home';
+                                });
+                                futureServices(id: catId);
+                              },
+                              child: Container(
+                                width: width(context) * 0.5,
+                                height: height(context) * 0.08,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border(
+                                    bottom: BorderSide(
+                                        color: place == 'in_home'
+                                            ? AppColors.mainColor
+                                            : Colors.white,
+                                        width: 2.5),
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    "in home".tr,
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,

@@ -14,8 +14,10 @@ import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/screens/map/map.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'customconfirmBookingWidget.dart';
+import 'dart:io' show Platform;
 
 class ConFirmBookingScreen extends StatefulWidget {
   final String adress;
@@ -106,6 +108,19 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
     } finally {
       if (done) {
         Get.back();
+        // Get.defaultDialog(
+        //   title: 'تم الحجز بنجاح',
+        //   content: Text('يسعدنا تقييم التطبيق علي المتجر'),
+        //   onCancel: () => Get.offAll(
+        //     () => MainPage(index: 3),
+        //   ),
+        //   onConfirm: () async {
+        //     await launch(
+        //         'https:${Platform.isAndroid ? 'https://play.google.com/store/apps/details?id=com.eltamiuz.rooj' : "https://apps.apple.com/us/app/rooj/id1583318583"}');
+        //   },
+        //   cancel: Text('لاحقا'),
+        //   confirm: Text('تقييم'),
+        // );
         customSnackBar(title: "Booked".tr, content: "Succsessfully Booked".tr);
         Future.delayed(Duration(seconds: 2)).then(
           (value) => Get.offAll(
@@ -319,7 +334,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
                             })).then((location) {
                               lat = location!.lat;
                               lng = location.lng;
-
+                              addresss = location.adress;
                               setState(() {});
                             });
                           },
@@ -464,9 +479,7 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
 class LocationModel {
   final double? lat;
   final double? lng;
+  final String? adress;
 
-  const LocationModel({
-    this.lat,
-    this.lng,
-  });
+  const LocationModel({this.lat, this.lng, this.adress});
 }

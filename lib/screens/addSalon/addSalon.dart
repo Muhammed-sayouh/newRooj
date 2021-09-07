@@ -8,9 +8,12 @@ import 'package:provider/provider.dart';
 import 'package:rooj/customeWidget/appBar1.dart';
 import 'package:rooj/customeWidget/commenStackPage.dart';
 import 'package:rooj/customeWidget/dialogs.dart';
+import 'package:rooj/customeWidget/myTextFormField.dart';
 import 'package:rooj/customeWidget/smallButton.dart';
 import 'package:rooj/providerModel/homeProvider.dart';
 import 'package:rooj/screens/addSalon/secondScreen.dart';
+import 'package:rooj/screens/confirmBooking/confirBooking.dart';
+import 'package:rooj/screens/map/map.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
 import 'package:get/get.dart';
@@ -86,6 +89,9 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController adress = TextEditingController();
+
+  double? lat;
+  double? lng;
 
   fromTime() async {
     TimeOfDay time = TimeOfDay.now();
@@ -205,6 +211,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     SizedBox(
                       height: 35,
                     ),
+
                     TextFormField(
                       decoration: InputDecoration(
                         hintText: "Salon name".tr,
@@ -221,17 +228,37 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(hintText: "adress".tr),
-                      controller: adress,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).push<LocationModel>(
+                            PageRouteBuilder(pageBuilder: (_, __, ___) {
+                          return PickLocation();
+                        })).then((location) {
+                          lat = location!.lat;
+                          lng = location.lng;
+                          adress.text = location.adress.toString();
+                          setState(() {});
+                        }).then((value) => null);
                       },
+                      child: MyTextFormFieldWithImageClicable(
+                          hint: lat == null
+                              ? "select my location".tr
+                              : "your location has been selected".tr,
+                          obscureText: false,
+                          image: 'assets/images/marker_line.png',
+                          controller: adress),
                     ),
+                    // TextFormField(
+                    //   decoration: InputDecoration(hintText: "adress".tr),
+                    //   controller: adress,
+                    //   validator: (value) {
+                    //     if (value!.isEmpty) {
+                    //       return "Thisfieldisrequired".tr;
+                    //     } else {
+                    //       return null;
+                    //     }
+                    //   },
+                    // ),
                     SizedBox(
                       height: 35,
                     ),
