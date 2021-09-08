@@ -200,7 +200,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                   height: height(context) * 0.03,
                                 )
                               : SizedBox(),
-                          GetStorageHelper.userType() == '1'
+                          GetStorageHelper.userType() == '0'
                               ? SizedBox()
                               : InkWell(
                                   onTap: () => Get.to(() => WalletScreen(),
@@ -209,7 +209,7 @@ class _MyDrawerState extends State<MyDrawer> {
                                       iconData: CupertinoIcons.creditcard,
                                       title: "Wallet".tr),
                                 ),
-                          GetStorageHelper.userType() == '1'
+                          GetStorageHelper.userType() == '0'
                               ? SizedBox()
                               : SizedBox(
                                   height: height(context) * 0.03,
