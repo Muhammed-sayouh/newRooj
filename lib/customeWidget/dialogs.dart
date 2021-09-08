@@ -124,6 +124,76 @@ Future qrDaialog(String masseage, BuildContext context, String title) {
   );
 }
 
+Future customDaialog(
+    {required String masseage,
+    required BuildContext context,
+    required String title,
+    void Function()? okfunction,
+    void Function()? cancelFunction}) {
+  return showDialog(
+    barrierDismissible: false,
+    context: context,
+    builder: (BuildContext context) {
+      return Directionality(
+        textDirection: TextDirection.rtl,
+        child: AlertDialog(
+          backgroundColor: AppColors.backGroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                20,
+              ),
+            ),
+          ),
+          title: Text(title,
+              style:
+                  TextStyle(color: AppColors.mainColor, fontFamily: 'Cairo')),
+          content: Text(
+            masseage,
+            style: TextStyle(
+              color: AppColors.mainColor,
+              fontWeight: FontWeight.bold,
+              fontSize: 18,
+              fontFamily: 'Cairo',
+            ),
+          ),
+          actions: [
+            // ignore: deprecated_member_use
+            FlatButton(
+              onPressed: okfunction,
+              child: Container(
+                decoration: BoxDecoration(
+                    color: AppColors.mainColor,
+                    border: Border.all(color: AppColors.mainColor),
+                    borderRadius: BorderRadius.circular(5)),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Text(
+                    "Rate".tr,
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Spacer(),
+            FlatButton(
+              onPressed: cancelFunction,
+              child: Text(
+                "Later".tr,
+                style: TextStyle(
+                  color: AppColors.mainColor,
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}
+
 Widget loadingDialogForPages(BuildContext context) {
   return Container(
       height: height(context) * 0.65,

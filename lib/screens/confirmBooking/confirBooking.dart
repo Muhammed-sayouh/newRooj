@@ -108,25 +108,20 @@ class _ConFirmBookingScreenState extends State<ConFirmBookingScreen> {
     } finally {
       if (done) {
         Get.back();
-        // Get.defaultDialog(
-        //   title: 'تم الحجز بنجاح',
-        //   content: Text('يسعدنا تقييم التطبيق علي المتجر'),
-        //   onCancel: () => Get.offAll(
-        //     () => MainPage(index: 3),
-        //   ),
-        //   onConfirm: () async {
-        //     await launch(
-        //         'https:${Platform.isAndroid ? 'https://play.google.com/store/apps/details?id=com.eltamiuz.rooj' : "https://apps.apple.com/us/app/rooj/id1583318583"}');
-        //   },
-        //   cancel: Text('لاحقا'),
-        //   confirm: Text('تقييم'),
-        // );
-        customSnackBar(title: "Booked".tr, content: "Succsessfully Booked".tr);
-        Future.delayed(Duration(seconds: 2)).then(
-          (value) => Get.offAll(
-            () => MainPage(index: 3),
-          ),
-        );
+
+        customDaialog(
+            masseage: 'We are happy to rate the app on the App Store'.tr,
+            context: context,
+            title: "Succsessfully Booked".tr,
+            okfunction: () async {
+              await launch(
+                  'https:${Platform.isAndroid ? 'https://play.google.com/store/apps/details?id=com.eltamiuz.rooj' : "https://apps.apple.com/us/app/rooj/id1583318583"}');
+            },
+            cancelFunction: () {
+              Get.offAll(
+                () => MainPage(index: 3),
+              );
+            });
       }
     }
   }

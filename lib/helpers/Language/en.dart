@@ -319,5 +319,9 @@ Map<String, String> getEnglishLanguage() {
         "Your message has been sent successfully, the administration will contact you soon",
     "The city has been changed successfully":
         "The city has been changed successfully",
+    'We are happy to rate the app on the App Store':
+        'We are happy to rate the app on the App Store',
+    "Rate": "Rate",
+    "Later": "Later"
   };
 }

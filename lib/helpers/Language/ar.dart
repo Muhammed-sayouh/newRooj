@@ -316,5 +316,9 @@ Map<String, String> getArabicLanguage() {
     "Your message has been sent successfully, the administration will contact you soon":
         "تم ارسال رسالتك بنجاح ستتواصل معك الاداره قريبا",
     "The city has been changed successfully": "تم تغيير المدينه بنجاح",
+    'We are happy to rate the app on the App Store':
+        'يسعدنا تقييم التطبيق علي المتجر',
+    "Rate": "تقييم الان",
+    "Later": "لاحقا"
   };
 }
