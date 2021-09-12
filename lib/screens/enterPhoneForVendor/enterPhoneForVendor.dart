@@ -79,7 +79,7 @@ class _EnterPhoneForVendorScreenState extends State<EnterPhoneForVendorScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 25),
                     child: Form(
                       key: _formKey,
-                      child: MyTextFormFieldWithImage(
+                      child: MyTextFormFieldWithImageAndPerfix(
                         controller: phone,
                         hint: "phonee".tr,
                         image: 'assets/images/smart_phone_line.png',
@@ -96,6 +96,7 @@ class _EnterPhoneForVendorScreenState extends State<EnterPhoneForVendorScreen> {
                             return null;
                           }
                         },
+                        suffix: '966+',
                       ),
                     ),
                   ),

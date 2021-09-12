@@ -263,7 +263,10 @@ class _VendorProfileScreenState extends State<VendorProfileScreen> {
                                         SizedBox(
                                           height: 10,
                                         ),
-                                        MyTextFormFieldWithImage(
+                                        MyTextFormFieldWithImageEnabeld(
+                                          enable: identy.text.isEmpty
+                                              ? true
+                                              : false,
                                           obscureText: false,
                                           controller: identy,
                                           hint:

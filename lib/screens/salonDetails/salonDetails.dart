@@ -420,9 +420,9 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                 ),
                                 child: Center(
                                   child: Text(
-                                    "in salon".tr,
+                                    "inSalonPr".tr,
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.mainColor,
                                     ),
@@ -454,7 +454,7 @@ class _SalonDetailsScreenState extends State<SalonDetailsScreen> {
                                   child: Text(
                                     "in home".tr,
                                     style: TextStyle(
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                       color: AppColors.mainColor,
                                     ),

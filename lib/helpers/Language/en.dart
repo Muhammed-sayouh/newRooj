@@ -162,6 +162,7 @@ Map<String, String> getEnglishLanguage() {
     "weddingTimes": "wedding Reservations",
     'welcome': "Welcome",
     "homeTopic": "Book your favorite beauty salons",
+    "inSalonPr": 'At the service providers location',
     "HomeSearch": "Search for a service or service provider",
     "praivcy": "privacy",
     "Terms": "Terms",

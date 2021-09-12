@@ -190,6 +190,7 @@ Map<String, String> getArabicLanguage() {
     "unAuthEnter": "دخول كزائر",
     "inHome": "في المنزل",
     "inSalon": "في الصالون",
+    "inSalonPr": 'في مكان مقدم الخدمة',
     "Latest": '  الاحدث  ',
     "Highly Rated": '  الاعلي تقيما  ',
     "The nearest": '  الاقرب ',

@@ -177,7 +177,7 @@ Future customDaialog(
                 ),
               ),
             ),
-            Spacer(),
+            // ignore: deprecated_member_use
             FlatButton(
               onPressed: cancelFunction,
               child: Text(

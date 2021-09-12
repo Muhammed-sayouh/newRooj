@@ -211,7 +211,71 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     SizedBox(
                       height: 35,
                     ),
-
+                    Text(
+                      "Category".tr,
+                      style: TextStyle(
+                          color: AppColors.mainColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 15,
+                    ),
+                    loaderO
+                        ? Center(child: CupertinoActivityIndicator())
+                        : Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 17, vertical: 10),
+                            width: width(context),
+                            height: 50,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(color: AppColors.mainColor),
+                            ),
+                            child: InkWell(
+                              onTap: () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    backgroundColor: AppColors.backGroundColor,
+                                    content: Center(
+                                      child: Container(
+                                        child: supCategoryWidget(
+                                            context, homeItems),
+                                      ),
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(
+                                          20,
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ), //_modalBottomSheetMenu(context, cities),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      subCategory == null
+                                          ? "Category".tr
+                                          : subCategory.toString(),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 17,
+                                          color: Colors.grey),
+                                    ),
+                                  ),
+                                  Icon(Icons.keyboard_arrow_down, size: 30)
+                                ],
+                              ),
+                            ),
+                          ),
+                    SizedBox(
+                      height: 15,
+                    ),
                     TextFormField(
                       decoration: InputDecoration(
                         hintText: "Salon name".tr,
@@ -301,71 +365,7 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                     SizedBox(
                       height: 35,
                     ),
-                    Text(
-                      "Category".tr,
-                      style: TextStyle(
-                          color: AppColors.mainColor,
-                          fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 15,
-                    ),
-                    loaderO
-                        ? Center(child: CupertinoActivityIndicator())
-                        : Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 17, vertical: 10),
-                            width: width(context),
-                            height: 50,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(color: AppColors.mainColor),
-                            ),
-                            child: InkWell(
-                              onTap: () => showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    backgroundColor: AppColors.backGroundColor,
-                                    content: Center(
-                                      child: Container(
-                                        child: supCategoryWidget(
-                                            context, homeItems),
-                                      ),
-                                    ),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(
-                                          20,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ), //_modalBottomSheetMenu(context, cities),
-                              child: Row(
-                                children: [
-                                  Expanded(
-                                    child: Text(
-                                      subCategory == null
-                                          ? "Category".tr
-                                          : subCategory.toString(),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 17,
-                                          color: Colors.grey),
-                                    ),
-                                  ),
-                                  Icon(Icons.keyboard_arrow_down, size: 30)
-                                ],
-                              ),
-                            ),
-                          ),
-                    SizedBox(
-                      height: 15,
-                    ),
+
                     Text(
                       "Service place".tr,
                       style: TextStyle(

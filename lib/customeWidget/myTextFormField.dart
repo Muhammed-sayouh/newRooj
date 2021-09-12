@@ -52,6 +52,59 @@ class MyTextFormFieldWithImage extends StatelessWidget {
   }
 }
 
+class MyTextFormFieldWithImageEnabeld extends StatelessWidget {
+  final String image;
+  final String hint;
+  final TextEditingController controller;
+  final bool obscureText;
+  final bool enable;
+  final TextInputType? keyboardType;
+  final String? Function(String?)? validator;
+  const MyTextFormFieldWithImageEnabeld(
+      {Key? key,
+      required this.image,
+      required this.hint,
+      this.keyboardType,
+      required this.enable,
+      this.validator,
+      required this.obscureText,
+      required this.controller})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      obscureText: obscureText,
+      obscuringCharacter: '*',
+      keyboardType: keyboardType,
+      enabled: enable,
+      validator: validator,
+      decoration: InputDecoration(
+        prefixIcon: Container(
+          width: 40,
+          height: 40,
+          margin: EdgeInsets.all(7),
+          decoration: BoxDecoration(
+            color: AppColors.textFieldIconBackColor,
+            borderRadius: BorderRadius.circular(30),
+          ),
+          padding: const EdgeInsets.all(9.0),
+          child: SizedBox(
+            width: 15,
+            height: 15,
+            child: Image.asset(image),
+          ),
+        ),
+        filled: true,
+        hintStyle: new TextStyle(color: Colors.grey[600]),
+        hintText: hint,
+        fillColor: Colors.white,
+      ),
+    );
+  }
+}
+
 class MyTextFormFieldWithImageClicable extends StatelessWidget {
   final String image;
   final String hint;
