@@ -12,18 +12,18 @@ class AddSirvProvider with ChangeNotifier {
   Future<bool> signIn(
       {required String name,
       required String price,
-      List<XFile>? images,
+      // List<XFile>? images,
       required String place,
       required String details,
       required String categotyId,
       required String duration,
       required String salonId}) async {
-    List newImage = [];
+    // List newImage = [];
 
-    images!.forEach((v) {
-      newImage.add(Dio.MultipartFile.fromFileSync(v.path,
-          filename: "${v.path.split('/').last}"));
-    });
+    // images!.forEach((v) {
+    //   newImage.add(Dio.MultipartFile.fromFileSync(v.path,
+    //       filename: "${v.path.split('/').last}"));
+    // });
 
     Map<String, dynamic> body = {
       "api_password": "QLJsQZgVWY9hVXSjPP",
@@ -35,9 +35,9 @@ class AddSirvProvider with ChangeNotifier {
       "duration": duration,
       "salon_id": salonId,
     };
-    for (var i = 0; i < newImage.length; i++) {
-      body["images[$i]"] = newImage[i];
-    }
+    // for (var i = 0; i < newImage.length; i++) {
+    //   body["images[$i]"] = newImage[i];
+    // }
     print(body);
     try {
       Dio.Response response = await dio().post(

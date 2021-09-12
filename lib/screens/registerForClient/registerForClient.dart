@@ -33,8 +33,12 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
     }
     showDaialogLoader(context);
     try {
-      auth = await Provider.of<Auth>(context, listen: false)
-          .registerUser(name.text, widget.phone, email.text, password.text);
+      auth = await Provider.of<Auth>(context, listen: false).registerUser(
+        name.text,
+        widget.phone,
+        // email.text,
+        password.text,
+      );
     } on HttpExeption catch (error) {
       print(error);
       Navigator.of(context).pop();
@@ -96,23 +100,23 @@ class _RegisterForClientScreenState extends State<RegisterForClientScreen> {
                             SizedBox(
                               height: 10,
                             ),
-                            MyTextFormFieldWithImage(
-                              controller: email,
-                              hint: "email".tr,
-                              image: 'assets/images/smart_phone_line.png',
-                              obscureText: false,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: (val) {
-                                if (val!.isEmpty) {
-                                  return "Thisfieldisrequired".tr;
-                                } else {
-                                  return null;
-                                }
-                              },
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
+                            // MyTextFormFieldWithImage(
+                            //   controller: email,
+                            //   hint: "email".tr,
+                            //   image: 'assets/images/smart_phone_line.png',
+                            //   obscureText: false,
+                            //   keyboardType: TextInputType.emailAddress,
+                            //   validator: (val) {
+                            //     if (val!.isEmpty) {
+                            //       return "Thisfieldisrequired".tr;
+                            //     } else {
+                            //       return null;
+                            //     }
+                            //   },
+                            // ),
+                            // SizedBox(
+                            //   height: 10,
+                            // ),
                             MyTextFormFieldWithImage(
                               obscureText: true,
                               controller: password,

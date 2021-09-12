@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -155,7 +153,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
         details:
             details.text.isEmpty ? 'لا يوجد تفاصيل' : details.text.toString(),
         categotyId: subCategoryId.toString(),
-        images: chosenImages,
+        // images: chosenImages,
         salonId: id.toString(),
         duration: '',
       );
@@ -201,60 +199,60 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Service Pictures".tr,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Row(
-                      children: [
-                        chosenImages == null
-                            ? SizedBox()
-                            : Container(
-                                width: width(context) * 0.7,
-                                height: height(context) * 0.1,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: chosenImages!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Container(
-                                          width: width(context) * 0.2,
-                                          height: width(context) * 0.1,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.file(
-                                              File(chosenImages![index].path),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                        InkWell(
-                          onTap: picImages,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: AppColors.mainColor,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Text(
+                    //   "Service Pictures".tr,
+                    //   style: TextStyle(
+                    //     color: Colors.black,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    // Divider(
+                    //   thickness: 1,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     chosenImages == null
+                    //         ? SizedBox()
+                    //         : Container(
+                    //             width: width(context) * 0.7,
+                    //             height: height(context) * 0.1,
+                    //             child: ListView.builder(
+                    //               scrollDirection: Axis.horizontal,
+                    //               itemCount: chosenImages!.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return Padding(
+                    //                   padding: const EdgeInsets.symmetric(
+                    //                       horizontal: 5),
+                    //                   child: ClipRRect(
+                    //                     borderRadius: BorderRadius.circular(10),
+                    //                     child: Container(
+                    //                       width: width(context) * 0.2,
+                    //                       height: width(context) * 0.1,
+                    //                       child: ClipRRect(
+                    //                         borderRadius:
+                    //                             BorderRadius.circular(10),
+                    //                         child: Image.file(
+                    //                           File(chosenImages![index].path),
+                    //                           fit: BoxFit.fill,
+                    //                         ),
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 );
+                    //               },
+                    //             ),
+                    //           ),
+                    //     InkWell(
+                    //       onTap: picImages,
+                    //       child: Icon(
+                    //         Icons.camera_alt,
+                    //         color: AppColors.mainColor,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(
-                      height: 35,
+                      height: 10,
                     ),
                     Text(
                       "Service type".tr,

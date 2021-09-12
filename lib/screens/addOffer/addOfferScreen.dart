@@ -158,7 +158,7 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
           serviceStartDate: selectedDateFrom.toString().substring(0, 10),
           serviceEndDate: selectedDateTo.toString().substring(0, 10),
           categotyId: subCategoryId.toString(),
-          images: chosenImages,
+          // images: chosenImages,
           salonId: id.toString());
     } on HttpExeption catch (error) {
       print(error);
@@ -202,60 +202,60 @@ class _AddOfferScreenState extends State<AddOfferScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Offer Pictures".tr,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    Row(
-                      children: [
-                        chosenImages == null
-                            ? SizedBox()
-                            : Container(
-                                width: width(context) * 0.7,
-                                height: height(context) * 0.1,
-                                child: ListView.builder(
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: chosenImages!.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 5),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: Container(
-                                          width: width(context) * 0.2,
-                                          height: width(context) * 0.1,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: Image.file(
-                                              File(chosenImages![index].path),
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                        InkWell(
-                          onTap: picImages,
-                          child: Icon(
-                            Icons.camera_alt,
-                            color: AppColors.mainColor,
-                          ),
-                        ),
-                      ],
-                    ),
+                    // Text(
+                    //   "Offer Pictures".tr,
+                    //   style: TextStyle(
+                    //     color: Colors.black,
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                    // Divider(
+                    //   thickness: 1,
+                    // ),
+                    // Row(
+                    //   children: [
+                    //     chosenImages == null
+                    //         ? SizedBox()
+                    //         : Container(
+                    //             width: width(context) * 0.7,
+                    //             height: height(context) * 0.1,
+                    //             child: ListView.builder(
+                    //               scrollDirection: Axis.horizontal,
+                    //               itemCount: chosenImages!.length,
+                    //               itemBuilder: (context, index) {
+                    //                 return Padding(
+                    //                   padding: const EdgeInsets.symmetric(
+                    //                       horizontal: 5),
+                    //                   child: ClipRRect(
+                    //                     borderRadius: BorderRadius.circular(10),
+                    //                     child: Container(
+                    //                       width: width(context) * 0.2,
+                    //                       height: width(context) * 0.1,
+                    //                       child: ClipRRect(
+                    //                         borderRadius:
+                    //                             BorderRadius.circular(10),
+                    //                         child: Image.file(
+                    //                           File(chosenImages![index].path),
+                    //                           fit: BoxFit.fill,
+                    //                         ),
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                 );
+                    //               },
+                    //             ),
+                    //           ),
+                    //     InkWell(
+                    //       onTap: picImages,
+                    //       child: Icon(
+                    //         Icons.camera_alt,
+                    //         color: AppColors.mainColor,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     SizedBox(
-                      height: 35,
+                      height: 10,
                     ),
                     Text(
                       "Subsections".tr,

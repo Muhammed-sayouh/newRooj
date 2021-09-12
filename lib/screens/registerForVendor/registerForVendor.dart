@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -57,7 +55,7 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
       auth = await Provider.of<Auth>(context, listen: false).registerVendor(
           name: name.text,
           phone: widget.phone,
-          email: email.text,
+          // email: email.text,
           password: password.text,
           id: identy.text,
           insta: insta.text,
@@ -168,22 +166,22 @@ class _RegisterForVendorScreenState extends State<RegisterForVendorScreen> {
                           SizedBox(
                             height: 10,
                           ),
-                          MyTextFormFieldWithImage(
-                            obscureText: false,
-                            controller: email,
-                            hint: "email".tr,
-                            image: 'assets/images/message.png',
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return "Thisfieldisrequired".tr;
-                              } else {
-                                return null;
-                              }
-                            },
-                          ),
-                          SizedBox(
-                            height: 10,
-                          ),
+                          // MyTextFormFieldWithImage(
+                          //   obscureText: false,
+                          //   controller: email,
+                          //   hint: "email".tr,
+                          //   image: 'assets/images/message.png',
+                          //   validator: (value) {
+                          //     if (value!.isEmpty) {
+                          //       return "Thisfieldisrequired".tr;
+                          //     } else {
+                          //       return null;
+                          //     }
+                          //   },
+                          // ),
+                          // SizedBox(
+                          //   height: 10,
+                          // ),
                           MyTextFormFieldWithImage(
                             obscureText: false,
                             controller: insta,

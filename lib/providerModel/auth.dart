@@ -117,7 +117,11 @@ class Auth with ChangeNotifier {
   }
 
   Future<bool> registerUser(
-      String name, String phone, String email, String password) async {
+    String name,
+    String phone,
+    // String email,
+    String password,
+  ) async {
     GetStorage storage = GetStorage();
 
     try {
@@ -129,6 +133,7 @@ class Auth with ChangeNotifier {
           "type": 0,
           "name": name,
           // "city_id": cityId,
+          'email': "",
           "password": password,
           "password_confirmation": password,
           "device_type": Platform.isAndroid ? "android" : "ios",
@@ -164,7 +169,7 @@ class Auth with ChangeNotifier {
   Future<bool> registerVendor(
       {required String name,
       required String phone,
-      required String email,
+      // required String email,
       required String password,
       required String id,
       required String insta,
@@ -183,7 +188,7 @@ class Auth with ChangeNotifier {
       // "certificate": imageServer,
 
       "identity_number": id,
-      "email": email,
+      "email": "",
       "instagram": insta,
       "password_confirmation": password,
       "device_type": Platform.isAndroid ? "android" : "ios",
