@@ -296,7 +296,7 @@ Map<String, String> getEnglishLanguage() {
     'Rate us on': 'Rate us on',
     "Email is already in use": "Email is already in use",
     'Please enter a valid Instagram link and a valid email address':
-        'Please enter a valid Instagram link and a valid email address',
+        'Please enter a valid email and verify that the phone number is not used before.',
     "Registered successfully. Please login to enjoy the application services":
         "Registered successfully. Please login to enjoy the application services",
     'ID number or commercial register': 'ID number or commercial register',

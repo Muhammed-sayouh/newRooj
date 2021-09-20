@@ -9,6 +9,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rooj/network/dio.dart';
 
+// To parse this JSON data, do
+//
+//     final subCategoriesModel = subCategoriesModelFromJson(jsonString);
+
 SubCategoriesModel subCategoriesModelFromJson(String str) =>
     SubCategoriesModel.fromJson(json.decode(str));
 
@@ -47,6 +51,7 @@ class Datum {
     required this.categoryId,
     this.createdAt,
     this.updatedAt,
+    required this.services,
     required this.imagePath,
     required this.name,
   });
@@ -56,16 +61,19 @@ class Datum {
   int categoryId;
   dynamic createdAt;
   dynamic updatedAt;
+  List<Service> services;
   String imagePath;
   String name;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
         id: json["id"],
-        image: json["image"] ?? '',
+        image: json["image"],
         categoryId: json["category_id"],
         createdAt: json["created_at"],
         updatedAt: json["updated_at"],
-        imagePath: json["image_path"] ?? '',
+        services: List<Service>.from(
+            json["services"].map((x) => Service.fromJson(x))),
+        imagePath: json["image_path"],
         name: json["name"],
       );
 
@@ -75,7 +83,40 @@ class Datum {
         "category_id": categoryId,
         "created_at": createdAt,
         "updated_at": updatedAt,
+        "services": List<dynamic>.from(services.map((x) => x.toJson())),
         "image_path": imagePath,
+        "name": name,
+      };
+}
+
+class Service {
+  Service({
+    required this.id,
+    required this.categoryId,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.name,
+  });
+
+  int id;
+  int categoryId;
+  DateTime createdAt;
+  DateTime updatedAt;
+  String name;
+
+  factory Service.fromJson(Map<String, dynamic> json) => Service(
+        id: json["id"],
+        categoryId: json["category_id"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+        name: json["name"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "category_id": categoryId,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
         "name": name,
       };
 }

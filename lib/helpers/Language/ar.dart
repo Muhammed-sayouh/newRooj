@@ -295,7 +295,7 @@ Map<String, String> getArabicLanguage() {
     'Rate us on': "قم بتقيمينا علي",
     "Email is already in use": "البريد الالكتروني مستخدم من قبل",
     'Please enter a valid Instagram link and a valid email address':
-        "يرجي ادخال رابط انستغرام صحيح وبريد الكتروني صحيح",
+        "يرجي ادخال بريد الكتروني صحيح والتحقق ان رقم الهاتف غير مستخدم من قبل",
     "Registered successfully. Please login to enjoy the application services":
         "تم التسجيل بنجاح يرجي تسجيل الدخول للاستمتاع بخدمات التطبيق ",
     'ID number or commercial register': 'رقم الهوية او السجل التجارى',

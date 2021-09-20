@@ -10,6 +10,7 @@ import 'package:rooj/customeWidget/smallButton.dart';
 import 'package:rooj/providerModel/addOfferProvider.dart';
 import 'package:rooj/providerModel/addSirvProvider.dart';
 import 'package:rooj/providerModel/auth.dart';
+import 'package:rooj/providerModel/subCategoriesProvider.dart';
 import 'package:rooj/screens/mainPage/mainPage.dart';
 import 'package:rooj/style/colors.dart';
 import 'package:rooj/style/sizes.dart';
@@ -90,6 +91,11 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
   String? subCategory;
   String? subCategoryId;
 
+  String? selectedName;
+  String? nameId;
+
+  List<Service> services = [];
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController name = TextEditingController();
   TextEditingController adress = TextEditingController();
@@ -147,7 +153,9 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
     showDaialogLoader(context);
     try {
       auth = await Provider.of<AddSirvProvider>(context, listen: false).signIn(
-        name: name.text,
+        name: selectedName == null || selectedName!.isEmpty
+            ? ''
+            : selectedName.toString(),
         price: price.text,
         place: placeId.toString(),
         details:
@@ -319,18 +327,56 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                     SizedBox(
                       height: 15,
                     ),
-                    TextFormField(
-                      decoration: InputDecoration(
-                        hintText: "Service name".tr,
+                    Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 17, vertical: 10),
+                      width: width(context),
+                      height: 50,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColors.mainColor),
                       ),
-                      controller: name,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return "Thisfieldisrequired".tr;
-                        } else {
-                          return null;
-                        }
-                      },
+                      child: InkWell(
+                        onTap: () => showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              backgroundColor: AppColors.backGroundColor,
+                              content: Center(
+                                child: Container(
+                                  child: subCategoriesNamesWidget(
+                                      context, services),
+                                ),
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(
+                                    20,
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ), //_modalBottomSheetMenu(context, cities),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                selectedName == null
+                                    ? "Offer name".tr
+                                    : selectedName.toString(),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 17,
+                                    color: Colors.grey),
+                              ),
+                            ),
+                            Icon(Icons.keyboard_arrow_down, size: 30)
+                          ],
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -446,9 +492,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                         child: smallButton(
                             context: context,
                             title: "add".tr,
-                            onTap: subCategory == null ||
-                                    selectedplace == null ||
-                                    chosenImages == null
+                            onTap: subCategory == null || selectedplace == null
                                 ? () => customSnackBar(
                                     title: "sorry".tr,
                                     content: "Please complete all fields".tr)
@@ -515,6 +559,64 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
     );
   }
 
+  Widget subCategoriesNamesWidget(
+      BuildContext context, List<Service> services) {
+    return services.length == 0
+        ? Text(
+            'لا يوجد خدمات',
+            style: TextStyle(color: AppColors.mainColor),
+          )
+        : ListView.builder(
+            itemCount: services.length,
+            shrinkWrap: true,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: () {
+                  setState(() {
+                    selectedName = services[index].name;
+                    nameId = services[index].id.toString();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Container(
+                  padding: EdgeInsets.all(5),
+                  decoration: BoxDecoration(
+                    color: AppColors.mainColor,
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  margin: EdgeInsets.symmetric(vertical: 5),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Offstage(
+                          offstage: selectedName == services[index].name
+                              ? false
+                              : true,
+                          child: Icon(Icons.check_circle,
+                              color: AppColors.mainColor)),
+                      // SizedBox(width: 10),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.only(bottom: 5),
+                          child: Center(
+                            child: Text(
+                              services[index].name,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
+          );
+  }
+
   Widget supCategoryWidget(
       BuildContext context, List<Category.Datum> subCategories) {
     return ListView.builder(
@@ -526,6 +628,7 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
             setState(() {
               subCategory = subCategories[index].name;
               subCategoryId = subCategories[index].id.toString();
+              services = subCategories[index].services;
             });
             Navigator.pop(context);
           },
