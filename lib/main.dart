@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +14,7 @@ import 'helpers/providers.dart';
 
 void main() async {
   await GetStorage.init();
+  HttpOverrides.global = new MyHttpOverrides();
 
   runApp(MyApp());
 }
@@ -42,5 +45,14 @@ class _MyAppState extends State<MyApp> {
         theme: getTheme(),
       ),
     );
+  }
+}
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }

@@ -129,29 +129,28 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 backgroundColor: AppColors.backGroundColor,
-                                content: Center(
-                                  child: Container(
-                                    child: Column(
-                                      children: [
-                                        selectDayWidget(context, days),
-                                        SizedBox(
-                                          height: 10,
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.back();
-                                          },
-                                          child: Container(
-                                            color: AppColors.mainColor,
-                                            child: Text(
-                                              '              ${"ok".tr}              ',
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
+                                content: Container(
+                                  width: width(context),
+                                  child: Column(
+                                    children: [
+                                      selectDayWidget(context, days),
+                                      SizedBox(
+                                        height: 10,
+                                      ),
+                                      InkWell(
+                                        onTap: () {
+                                          Get.back();
+                                        },
+                                        child: Container(
+                                          color: AppColors.mainColor,
+                                          child: Text(
+                                            '              ${"ok".tr}              ',
+                                            style:
+                                                TextStyle(color: Colors.white),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                                 shape: RoundedRectangleBorder(
@@ -214,6 +213,7 @@ class _SecondScreenAddingSalonState extends State<SecondScreenAddingSalon> {
                           return AlertDialog(
                             backgroundColor: AppColors.backGroundColor,
                             content: Container(
+                              width: width(context),
                               height: height(context) * 0.18,
                               child: Column(
                                 children: [

@@ -288,11 +288,10 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     backgroundColor: AppColors.backGroundColor,
-                                    content: Center(
-                                      child: Container(
-                                        child: supCategoryWidget(
-                                            context, subCategories),
-                                      ),
+                                    content: Container(
+                                      width: width(context),
+                                      child: supCategoryWidget(
+                                          context, subCategories),
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
@@ -342,11 +341,10 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: AppColors.backGroundColor,
-                              content: Center(
-                                child: Container(
-                                  child: subCategoriesNamesWidget(
-                                      context, services),
-                                ),
+                              content: Container(
+                                width: width(context),
+                                child:
+                                    subCategoriesNamesWidget(context, services),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
@@ -437,10 +435,9 @@ class _AddSirvScreenState extends State<AddSirvScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: AppColors.backGroundColor,
-                              content: Center(
-                                child: Container(
-                                  child: citiesWidget(context, place),
-                                ),
+                              content: Container(
+                                width: width(context),
+                                child: citiesWidget(context, place),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(

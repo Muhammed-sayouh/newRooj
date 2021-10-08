@@ -237,11 +237,10 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                                 builder: (BuildContext context) {
                                   return AlertDialog(
                                     backgroundColor: AppColors.backGroundColor,
-                                    content: Center(
-                                      child: Container(
-                                        child: supCategoryWidget(
-                                            context, homeItems),
-                                      ),
+                                    content: Container(
+                                      width: width(context),
+                                      child:
+                                          supCategoryWidget(context, homeItems),
                                     ),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.all(
@@ -390,10 +389,9 @@ class _AddSalonScreenState extends State<AddSalonScreen> {
                           builder: (BuildContext context) {
                             return AlertDialog(
                               backgroundColor: AppColors.backGroundColor,
-                              content: Center(
-                                child: Container(
-                                  child: citiesWidget(context, place),
-                                ),
+                              content: Container(
+                                width: width(context),
+                                child: citiesWidget(context, place),
                               ),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.all(
